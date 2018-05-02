@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TravelInfo</string>
+
+    <string name="apiUrl">http://api.visitkorea.or.kr/openapi/service/rest/KorService/</string>
+    <string name="apiKey">ZjtS%2F7q9SORXFBybZ%2FhYciDyQKRNeP3r0tc8r%2BQLOv97shkq%2FNDa6a7Fp4m9T2lhT5fSjOiB6XR4aD33p7ljvA%3D%3D</string>
+</resources>
