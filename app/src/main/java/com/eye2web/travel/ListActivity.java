@@ -70,7 +70,8 @@ public class ListActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             TextView textView = (TextView) view.findViewById(R.id.listText);
             String text = textView.getText().toString();
-            Toast.makeText(getApplicationContext(), "item " + text + "clicked !!!", Toast.LENGTH_LONG).show();
+            ListItem item = (ListItem) parent.getAdapter().getItem(position);
+            Toast.makeText(getApplicationContext(), "item " + item.getAddr() + "clicked !!!", Toast.LENGTH_LONG).show();
         }
     };
 }

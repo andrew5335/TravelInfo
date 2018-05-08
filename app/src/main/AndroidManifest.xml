@@ -7,9 +7,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/travelinfo_icon"
+        android:icon="@mipmap/travelinfoicon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/travelinfo_icon"
+        android:roundIcon="@mipmap/travelinfoicon"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".SplashActivity">

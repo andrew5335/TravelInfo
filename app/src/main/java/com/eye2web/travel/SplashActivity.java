@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 **/
 public class SplashActivity extends AppCompatActivity {
 
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
+    private final int SPLASH_DISPLAY_LENGTH = 1500;
 
     private static final int requestReadPhoneState = 999;
 
@@ -27,12 +27,12 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         ImageView splashImg = (ImageView) findViewById(R.id.splash_img);
-        Picasso.get().load("http://www.eye2web.co.kr/images/travelinfo_2.png").placeholder(R.mipmap.travelinfo_2).into(splashImg);
+        Picasso.get().load("http://www.eye2web.co.kr/images/travelinfomain.png").placeholder(R.mipmap.travelinfomain).into(splashImg);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainIntent = new Intent(SplashActivity.this, ListActivity.class);
+                Intent mainIntent = new Intent(SplashActivity.this, IndexActivity.class);
                 startActivity(mainIntent);
 
                 finish();
