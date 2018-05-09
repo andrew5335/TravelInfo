@@ -11,31 +11,154 @@
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
+        android:gravity="center_vertical|center"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="70dp"
+            android:layout_margin="0dp"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:padding="0dp"
+            android:scaleType="fitXY"
             app:srcCompat="@mipmap/travelinfoicon" />
 
         <Spinner
             android:id="@+id/topArea"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_margin="0dp"
             android:layout_weight="1"
-            android:background="@android:color/darker_gray" />
+            android:gravity="left|center_vertical|center"
+            android:padding="0dp" />
+
+        <EditText
+            android:id="@+id/keyword"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@mipmap/btn_background2"
+            android:gravity="center_vertical|center"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="12dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:padding="0dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@android:drawable/ic_input_get" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/menu"
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnTravel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="@mipmap/btn_background"
+                android:padding="0dp"
+                android:text="관광정보"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/btnFest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="@mipmap/btn_background"
+                android:padding="0dp"
+                android:text="공연정보"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/btnStay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="@mipmap/btn_background"
+                android:padding="0dp"
+                android:text="숙박정보"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/btnFood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="@mipmap/btn_background"
+                android:padding="0dp"
+                android:text="맛집정보"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/btnSport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="@mipmap/btn_background"
+                android:padding="0dp"
+                android:text="레포츠"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/btnShop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="@mipmap/btn_background"
+                android:padding="0dp"
+                android:text="쇼핑"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/btnCulture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="@mipmap/btn_background"
+                android:padding="0dp"
+                android:text="문화시설"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/btnCourse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="@mipmap/btn_background"
+                android:padding="0dp"
+                android:text="여행코스"
+                android:textColor="#000000" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <LinearLayout
         android:id="@+id/contents"
@@ -44,6 +167,83 @@
         android:orientation="vertical">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/content1"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@android:color/holo_green_dark"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:text="관광정보"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/content2"
+                android:background="@android:color/holo_blue_bright"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:layout_margin="0dp"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:text="축제/공연정보"
+                android:textColor="#000000"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/content3"
+                android:background="@android:color/holo_orange_dark"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:layout_margin="0dp"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:text="숙박정보"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:id="@+id/content4"
+                android:background="@android:color/holo_orange_light"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:layout_margin="0dp"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:text="맛집정보"
+                android:textColor="#000000"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:srcCompat="@color/colorAccent" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

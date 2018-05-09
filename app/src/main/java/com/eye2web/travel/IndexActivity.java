@@ -41,6 +41,8 @@ public class IndexActivity extends AppCompatActivity {
 
         if(null != areaList && 0 < areaList.size()) {
             AreaSpinnerAdapter areaSpinnerAdapter = new AreaSpinnerAdapter(this, R.layout.areaitem, areaList);
+            //ArrayAdapter<AreaListItem> areaSpinnerAdapter = new ArrayAdapter<AreaListItem>(this, R.layout.support_simple_spinner_dropdown_item, areaList);
+            //areaSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
             areaSpinner.setAdapter(areaSpinnerAdapter);
         }
 
@@ -56,9 +58,28 @@ public class IndexActivity extends AppCompatActivity {
         String serviceGu = "areaCode";
 
         try {
-            resultList = areaApiService.getAreaCodeList(addr, serviceGu, serviceKey, "", "");
-            AreaListItem initial = new AreaListItem("0", "지역선택", 0);
+            //resultList = areaApiService.getAreaCodeList(addr, serviceGu, serviceKey, "", "");
+            AreaListItem initial = new AreaListItem("0", "선택", 0);
+            // 검색용 카테고리 목록 생성
+            AreaListItem travel = new AreaListItem("12", "관광지", 1);
+            AreaListItem culture = new AreaListItem("14", "문화시설", 2);
+            AreaListItem festival = new AreaListItem("15", "축제/공연", 3);
+            AreaListItem course = new AreaListItem("25", "여행코스", 4);
+            AreaListItem reports = new AreaListItem("28", "레포츠", 5);
+            AreaListItem stay = new AreaListItem("32", "숙박", 6);
+            AreaListItem shop = new AreaListItem("38", "쇼핑", 7);
+            AreaListItem food = new AreaListItem("39", "맛집", 8);
+
             resultList.add(initial);
+            resultList.add(travel);
+            resultList.add(culture);
+            resultList.add(festival);
+            resultList.add(course);
+            resultList.add(reports);
+            resultList.add(stay);
+            resultList.add(shop);
+            resultList.add(food);
+
 
             Collections.sort(resultList);
         } catch (Exception e) {
