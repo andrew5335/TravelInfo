@@ -26,28 +26,26 @@ public class ApiService extends Application {
     static String testServiceKey = "ZjtS%2F7q9SORXFBybZ%2FhYciDyQKRNeP3r0tc8r%2BQLOv97shkq%2FNDa6a7Fp4m9T2lhT5fSjOiB6XR4aD33p7ljvA%3D%3D";
     static String testParameter = "";
 
-    public List<ListItem> getContent(String addr, String serviceKey) throws Exception {
+    public List<ListItem> getContent(String addr, String serviceKey, String code, String keyword, String sort, int page, int offset) throws Exception {
         List<ListItem> resultList = new ArrayList<ListItem>();
         boolean inAddr = false;
         boolean inFirstImage = false;
+        boolean inTitle = false;
         boolean inItem = false;
         String inAddrStr = "";
         String inFirstImageStr = "";
+        String inTitleStr = "";
 
         String parameter = "";
 
-        parameter = parameter + "&MobileOS=ETC";
-        parameter = parameter + "&MobileApp=AppTest";
-        parameter = parameter + "&contentId=126508";
-        parameter = parameter + "&numOfRows=20";
-        parameter = parameter + "&defaultYN=Y";
-        parameter = parameter + "&firstImageYN=Y";
-        parameter = parameter + "&pageNo=1";
-        parameter = parameter + "&areacodeYN=Y";
-        parameter = parameter + "&catcodeYN=Y";
-        parameter = parameter + "&addrinfoYN=Y";
-        parameter = parameter + "&mapinfoYN=Y";
-        parameter = parameter + "&overviewYN=Y";
+        parameter = parameter + "&MobileOS=AND";
+        parameter = parameter + "&MobileApp=TravelInfo";
+        parameter = parameter + "&numOfRows=" + offset;
+        parameter = parameter + "&pageNo=" + page;
+        parameter = parameter + "&listYN=Y";
+        parameter = parameter + "&arrange=" + sort;
+        parameter = parameter + "&contentTypeId=" + code;
+        parameter = parameter + "&keyword=" + keyword;
 
         addr = addr + serviceKey + parameter;
         System.out.println(addr);
@@ -69,6 +67,9 @@ public class ApiService extends Application {
                     if(parser.getName().equalsIgnoreCase("firstimage")) {
                         inFirstImage = true;
                     }
+                    if(parser.getName().equalsIgnoreCase("title")) {
+                        inTitle = true;
+                    }
                     break;
 
                 case XmlPullParser.TEXT :
@@ -80,11 +81,15 @@ public class ApiService extends Application {
                         inFirstImageStr = parser.getText();
                         inFirstImage = false;
                     }
+                    if(inTitle) {
+                        inTitleStr = parser.getText();
+                        inTitle = false;
+                    }
                     break;
 
                 case XmlPullParser.END_TAG :
                     if(parser.getName().equalsIgnoreCase("item")) {
-                        ListItem item = new ListItem(inAddrStr, inFirstImageStr);
+                        ListItem item = new ListItem(inAddrStr, inFirstImageStr, inTitleStr);
                         resultList.add(item);
                     }
                     break;

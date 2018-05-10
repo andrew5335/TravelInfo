@@ -1,11 +1,13 @@
 package com.eye2web.travel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,6 +29,12 @@ public class IndexActivity extends AppCompatActivity {
 
     private AreaApiService areaApiService;
 
+    /**
+     * @parameter :
+     * @Date : 2018. 5. 10. PM 12:21
+     * @Author : Andrew Kim
+     * @Description : 화면 구성
+    **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +55,26 @@ public class IndexActivity extends AppCompatActivity {
         }
 
         areaSpinner.setOnItemSelectedListener(itemSelectedListener);
+
+        final EditText keyword = (EditText) findViewById(R.id.keyword);
+        keyword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    keyword.setText("");
+                } else {
+                    keyword.setText("검색어를 입력하세요.");
+                }
+            }
+        });
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018. 5. 10. PM 12:22
+     * @Author : Andrew Kim
+     * @Description : 지역 리스트 가져오기
+    **/
     public ArrayList<AreaListItem> getAreaList() {
         ArrayList<AreaListItem> resultList = new ArrayList<AreaListItem>();
         areaApiService = new AreaApiService();
@@ -59,6 +85,9 @@ public class IndexActivity extends AppCompatActivity {
 
         try {
             //resultList = areaApiService.getAreaCodeList(addr, serviceGu, serviceKey, "", "");
+
+            // 키워드 검색으로 검색방식 변경 - 기존 지역 리스트 api 호출하여 지역 리스트 가져오는 방식에서 수동으로 카테고리 설정하는 방식으로 변경
+            // spinner data 를 수동으로 생성
             AreaListItem initial = new AreaListItem("0", "선택", 0);
             // 검색용 카테고리 목록 생성
             AreaListItem travel = new AreaListItem("12", "관광지", 1);
@@ -89,6 +118,12 @@ public class IndexActivity extends AppCompatActivity {
         return resultList;
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018. 5. 10. PM 12:23
+     * @Author : Andrew Kim
+     * @Description : spinner 선택 시 선택된 값 확인용 itemSelectedListener
+    **/
     public AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -99,8 +134,34 @@ public class IndexActivity extends AppCompatActivity {
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
             Spinner spinner = (Spinner) findViewById(R.id.topArea);
-            spinner.setPrompt("지역선택");
+            spinner.setPrompt("선택");
         }
     };
 
+    /**
+     * @parameter :
+     * @Date : 2018. 5. 10. PM 12:24
+     * @Author : Andrew Kim
+     * @Description : 키워드 검색 처리
+    **/
+    public void onBtnSearchClicked(View v) {
+        Spinner area = (Spinner) findViewById(R.id.topArea);
+        EditText keyword = (EditText) findViewById(R.id.keyword);
+
+        AreaListItem areaListItem = (AreaListItem) area.getSelectedItem();    // 선택된 spinner 객체값 받기
+
+        String areaCodeStr = "";
+        String keywordStr = "";
+
+        areaCodeStr = areaListItem.getCode();
+        keywordStr = keyword.getText().toString();
+
+        //Toast.makeText(this, areaCodeStr + "-" + keywordStr, Toast.LENGTH_LONG).show();
+        Intent searchIntent = new Intent(this, ListActivity.class);
+        searchIntent.putExtra("areaCode", areaCodeStr);
+        searchIntent.putExtra("keyword", keywordStr);
+        startActivity(searchIntent);
+        finish();
+
+    }
 }

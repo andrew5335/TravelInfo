@@ -58,10 +58,15 @@ public class ListViewAdapter extends BaseAdapter {
 
         ImageView firstImage = (ImageView) convertView.findViewById(R.id.listImg);
         //firstImage.setImageResource(listItem.getFirstImage());
-        Picasso.get().load(listItem.getFirstImage()).into(firstImage);
+        if(null != listItem.getFirstimage() && listItem.getFirstimage() != "") {
+            Picasso.get().load(listItem.getFirstimage()).placeholder(R.mipmap.logo_small).into(firstImage);
+        }
 
-        TextView addr = (TextView) convertView.findViewById(R.id.listText);
-        addr.setText(listItem.getAddr());
+        TextView addr1 = (TextView) convertView.findViewById(R.id.listText);
+        addr1.setText(listItem.getAddr1());
+
+        TextView title = (TextView) convertView.findViewById(R.id.listTitle);
+        title.setText(listItem.getTitle());
 
         return convertView;
     }
