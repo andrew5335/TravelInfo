@@ -21,13 +21,13 @@ import java.util.List;
  * @Version : 1.0.0
  * @Description : 리스트뷰 데이터 처리를 위한 adapter
 **/
-public class ListViewAdapter extends BaseAdapter {
+public class SearchListViewAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private List<ListItem> data;
     private int layout;
 
-    public ListViewAdapter(Context context, int layout, List<ListItem> data) {
+    public SearchListViewAdapter(Context context, int layout, List<ListItem> data) {
         this.inflater = (LayoutInflater) context.getSystemService((Context.LAYOUT_INFLATER_SERVICE));
         this.data = data;
         this.layout = layout;
@@ -56,10 +56,13 @@ public class ListViewAdapter extends BaseAdapter {
 
         ListItem listItem = data.get(position);
 
+        // 이미지가 있으면 imageview에 해당 이미지 세팅, 이미지가 없을 경우에는 기본 no image 세팅 처리
         ImageView firstImage = (ImageView) convertView.findViewById(R.id.listImg);
-        //firstImage.setImageResource(listItem.getFirstImage());
         if(null != listItem.getFirstimage() && listItem.getFirstimage() != "") {
             Picasso.get().load(listItem.getFirstimage()).placeholder(R.mipmap.logo_small).into(firstImage);
+        } else {
+            Picasso.get().cancelRequest(firstImage);
+            firstImage.setImageResource(R.mipmap.noimage);
         }
 
         TextView addr1 = (TextView) convertView.findViewById(R.id.listText);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#fff"
-    tools:context=".ListActivity">
+    tools:context=".SearchListActivity">
 
     <LinearLayout
         android:id="@+id/logoArea"
@@ -158,7 +158,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ListView
-            android:id="@+id/testList"
+            android:id="@+id/searchResultList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="0dp"

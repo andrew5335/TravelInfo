@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.eye2web.travel.adapter.AreaSpinnerAdapter;
+import com.eye2web.travel.handler.BackPressCloseHandler;
 import com.eye2web.travel.service.AreaApiService;
 import com.eye2web.travel.vo.AreaListItem;
 
@@ -28,6 +28,8 @@ import java.util.Collections;
 public class IndexActivity extends AppCompatActivity {
 
     private AreaApiService areaApiService;
+
+    private BackPressCloseHandler backPressCloseHandler;
 
     /**
      * @parameter :
@@ -67,6 +69,8 @@ public class IndexActivity extends AppCompatActivity {
                 }
             }
         });
+
+        this.backPressCloseHandler = new BackPressCloseHandler(this);    // 뒤로가기 처리
     }
 
     /**
@@ -109,7 +113,6 @@ public class IndexActivity extends AppCompatActivity {
             resultList.add(shop);
             resultList.add(food);
 
-
             Collections.sort(resultList);
         } catch (Exception e) {
             Log.e("Error", "Error : " + e.toString());
@@ -128,7 +131,7 @@ public class IndexActivity extends AppCompatActivity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             AreaListItem item = (AreaListItem) parent.getAdapter().getItem(position);
-            Toast.makeText(getApplicationContext(), item.getName() + "-" + item.getCode() + " selected !!!", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), item.getName() + "-" + item.getCode() + " selected !!!", Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -157,11 +160,20 @@ public class IndexActivity extends AppCompatActivity {
         keywordStr = keyword.getText().toString();
 
         //Toast.makeText(this, areaCodeStr + "-" + keywordStr, Toast.LENGTH_LONG).show();
-        Intent searchIntent = new Intent(this, ListActivity.class);
+        Intent searchIntent = new Intent(this, SearchListActivity.class);
         searchIntent.putExtra("areaCode", areaCodeStr);
         searchIntent.putExtra("keyword", keywordStr);
         startActivity(searchIntent);
-        finish();
+        //finish();
+    }
 
+    /**
+     * @parameter :
+     * @Date : 2018. 5. 11. PM 2:42
+     * @Author : Andrew Kim
+     * @Description : 뒤로가기처리 - index 에서는 뒤로가기 버튼을 두 번 클릭 시 앱이 종료되도록 처리해야 하므로 별도의 핸들러로 처리
+    **/
+    public void onBackPressed() {
+        this.backPressCloseHandler.onBackPressed();
     }
 }

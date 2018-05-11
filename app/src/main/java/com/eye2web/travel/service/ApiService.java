@@ -1,6 +1,7 @@
 package com.eye2web.travel.service;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.eye2web.travel.vo.ListItem;
 
@@ -64,10 +65,11 @@ public class ApiService extends Application {
                     if(parser.getName().equalsIgnoreCase("addr1")) {
                         inAddr = true;
                     }
-                    if(parser.getName().equalsIgnoreCase("firstimage")) {
+                    else if(parser.getName().equalsIgnoreCase("firstimage")) {
                         inFirstImage = true;
                     }
-                    if(parser.getName().equalsIgnoreCase("title")) {
+                    //Log.i("firstimage", "===================firstimage : " + inFirstImage);
+                    else if(parser.getName().equalsIgnoreCase("title")) {
                         inTitle = true;
                     }
                     break;
@@ -77,11 +79,11 @@ public class ApiService extends Application {
                         inAddrStr = parser.getText();
                         inAddr = false;
                     }
-                    if(inFirstImage) {
+                    else if(inFirstImage) {
                         inFirstImageStr = parser.getText();
                         inFirstImage = false;
                     }
-                    if(inTitle) {
+                    else if(inTitle) {
                         inTitleStr = parser.getText();
                         inTitle = false;
                     }
@@ -89,8 +91,12 @@ public class ApiService extends Application {
 
                 case XmlPullParser.END_TAG :
                     if(parser.getName().equalsIgnoreCase("item")) {
+                        Log.i("firstimage", "===============firstimage : " + inFirstImageStr);
                         ListItem item = new ListItem(inAddrStr, inFirstImageStr, inTitleStr);
                         resultList.add(item);
+                        inAddrStr = "";
+                        inFirstImageStr = "";
+                        inTitleStr = "";
                     }
                     break;
             }
