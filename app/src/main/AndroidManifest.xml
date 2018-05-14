@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eye2web.travel">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--인터넷 사용 권한 획득--><uses-permission android:name="android.permission.INTERNET" />
+    <!--외부 메모리 저장소 사용 권한 획득--><uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--위치 정보 활용 권한 획득--><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--위치 정보 활용 권한 획득--><uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--WIFI 상태 활용 권한 획득(WIFI 상태접근)--><uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--WIFI 상태 활용 권한 획득(WIFI 상태변경접근)--><uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
