@@ -1,5 +1,7 @@
 package com.eye2web.travel.vo;
 
+import java.io.Serializable;
+
 /**
  * @File : ListItem
  * @Date : 2018. 5. 2. PM 4:48
@@ -7,7 +9,7 @@ package com.eye2web.travel.vo;
  * @Version : 1.0.0
  * @Description : 리스트를 구성하는 구성요소
 **/
-public class ListItem {
+public class ListItem implements Serializable {
 
     private String addr1;
     private String addr2;
@@ -208,9 +210,19 @@ public class ListItem {
         this.title = title;
     }
      **/
-    public ListItem(String addr1, String firstimage, String title) {
+    public ListItem(String addr1, String firstimage, String firstimage2, String title
+            , String contentid, String contenttypeid, String cat1, String cat2, String cat3
+            , float mapx, float mapy) {
         this.addr1 = addr1;
         this.firstimage = firstimage;
+        this.firstimage2 = firstimage2;
         this.title = title;
+        this.contentid = contentid;
+        this.contenttypeid = contenttypeid;
+        this.cat1 = cat1;
+        this.cat2 = cat2;
+        this.cat3 = cat3;
+        this.mapx = mapx;
+        this.mapy = mapy;
     }
 }

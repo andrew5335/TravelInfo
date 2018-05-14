@@ -3,7 +3,6 @@ package com.eye2web.travel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,7 +24,7 @@ import java.util.Collections;
  * @Version : 1.0.0
  * @Description : Splash 화면 구동 후 최초로 로딩되는 화면
 **/
-public class IndexActivity extends AppCompatActivity {
+public class IndexActivity extends BaseActivity {
 
     private AreaApiService areaApiService;
 

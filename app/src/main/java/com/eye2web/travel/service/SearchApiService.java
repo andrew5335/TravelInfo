@@ -21,7 +21,7 @@ import java.util.List;
  * @Version : 1.0.0
  * @Description : 외부 API 연동 처리
 **/
-public class ApiService extends Application {
+public class SearchApiService extends Application {
 
     static String testAddr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?serviceKey=";
     static String testServiceKey = "ZjtS%2F7q9SORXFBybZ%2FhYciDyQKRNeP3r0tc8r%2BQLOv97shkq%2FNDa6a7Fp4m9T2lhT5fSjOiB6XR4aD33p7ljvA%3D%3D";
@@ -31,11 +31,28 @@ public class ApiService extends Application {
         List<ListItem> resultList = new ArrayList<ListItem>();
         boolean inAddr = false;
         boolean inFirstImage = false;
+        boolean inFirstImage2 = false;
         boolean inTitle = false;
+        boolean inContentId = false;
+        boolean inContentTypeId = false;
+        boolean inCat1 = false;
+        boolean inCat2 = false;
+        boolean inCat3 = false;
+        boolean inMapx = false;
+        boolean inMapy = false;
         boolean inItem = false;
+
         String inAddrStr = "";
         String inFirstImageStr = "";
+        String inFirstImage2Str = "";
         String inTitleStr = "";
+        String inContentIdStr = "";
+        String inContentTypeIdStr = "";
+        String inCat1Str = "";
+        String inCat2Str = "";
+        String inCat3Str = "";
+        float inMapxNum = 0;
+        float inMapyNum = 0;
 
         String parameter = "";
 
@@ -68,9 +85,33 @@ public class ApiService extends Application {
                     else if(parser.getName().equalsIgnoreCase("firstimage")) {
                         inFirstImage = true;
                     }
+                    else if(parser.getName().equalsIgnoreCase("firstimage2")) {
+                        inFirstImage2 = true;
+                    }
                     //Log.i("firstimage", "===================firstimage : " + inFirstImage);
                     else if(parser.getName().equalsIgnoreCase("title")) {
                         inTitle = true;
+                    }
+                    else if(parser.getName().equalsIgnoreCase("contentid")) {
+                        inContentId = true;
+                    }
+                    else if(parser.getName().equalsIgnoreCase("contenttypeid")) {
+                        inContentTypeId = true;
+                    }
+                    else if(parser.getName().equalsIgnoreCase("cat1")) {
+                        inCat1 = true;
+                    }
+                    else if(parser.getName().equalsIgnoreCase("cat2")) {
+                        inCat2 = true;
+                    }
+                    else if(parser.getName().equalsIgnoreCase("cat3")) {
+                        inCat3 = true;
+                    }
+                    else if(parser.getName().equalsIgnoreCase("mapx")) {
+                        inMapx = true;
+                    }
+                    else if(parser.getName().equalsIgnoreCase("mapy")) {
+                        inMapy = true;
                     }
                     break;
 
@@ -83,20 +124,63 @@ public class ApiService extends Application {
                         inFirstImageStr = parser.getText();
                         inFirstImage = false;
                     }
+                    else if(inFirstImage2) {
+                        inFirstImage2Str = parser.getText();
+                        inFirstImage2 = false;
+                    }
                     else if(inTitle) {
                         inTitleStr = parser.getText();
                         inTitle = false;
+                    }
+                    else if(inContentId) {
+                        inContentIdStr = parser.getText();
+                        inContentId = false;
+                    }
+                    else if(inContentTypeId) {
+                        inContentTypeIdStr = parser.getText();
+                        inContentTypeId = false;
+                    }
+                    else if(inCat1) {
+                        inCat1Str = parser.getText();
+                        inCat1 = false;
+                    }
+                    else if(inCat2) {
+                        inCat2Str = parser.getText();
+                        inCat2 = false;
+                    }
+                    else if(inCat3) {
+                        inCat3Str = parser.getText();
+                        inCat3 = false;
+                    }
+                    else if(inMapx) {
+                        inMapxNum = Float.parseFloat(parser.getText());
+                        inMapx = false;
+                    }
+                    else if(inMapy) {
+                        inMapyNum = Float.parseFloat(parser.getText());
+                        inMapy = false;
                     }
                     break;
 
                 case XmlPullParser.END_TAG :
                     if(parser.getName().equalsIgnoreCase("item")) {
                         Log.i("firstimage", "===============firstimage : " + inFirstImageStr);
-                        ListItem item = new ListItem(inAddrStr, inFirstImageStr, inTitleStr);
+                        ListItem item = new ListItem(inAddrStr, inFirstImageStr, inFirstImage2Str, inTitleStr, inContentIdStr
+                                , inContentTypeIdStr, inCat1Str, inCat2Str, inCat3Str, inMapxNum, inMapyNum);
+
                         resultList.add(item);
+
                         inAddrStr = "";
                         inFirstImageStr = "";
+                        inFirstImage2Str = "";
                         inTitleStr = "";
+                        inContentIdStr = "";
+                        inContentTypeIdStr = "";
+                        inCat1Str = "";
+                        inCat2Str = "";
+                        inCat3Str = "";
+                        inMapxNum = 0;
+                        inMapyNum = 0;
                     }
                     break;
             }

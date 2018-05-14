@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
@@ -12,11 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.eye2web.travel.adapter.SearchListViewAdapter;
 import com.eye2web.travel.handler.BackPressCloseHandler;
-import com.eye2web.travel.service.ApiService;
+import com.eye2web.travel.service.SearchApiService;
 import com.eye2web.travel.vo.ListItem;
 
 import java.util.ArrayList;
@@ -29,9 +27,9 @@ import java.util.List;
  * @Version : 1.0.0
  * @Description : 초기화면에서 버튼 클릭에 따라 연결되는 화면
 **/
-public class SearchListActivity extends AppCompatActivity implements AbsListView.OnScrollListener {
+public class SearchListActivity extends BaseActivity implements AbsListView.OnScrollListener {
 
-    private ApiService apiservice;
+    private SearchApiService searchApiservice;
 
     private ListView contentList;
     private boolean lastItemVisibleFlag = false;
@@ -121,14 +119,14 @@ public class SearchListActivity extends AppCompatActivity implements AbsListView
     private void getContentList(String code, String keyword, String sort) {
         mLockListView = true;
 
-        apiservice = new ApiService();
+        searchApiservice = new SearchApiService();
         List<ListItem> resultList = new ArrayList<ListItem>();
 
         String addr = getResources().getString(R.string.apiUrl) + "searchKeyword?serviceKey=";
         String serviceKey = getResources().getString(R.string.apiKey);
 
         try {
-            resultList = apiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset);
+            resultList = searchApiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset);
         } catch(Exception e) {
             Log.e("Error", "==========Error : " + e.toString());
         }
@@ -163,7 +161,13 @@ public class SearchListActivity extends AppCompatActivity implements AbsListView
             TextView textView = (TextView) view.findViewById(R.id.listText);
             String text = textView.getText().toString();
             ListItem item = (ListItem) parent.getAdapter().getItem(position);
-            Toast.makeText(getApplicationContext(), "item " + item.getAddr1() + "clicked !!!" + "- position : " + position, Toast.LENGTH_LONG).show();
+
+            Intent detailInfoIntent = new Intent(getApplicationContext(), DetailInfoActivity.class);
+            detailInfoIntent.putExtra("item", item);
+            startActivity(detailInfoIntent);
+            //Toast.makeText(getApplicationContext(), "item " + item.getAddr1()
+            //        + "clicked !!!" + "- position : " + position + "- mapx : " + item.getMapx()
+            //        + "- mapy : " + item.getMapy(), Toast.LENGTH_LONG).show();
         }
     };
 
@@ -173,9 +177,11 @@ public class SearchListActivity extends AppCompatActivity implements AbsListView
      * @Author : Andrew Kim
      * @Description : 뒤로가기 버튼 클릭 시 처리
     **/
+    /**
     @Override
     public void onBackPressed() {
         //this.backPressCloseHandler.onBackPressed();
         super.onBackPressed();    // index가 아닌 경우에는 그냥 이전 activity로 이동
     }
+    **/
 }

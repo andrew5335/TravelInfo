@@ -8,50 +8,11 @@
     android:orientation="vertical"
     tools:context=".IndexActivity">
 
-    <LinearLayout
-        android:id="@+id/logoArea"
+    <include
+        android:id="@+id/logo"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center_vertical|center_horizontal|center"
-        android:gravity="center_vertical|center_horizontal|center"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="horizontal"
-            android:paddingLeft="80dp"
-            android:paddingTop="1dp">
-
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_width="80dp"
-                android:layout_height="34dp"
-                android:layout_gravity="center"
-                android:layout_margin="0dp"
-                android:padding="0dp"
-                android:scaleType="fitXY"
-                app:srcCompat="@mipmap/logo" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:gravity="left|center_horizontal|center"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btnSetting"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="0dp"
-                android:background="@android:color/background_light"
-                android:padding="0dp"
-                app:srcCompat="@mipmap/settingsicon_small" />
-        </LinearLayout>
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        layout="@layout/logo" />
 
     <LinearLayout
         android:id="@+id/header"
@@ -79,9 +40,11 @@
             android:layout_weight="1"
             android:background="@mipmap/btn_background2"
             android:gravity="center_vertical|center"
+            android:maxLines="1"
             android:text="검색어를 입력하세요."
             android:textColor="#000000"
             android:textSize="12dp"
+            android:inputType="text"
             tools:ignore="OnClick" />
 
         <ImageButton
@@ -97,106 +60,11 @@
             app:srcCompat="@android:drawable/ic_search_category_default" />
     </LinearLayout>
 
-    <HorizontalScrollView
+    <include
+        android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true">
-
-        <LinearLayout
-            android:id="@+id/menu"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnTravel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:background="@mipmap/btn_background"
-                android:padding="0dp"
-                android:text="관광정보"
-                android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/btnFest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:background="@mipmap/btn_background"
-                android:padding="0dp"
-                android:text="공연정보"
-                android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/btnStay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:background="@mipmap/btn_background"
-                android:padding="0dp"
-                android:text="숙박정보"
-                android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/btnFood"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:background="@mipmap/btn_background"
-                android:padding="0dp"
-                android:text="맛집정보"
-                android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/btnSport"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:background="@mipmap/btn_background"
-                android:padding="0dp"
-                android:text="레포츠"
-                android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/btnShop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:background="@mipmap/btn_background"
-                android:padding="0dp"
-                android:text="쇼핑"
-                android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/btnCulture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:background="@mipmap/btn_background"
-                android:padding="0dp"
-                android:text="문화시설"
-                android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/btnCourse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:background="@mipmap/btn_background"
-                android:padding="0dp"
-                android:text="여행코스"
-                android:textColor="#000000" />
-        </LinearLayout>
-    </HorizontalScrollView>
+        layout="@layout/menu" />
 
     <ScrollView
         android:layout_width="match_parent"
