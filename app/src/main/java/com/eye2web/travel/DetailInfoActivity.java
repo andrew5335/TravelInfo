@@ -2,8 +2,18 @@ package com.eye2web.travel;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.eye2web.travel.service.DetailApiService;
+import com.eye2web.travel.vo.DetailCommonItem;
+import com.eye2web.travel.vo.DetailIntroItem;
 import com.eye2web.travel.vo.ListItem;
+import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @File : DetailInfoActivity
@@ -14,6 +24,8 @@ import com.eye2web.travel.vo.ListItem;
 **/
 public class DetailInfoActivity extends BaseActivity {
 
+    private DetailApiService detailApiService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +34,95 @@ public class DetailInfoActivity extends BaseActivity {
         Intent detailInfoIntent = getIntent();
         ListItem item = (ListItem) detailInfoIntent.getSerializableExtra("item");
 
-        //Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_LONG).show();
+        String contentId = "";
+        String contentTypeId = "";
+        String areaCode = "";
+        float mapx = 0;
+        float mapy = 0;
+
+        contentId = item.getContentid();
+        contentTypeId = item.getContenttypeid();
+        areaCode = item.getAreacode();
+        mapx = item.getMapx();
+        mapy = item.getMapy();
+
+        getContent(contentId, contentTypeId, areaCode, mapx, mapy);
+    }
+
+    /**
+     * @parameter : contentId - 컨텐츠 아이디값
+     *              contentTypeId - 컨텐츠 타입 (관광, 숙박, 공연 등)
+     *              areaCode - 지역코드
+     *              mapx - GPS X좌표값
+     *              mapy - GPS Y좌표값
+     * @Date : 2018. 5. 15. AM 9:35
+     * @Author : Andrew Kim
+     * @Description : 상세정보 조회
+    **/
+    public void getContent(String contentId, String contentTypeId, String areaCode, float mapx, float mapy) {
+        detailApiService = new DetailApiService();
+        DetailIntroItem detailIntroItem = new DetailIntroItem();
+        DetailCommonItem detailCommonItem = new DetailCommonItem();
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        String addr = getResources().getString(R.string.apiUrl);
+        String serviceKey = getResources().getString(R.string.apiKey);
+
+        try {
+            resultMap = detailApiService.getDetailInfo(addr, serviceKey, contentId, contentTypeId, areaCode, mapx, mapy);
+        } catch(Exception e) {
+            Log.e("Error", "Error : " + e.toString());
+        }
+
+        if(null != resultMap && 0 < resultMap.size()) {
+
+            detailCommonItem = (DetailCommonItem) resultMap.get("detailCommon");
+
+            String overView = "";
+            String homepage = "";
+            String title = "";
+            String addr1 = "";
+            String addr2 = "";
+            String firstImage = "";
+            String firstImage2 = "";
+
+            overView = detailCommonItem.getOverview();
+            homepage = detailCommonItem.getHomepage();
+            title = detailCommonItem.getTitle();
+            addr1 = detailCommonItem.getAddr1();
+            addr2 = detailCommonItem.getAddr2();
+            firstImage = detailCommonItem.getFirstimage();
+            firstImage2 = detailCommonItem.getFirstimage2();
+
+            Log.i("INFO", "================detail Info : " + overView);
+
+            ImageView detailImg1 = (ImageView) findViewById(R.id.detailImg1);
+            ImageView detailImg2 = (ImageView) findViewById(R.id.detailImg2);
+            TextView detailTitle = (TextView) findViewById(R.id.detailTitle);
+            TextView detailOverView = (TextView) findViewById(R.id.detailOverView);
+            TextView detailAddr1 = (TextView) findViewById(R.id.detailAddr1);
+            TextView detailAddr2 = (TextView) findViewById(R.id.detailAddr2);
+            TextView detailHomepage = (TextView) findViewById(R.id.detailHomepage);
+
+            if(null != firstImage && !"".equalsIgnoreCase(firstImage)) {
+                Picasso.get().load(firstImage).placeholder(R.mipmap.logo_small).into(detailImg1);
+            } else {
+                Picasso.get().cancelRequest(detailImg1);
+                detailImg1.setImageResource(R.mipmap.noimage);
+            }
+
+            if(null != firstImage2 && !"".equalsIgnoreCase(firstImage2)) {
+                Picasso.get().load(firstImage2).placeholder(R.mipmap.logo_small).into(detailImg2);
+            } else {
+                Picasso.get().cancelRequest(detailImg2);
+                detailImg1.setImageResource(R.mipmap.noimage);
+            }
+
+            if(null != title && !"".equalsIgnoreCase(title)) { detailTitle.setText(title); }
+            if(null != overView && !"".equalsIgnoreCase(overView)) { detailOverView.setText(overView); }
+            if(null != addr1 && !"".equalsIgnoreCase(addr1)) { detailAddr1.setText(addr1); }
+            if(null != addr2 && !"".equalsIgnoreCase(addr2)) { detailAddr2.setText(addr2); }
+            if(null != homepage && !"".equalsIgnoreCase(homepage)) { detailHomepage.setText(homepage); }
+        }
     }
 }

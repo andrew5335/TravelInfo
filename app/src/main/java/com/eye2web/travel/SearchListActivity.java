@@ -18,7 +18,9 @@ import com.eye2web.travel.service.SearchApiService;
 import com.eye2web.travel.vo.ListItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @File : SearchListActivity
@@ -120,21 +122,36 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
         mLockListView = true;
 
         searchApiservice = new SearchApiService();
+        Map<String, Object> resultMap = new HashMap<String, Object>();
         List<ListItem> resultList = new ArrayList<ListItem>();
 
         String addr = getResources().getString(R.string.apiUrl) + "searchKeyword?serviceKey=";
         String serviceKey = getResources().getString(R.string.apiKey);
 
         try {
-            resultList = searchApiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset);
+            resultMap = searchApiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset);
         } catch(Exception e) {
             Log.e("Error", "==========Error : " + e.toString());
         }
 
         //return resultList;
+        /**
         if (null != resultList && 0 < resultList.size()) {
             for (int i = 0; i < resultList.size(); i++) {
                 itemList.add(resultList.get(i));
+            }
+        }
+         **/
+
+        if(null != resultMap && 0 < resultMap.size()) {
+            if("0000".equalsIgnoreCase((String)resultMap.get("resultCode"))) {
+                resultList = (List<ListItem>) resultMap.get("resultList");
+
+                if(null != resultList && 0 < resultList.size()) {
+                    for(int i=0; i < resultList.size(); i++) {
+                        itemList.add(resultList.get(i));
+                    }
+                }
             }
         }
 

@@ -12,7 +12,9 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @File : ApiService
@@ -27,7 +29,8 @@ public class SearchApiService extends Application {
     static String testServiceKey = "ZjtS%2F7q9SORXFBybZ%2FhYciDyQKRNeP3r0tc8r%2BQLOv97shkq%2FNDa6a7Fp4m9T2lhT5fSjOiB6XR4aD33p7ljvA%3D%3D";
     static String testParameter = "";
 
-    public List<ListItem> getContent(String addr, String serviceKey, String code, String keyword, String sort, int page, int offset) throws Exception {
+    public Map<String, Object> getContent(String addr, String serviceKey, String code, String keyword, String sort, int page, int offset) throws Exception {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
         List<ListItem> resultList = new ArrayList<ListItem>();
         boolean inAddr = false;
         boolean inFirstImage = false;
@@ -41,6 +44,7 @@ public class SearchApiService extends Application {
         boolean inMapx = false;
         boolean inMapy = false;
         boolean inItem = false;
+        boolean inResultCode = false;
 
         String inAddrStr = "";
         String inFirstImageStr = "";
@@ -51,6 +55,7 @@ public class SearchApiService extends Application {
         String inCat1Str = "";
         String inCat2Str = "";
         String inCat3Str = "";
+        String inReultCodeStr = "";
         float inMapxNum = 0;
         float inMapyNum = 0;
 
@@ -113,6 +118,9 @@ public class SearchApiService extends Application {
                     else if(parser.getName().equalsIgnoreCase("mapy")) {
                         inMapy = true;
                     }
+                    else if(parser.getName().equalsIgnoreCase("resultCode")) {
+                        inResultCode = true;
+                    }
                     break;
 
                 case XmlPullParser.TEXT :
@@ -160,6 +168,10 @@ public class SearchApiService extends Application {
                         inMapyNum = Float.parseFloat(parser.getText());
                         inMapy = false;
                     }
+                    else if(inResultCode) {
+                        inReultCodeStr = parser.getText();
+                        inResultCode = false;
+                    }
                     break;
 
                 case XmlPullParser.END_TAG :
@@ -187,7 +199,11 @@ public class SearchApiService extends Application {
             parserEvent = parser.next();
         }
 
-        return resultList;
+        resultMap.put("resultList", resultList);
+        resultMap.put("resultCode", inReultCodeStr);
+        inReultCodeStr = "";
+
+        return resultMap;
     }
 
     public static void main(String[] args) throws Exception {
