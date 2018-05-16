@@ -1,20 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="0dp"
     android:padding="0dp"
+    android:background="#fff"
+    android:layout_gravity="center_vertical|center|center_horizontal"
+    android:gravity="center_horizontal|center|center_vertical"
+    android:orientation="vertical"
     tools:context=".SplashActivity">
 
-    <ImageView
-        android:id="@+id/splash_img"
-        android:background="@color/colorAccent"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
+        android:layout_gravity="center_vertical|center|center_horizontal"
         android:layout_margin="0dp"
-        android:padding="0dp"/>
+        android:gravity="center_horizontal|center|center_vertical"
+        android:orientation="vertical"
+        android:padding="0dp">
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/splash_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="0dp"
+            android:background="#fff"
+            android:padding="0dp"
+            android:scaleType="fitXY" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="copyright (c) 2018 All rights reserved by Eye2Web"
+            android:textColor="#d2374a"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

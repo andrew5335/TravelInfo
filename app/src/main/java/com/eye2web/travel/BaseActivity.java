@@ -1,5 +1,6 @@
 package com.eye2web.travel;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,9 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnTravelClicked(View v) {
         Toast.makeText(getApplicationContext(), "btn travel clicked", Toast.LENGTH_LONG).show();
+        Intent travelIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        travelIntent.putExtra("gu", "travel");
+        startActivity(travelIntent);
     }
 
     /**
@@ -37,6 +41,9 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnFestClicked(View v) {
         Toast.makeText(getApplicationContext(), "btn fest clicked", Toast.LENGTH_LONG).show();
+        Intent festIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        festIntent.putExtra("gu", "festival");
+        startActivity(festIntent);
     }
 
     /**
@@ -47,6 +54,9 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnStayClicked(View v) {
         Toast.makeText(getApplicationContext(), "btn stay clicked", Toast.LENGTH_LONG).show();
+        Intent stayIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        stayIntent.putExtra("gu", "stay");
+        startActivity(stayIntent);
     }
 
     /**
@@ -57,6 +67,9 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnFoodClicked(View v) {
         Toast.makeText(getApplicationContext(), "btn food clicked", Toast.LENGTH_LONG).show();
+        Intent foodIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        foodIntent.putExtra("gu", "food");
+        startActivity(foodIntent);
     }
 
     /**
@@ -67,6 +80,9 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnSportClicked(View v) {
         Toast.makeText(getApplicationContext(), "btn sport clicked", Toast.LENGTH_LONG).show();
+        Intent sportIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        sportIntent.putExtra("gu", "sport");
+        startActivity(sportIntent);
     }
 
     /**
@@ -77,6 +93,9 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnShopClicked(View v) {
         Toast.makeText(getApplicationContext(), "btn shop clicked", Toast.LENGTH_LONG).show();
+        Intent shopIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        shopIntent.putExtra("gu", "shop");
+        startActivity(shopIntent);
     }
 
     /**
@@ -87,6 +106,9 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnCultureClicked(View v) {
         Toast.makeText(getApplicationContext(), "btn culture clicked", Toast.LENGTH_LONG).show();
+        Intent cultureIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        cultureIntent.putExtra("gu", "culture");
+        startActivity(cultureIntent);
     }
 
     /**
@@ -97,6 +119,9 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnCourseClicked(View v) {
         Toast.makeText(getApplicationContext(), "btn course clicked", Toast.LENGTH_LONG).show();
+        Intent courseIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        courseIntent.putExtra("gu", "course");
+        startActivity(courseIntent);
     }
 
     /**

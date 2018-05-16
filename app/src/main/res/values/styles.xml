@@ -12,4 +12,6 @@
         <item name="android:background">@drawable/spinner_style</item>
     </style>
 
+    <style name="Theme.AppTheme.Light.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar" />
+
 </resources>

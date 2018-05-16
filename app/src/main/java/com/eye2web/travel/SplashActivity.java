@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         ImageView splashImg = (ImageView) findViewById(R.id.splash_img);
-        Picasso.get().load("http://www.eye2web.co.kr/images/travelinfomain.png").placeholder(R.mipmap.travelinfomain).into(splashImg);
+        Picasso.get().load("http://www.eye2web.co.kr/images/logo_final.png").placeholder(R.mipmap.logo_final).into(splashImg);
 
         new Handler().postDelayed(new Runnable() {
             @Override

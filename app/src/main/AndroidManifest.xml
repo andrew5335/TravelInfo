@@ -2,21 +2,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eye2web.travel">
 
-    <!--인터넷 사용 권한 획득--><uses-permission android:name="android.permission.INTERNET" />
-    <!--외부 메모리 저장소 사용 권한 획득--><uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--위치 정보 활용 권한 획득--><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <!--위치 정보 활용 권한 획득--><uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!--WIFI 상태 활용 권한 획득(WIFI 상태접근)--><uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <!--WIFI 상태 활용 권한 획득(WIFI 상태변경접근)--><uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 인터넷 사용 권한 획득 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 외부 메모리 저장소 사용 권한 획득 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 위치 정보 활용 권한 획득 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 위치 정보 활용 권한 획득 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- WIFI 상태 활용 권한 획득(WIFI 상태접근) -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- WIFI 상태 활용 권한 획득(WIFI 상태변경접근) -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/travelinfoicon"
+        android:icon="@mipmap/logo_final"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/travelinfoicon"
+        android:roundIcon="@mipmap/logo_final"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,9 +31,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".SearchListActivity" />
-        <activity android:name=".IndexActivity" />
+        <activity android:name=".IndexActivity"
+            android:theme="@style/Theme.AppTheme.Light.NoActionBar" />
         <activity android:name=".DetailInfoActivity" />
-        <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".MenuActivity"></activity>
     </application>
 
 </manifest>
