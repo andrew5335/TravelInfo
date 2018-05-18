@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical|center"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/topArea"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical|center"
+            android:padding="0dp" />
+
+        <EditText
+            android:id="@+id/keyword"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@mipmap/btn_background2"
+            android:gravity="center_vertical|center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="검색어를 입력하세요."
+            android:textColor="#000000"
+            android:textSize="12dp"
+            tools:ignore="OnClick" />
+
+        <ImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="0dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/background_light"
+            android:onClick="onBtnSearchClicked"
+            android:padding="0dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@android:drawable/ic_search_category_default" />
+    </LinearLayout>
+
+</LinearLayout>

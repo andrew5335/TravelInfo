@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff" >
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="#fff"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#fff"
+                card_view:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/btnTravel"
+                    android:layout_width="355dp"
+                    android:layout_height="480dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:background="@mipmap/sunflower"
+                    android:onClick="onBtnTravelClicked"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="355dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="right"
+                    android:shadowColor="@android:color/background_dark"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="1.5"
+                    android:text="관광정보"
+                    android:textColor="#fff"
+                    android:textColorHighlight="#000"
+                    android:textSize="36dp"
+                    android:textStyle="bold" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#fff"
+                card_view:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/btnFest"
+                    android:layout_width="355dp"
+                    android:layout_height="480dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:background="@mipmap/btn_background"
+                    android:onClick="onBtnFestClicked"
+                    android:padding="0dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="355dp"
+                    android:layout_height="wrap_content"
+                    android:text="공연정보"
+                    android:textColor="#000"
+                    android:textSize="14dp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#fff"
+                card_view:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/btnStay"
+                    android:layout_width="355dp"
+                    android:layout_height="480dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:background="@mipmap/btn_background"
+                    android:onClick="onBtnStayClicked"
+                    android:padding="0dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="355dp"
+                    android:layout_height="wrap_content"
+                    android:text="숙박정보"
+                    android:textColor="#000"
+                    android:textSize="14dp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#fff"
+                card_view:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/btnFood"
+                    android:layout_width="355dp"
+                    android:layout_height="480dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:background="@mipmap/btn_background"
+                    android:onClick="onBtnFoodClicked"
+                    android:padding="0dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="355dp"
+                    android:layout_height="wrap_content"
+                    android:text="맛집정보"
+                    android:textColor="#000"
+                    android:textSize="14dp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#fff"
+                card_view:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/btnSport"
+                    android:layout_width="355dp"
+                    android:layout_height="480dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:background="@mipmap/btn_background"
+                    android:onClick="onBtnSportClicked"
+                    android:padding="0dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="355dp"
+                    android:layout_height="wrap_content"
+                    android:text="레포츠"
+                    android:textColor="#000"
+                    android:textSize="14dp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#fff"
+                card_view:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/btnShop"
+                    android:layout_width="355dp"
+                    android:layout_height="480dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:background="@mipmap/btn_background"
+                    android:onClick="onBtnShopClicked"
+                    android:padding="0dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="355dp"
+                    android:layout_height="wrap_content"
+                    android:text="쇼핑"
+                    android:textColor="#000"
+                    android:textSize="14dp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#fff"
+                card_view:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/btnCulture"
+                    android:layout_width="355dp"
+                    android:layout_height="480dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:background="@mipmap/btn_background"
+                    android:onClick="onBtnCultureClicked"
+                    android:padding="0dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="355dp"
+                    android:layout_height="wrap_content"
+                    android:text="문화시설"
+                    android:textColor="#000"
+                    android:textSize="14dp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#fff"
+                card_view:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/btnCourse"
+                    android:layout_width="355dp"
+                    android:layout_height="480dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:background="@mipmap/btn_background"
+                    android:onClick="onBtnCourseClicked"
+                    android:padding="0dp"
+                    android:text="여행코스"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="355dp"
+                    android:layout_height="wrap_content"
+                    android:text="여행코스"
+                    android:textColor="#000"
+                    android:textSize="14dp" />
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+
+    </HorizontalScrollView>
+
+</LinearLayout>

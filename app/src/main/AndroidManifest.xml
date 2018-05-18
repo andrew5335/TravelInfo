@@ -22,7 +22,8 @@
         android:roundIcon="@mipmap/logo_final"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,11 +32,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".SearchListActivity" />
-        <activity android:name=".IndexActivity"
+        <activity
+            android:name=".IndexActivity"
             android:theme="@style/Theme.AppTheme.Light.NoActionBar" />
         <activity android:name=".DetailInfoActivity" />
         <activity android:name=".BaseActivity" />
-        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>

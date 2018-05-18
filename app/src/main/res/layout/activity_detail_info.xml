@@ -8,83 +8,116 @@
     android:background="#ffffff"
     tools:context=".DetailInfoActivity">
 
-    <include
-        android:id="@+id/logo"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/logo" />
+        android:background="#ffffff">
 
-    <include
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_gravity="top">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <include
+                    android:id="@+id/logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/logo" />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+    <!--include
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/menu" />
+        layout="@layout/indexmenu" /-->
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/nestedScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="2dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/detailTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center_vertical|center|center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_horizontal|center|center_vertical"
+                    android:textColor="#000000"
+                    android:textSize="24dp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:id="@+id/detailImg1"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    app:srcCompat="@mipmap/noimage"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:id="@+id/detailImg2"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    app:srcCompat="@mipmap/noimage"
+                    android:scaleType="fitXY"/>
+
+                <TextView
+                    android:id="@+id/detailOverView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/detailAddr1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/detailAddr2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/detailHomepage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:textSize="12dp"/>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <include
+            android:id="@+id/bottom_navigation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="bottom"
+            layout="@layout/bottom_navigation"
+            app:layout_behavior=".behavior.BottomNavigationBehavior"/>
 
-            <TextView
-                android:id="@+id/detailTitle"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_gravity="center_vertical|center|center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center_horizontal|center|center_vertical"
-                android:textColor="#000000"
-                android:textSize="24dp"
-                android:textStyle="bold"/>
-
-            <ImageView
-                android:id="@+id/detailImg1"
-                android:layout_width="match_parent"
-                android:layout_height="240dp"
-                app:srcCompat="@mipmap/noimage"
-                android:scaleType="fitXY"/>
-
-            <ImageView
-                android:id="@+id/detailImg2"
-                android:layout_width="match_parent"
-                android:layout_height="240dp"
-                app:srcCompat="@mipmap/noimage"
-                android:scaleType="fitXY"/>
-
-            <TextView
-                android:id="@+id/detailOverView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="12dp"/>
-
-            <TextView
-                android:id="@+id/detailAddr1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="12dp"/>
-
-            <TextView
-                android:id="@+id/detailAddr2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="12dp"/>
-
-            <TextView
-                android:id="@+id/detailHomepage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="12dp"/>
-
-        </LinearLayout>
-
-    </ScrollView>
+    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

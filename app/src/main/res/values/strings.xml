@@ -6,4 +6,8 @@
 
     <string name="detailIntro">detailIntro</string>
     <string name="detailCommon">detailCommon</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_info">Info</string>
+    <string name="menu_search">Search</string>
 </resources>

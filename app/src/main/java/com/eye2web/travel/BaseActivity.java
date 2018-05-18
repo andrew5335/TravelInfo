@@ -1,8 +1,8 @@
 package com.eye2web.travel;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -122,6 +122,18 @@ public class BaseActivity extends AppCompatActivity {
         Intent courseIntent = new Intent(getApplicationContext(), MenuActivity.class);
         courseIntent.putExtra("gu", "course");
         startActivity(courseIntent);
+    }
+
+    /**
+     * @parameter :
+     * @Date : 2018. 5. 18. PM 3:24
+     * @Author : Andrew Kim
+     * @Description : 검색버튼
+    **/
+    public void onSearchBtnClicked(View v) {
+        Toast.makeText(getApplicationContext(), "search btn clicked", Toast.LENGTH_LONG).show();
+        Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+        startActivity(searchIntent);
     }
 
     /**

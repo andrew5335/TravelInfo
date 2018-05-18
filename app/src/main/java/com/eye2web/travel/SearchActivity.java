@@ -2,72 +2,29 @@ package com.eye2web.travel;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.eye2web.travel.handler.BackPressCloseHandler;
+import com.eye2web.travel.adapter.AreaSpinnerAdapter;
 import com.eye2web.travel.service.AreaApiService;
 import com.eye2web.travel.vo.AreaListItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * @File : IndexActivity
- * @Date : 2018. 5. 2. PM 4:43
- * @Author : Andrew Kim
- * @Version : 1.0.0
- * @Description : Splash 화면 구동 후 최초로 로딩되는 화면
-**/
-public class IndexActivity extends BaseActivity {
+public class SearchActivity extends BaseActivity {
 
     private AreaApiService areaApiService;
 
-    private BackPressCloseHandler backPressCloseHandler;
-
-    /**
-     * @parameter :
-     * @Date : 2018. 5. 10. PM 12:21
-     * @Author : Andrew Kim
-     * @Description : 화면 구성
-    **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_index);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        setContentView(R.layout.search);
 
-        this.backPressCloseHandler = new BackPressCloseHandler(this);    // 뒤로가기 처리
-        /**
-        final ScrollView indexScrollView = (ScrollView) findViewById(R.id.indexScroll);
-        indexScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                int scrollY = indexScrollView.getScrollY();
-                LinearLayout bottomArea = (LinearLayout) findViewById(R.id.bottomArea);
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) bottomArea.getLayoutParams();
-
-                if(scrollY > 0) {
-                    //bottomArea.setVisibility(View.GONE);
-                    params.height = 0;
-                    bottomArea.setLayoutParams(params);
-                } else {
-                    //bottomArea.setVisibility(View.GONE);
-                    params.height = 120;
-                    bottomArea.setLayoutParams(params);
-                }
-
-            }
-
-        });
-         **/
-
-        /**
         Spinner areaSpinner = (Spinner) findViewById(R.id.topArea);
 
         ArrayList<AreaListItem> areaList = new ArrayList<AreaListItem>();
@@ -94,7 +51,6 @@ public class IndexActivity extends BaseActivity {
                 }
             }
         });
-         **/
     }
 
     /**
@@ -102,7 +58,7 @@ public class IndexActivity extends BaseActivity {
      * @Date : 2018. 5. 10. PM 12:22
      * @Author : Andrew Kim
      * @Description : 지역 리스트 가져오기
-    **/
+     **/
     public ArrayList<AreaListItem> getAreaList() {
         ArrayList<AreaListItem> resultList = new ArrayList<AreaListItem>();
         areaApiService = new AreaApiService();
@@ -150,7 +106,7 @@ public class IndexActivity extends BaseActivity {
      * @Date : 2018. 5. 10. PM 12:23
      * @Author : Andrew Kim
      * @Description : spinner 선택 시 선택된 값 확인용 itemSelectedListener
-    **/
+     **/
     public AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -170,7 +126,7 @@ public class IndexActivity extends BaseActivity {
      * @Date : 2018. 5. 10. PM 12:24
      * @Author : Andrew Kim
      * @Description : 키워드 검색 처리
-    **/
+     **/
     public void onBtnSearchClicked(View v) {
         Spinner area = (Spinner) findViewById(R.id.topArea);
         EditText keyword = (EditText) findViewById(R.id.keyword);
@@ -188,16 +144,6 @@ public class IndexActivity extends BaseActivity {
         searchIntent.putExtra("areaCode", areaCodeStr);
         searchIntent.putExtra("keyword", keywordStr);
         startActivity(searchIntent);
-        //finish();
-    }
-
-    /**
-     * @parameter :
-     * @Date : 2018. 5. 11. PM 2:42
-     * @Author : Andrew Kim
-     * @Description : 뒤로가기처리 - index 에서는 뒤로가기 버튼을 두 번 클릭 시 앱이 종료되도록 처리해야 하므로 별도의 핸들러로 처리
-    **/
-    public void onBackPressed() {
-        this.backPressCloseHandler.onBackPressed();
+        finish();
     }
 }

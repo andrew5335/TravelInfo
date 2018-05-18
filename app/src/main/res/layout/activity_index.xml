@@ -1,162 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".IndexActivity">
 
-    <include
-        android:id="@+id/logo"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/logo" />
+        android:background="#ffffff">
 
-    <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical|center"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/topArea"
-            style="@android:style/Widget.Holo.Light.Spinner"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:gravity="left|center_vertical|center"
-            android:padding="0dp" />
-
-        <EditText
-            android:id="@+id/keyword"
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:background="@mipmap/btn_background2"
-            android:gravity="center_vertical|center"
-            android:maxLines="1"
-            android:text="검색어를 입력하세요."
-            android:textColor="#000000"
-            android:textSize="12dp"
-            android:inputType="text"
-            tools:ignore="OnClick" />
-
-        <ImageButton
-            android:id="@+id/btnSearch"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="0dp"
-            android:adjustViewBounds="true"
-            android:background="@android:color/background_light"
-            android:padding="0dp"
-            android:scaleType="fitXY"
-            android:onClick="onBtnSearchClicked"
-            app:srcCompat="@android:drawable/ic_search_category_default" />
-    </LinearLayout>
-
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/contents"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="35dp"
+            android:layout_gravity="top">
 
-            <include
-                android:id="@+id/top"
+            <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/menu" />
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+                <include
+                    android:id="@+id/logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_collapseMode="pin"
+                    layout="@layout/logo" />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/content1"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_margin="0dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/holo_green_dark"
-                    android:padding="0dp"
-                    android:scaleType="fitXY"
-                    android:text="관광정보"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:id="@+id/content2"
-                    android:background="@android:color/holo_blue_bright"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:layout_margin="0dp"
-                    android:padding="0dp"
-                    android:scaleType="fitXY"
-                    android:text="축제/공연정보"
-                    android:textColor="#000000"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/content3"
-                    android:background="@android:color/holo_orange_dark"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:layout_margin="0dp"
-                    android:padding="0dp"
-                    android:scaleType="fitXY"
-                    android:text="숙박정보"
-                    android:textColor="#000000"/>
-
-                <TextView
-                    android:id="@+id/content4"
-                    android:background="@android:color/holo_orange_light"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:layout_margin="0dp"
-                    android:padding="0dp"
-                    android:scaleType="fitXY"
-                    android:text="맛집정보"
-                    android:textColor="#000000"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ad"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imageView"
+                <include
+                    android:id="@+id/topMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:srcCompat="@color/colorAccent" />
+                    android:layout_height="wrap_content"
+                    layout="@layout/indexmenu" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="test1"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="test2"
+                        android:textSize="16dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="test3"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="test4"
+                        android:textSize="16dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="test5"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="test6"
+                        android:textSize="16dp"/>
+
+                </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <include
+            android:id="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            layout="@layout/bottom_navigation"
+            app:layout_behavior=".behavior.BottomNavigationBehavior"/>
+
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>
