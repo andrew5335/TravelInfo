@@ -12,7 +12,7 @@
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="#ffffff">
 
         <android.support.design.widget.AppBarLayout
@@ -28,10 +28,10 @@
 
                 <include
                     android:id="@+id/logo"
+                    layout="@layout/logo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_collapseMode="pin"
-                    layout="@layout/logo" />
+                    app:layout_collapseMode="pin" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -51,9 +51,9 @@
 
                 <include
                     android:id="@+id/topMenu"
+                    layout="@layout/indexmenu"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    layout="@layout/indexmenu" />
+                    android:layout_height="wrap_content" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -65,14 +65,14 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:text="test1"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:text="test2"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -86,14 +86,14 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:text="test3"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:text="test4"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -107,14 +107,14 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:text="test5"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:text="test6"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -124,11 +124,11 @@
 
         <include
             android:id="@+id/bottom_navigation_view"
+            layout="@layout/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            layout="@layout/bottom_navigation"
-            app:layout_behavior=".behavior.BottomNavigationBehavior"/>
+            app:layout_behavior=".behavior.BottomNavigationBehavior" />
 
 
     </android.support.design.widget.CoordinatorLayout>

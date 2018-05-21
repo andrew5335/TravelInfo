@@ -34,13 +34,13 @@
                 <ImageView
                     android:id="@+id/btnTravel"
                     android:layout_width="355dp"
-                    android:layout_height="480dp"
+                    android:layout_height="240dp"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@mipmap/sunflower"
                     android:onClick="onBtnTravelClicked"
                     android:padding="0dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:textColor="#000000" />
 
                 <TextView
@@ -69,7 +69,7 @@
                 <ImageView
                     android:id="@+id/btnFest"
                     android:layout_width="355dp"
-                    android:layout_height="480dp"
+                    android:layout_height="240dp"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@mipmap/btn_background"
@@ -95,7 +95,7 @@
                 <ImageView
                     android:id="@+id/btnStay"
                     android:layout_width="355dp"
-                    android:layout_height="480dp"
+                    android:layout_height="240dp"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@mipmap/btn_background"
@@ -121,7 +121,7 @@
                 <ImageView
                     android:id="@+id/btnFood"
                     android:layout_width="355dp"
-                    android:layout_height="480dp"
+                    android:layout_height="240dp"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@mipmap/btn_background"
@@ -147,7 +147,7 @@
                 <ImageView
                     android:id="@+id/btnSport"
                     android:layout_width="355dp"
-                    android:layout_height="480dp"
+                    android:layout_height="240dp"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@mipmap/btn_background"
@@ -173,7 +173,7 @@
                 <ImageView
                     android:id="@+id/btnShop"
                     android:layout_width="355dp"
-                    android:layout_height="480dp"
+                    android:layout_height="240dp"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@mipmap/btn_background"
@@ -199,7 +199,7 @@
                 <ImageView
                     android:id="@+id/btnCulture"
                     android:layout_width="355dp"
-                    android:layout_height="480dp"
+                    android:layout_height="240dp"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@mipmap/btn_background"
@@ -225,7 +225,7 @@
                 <ImageView
                     android:id="@+id/btnCourse"
                     android:layout_width="355dp"
-                    android:layout_height="480dp"
+                    android:layout_height="240dp"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@mipmap/btn_background"

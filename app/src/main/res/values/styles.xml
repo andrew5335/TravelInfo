@@ -14,4 +14,8 @@
 
     <style name="Theme.AppTheme.Light.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar" />
 
+    <style name="EditTextStyle">
+        <item name="android:colorControlNormal">#cccccc</item>
+    </style>
+
 </resources>
