@@ -2,11 +2,13 @@ package com.eye2web.travel;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eye2web.travel.service.DetailApiService;
+import com.eye2web.travel.util.CommonUtil;
 import com.eye2web.travel.vo.DetailCommonItem;
 import com.eye2web.travel.vo.DetailIntroItem;
 import com.eye2web.travel.vo.ListItem;
@@ -25,6 +27,8 @@ import java.util.Map;
 public class DetailInfoActivity extends BaseActivity {
 
     private DetailApiService detailApiService;
+
+    private CommonUtil commonUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,11 +122,31 @@ public class DetailInfoActivity extends BaseActivity {
                 detailImg1.setImageResource(R.mipmap.noimage);
             }
 
+            commonUtil = new CommonUtil();
+
+            SpannableStringBuilder overViewBuilder = new SpannableStringBuilder();
+            overViewBuilder = commonUtil.convertTxtToLink(getApplicationContext(), overView);
+            if(null != overViewBuilder) { detailOverView.setText(overViewBuilder.toString()); }
+
+            SpannableStringBuilder addr1Builder = new SpannableStringBuilder();
+            addr1Builder = commonUtil.convertTxtToLink(getApplicationContext(), addr1);
+            if(null != addr1Builder) { detailAddr1.setText(addr1Builder.toString()); }
+
+            SpannableStringBuilder addr2Builder = new SpannableStringBuilder();
+            addr2Builder = commonUtil.convertTxtToLink(getApplicationContext(), addr1);
+            if(null != addr2Builder) { detailAddr2.setText(addr2Builder.toString()); }
+
+            SpannableStringBuilder homePageBuilder = new SpannableStringBuilder();
+            homePageBuilder = commonUtil.convertTxtToLink(getApplicationContext(), homepage);
+            if(null != homePageBuilder) { detailHomepage.setText(homePageBuilder.toString()); }
+
+            /**
             if(null != title && !"".equalsIgnoreCase(title)) { detailTitle.setText(title); }
-            if(null != overView && !"".equalsIgnoreCase(overView)) { detailOverView.setText(overView); }
-            if(null != addr1 && !"".equalsIgnoreCase(addr1)) { detailAddr1.setText(addr1); }
-            if(null != addr2 && !"".equalsIgnoreCase(addr2)) { detailAddr2.setText(addr2); }
-            if(null != homepage && !"".equalsIgnoreCase(homepage)) { detailHomepage.setText(homepage); }
+            if(null != overView && !"".equalsIgnoreCase(overView)) { detailOverView.setText(Html.fromHtml(overView)); }
+            if(null != addr1 && !"".equalsIgnoreCase(addr1)) { detailAddr1.setText(Html.fromHtml(addr1)); }
+            if(null != addr2 && !"".equalsIgnoreCase(addr2)) { detailAddr2.setText(Html.fromHtml(addr2)); }
+            //if(null != homepage && !"".equalsIgnoreCase(homepage)) { detailHomepage.setText(Html.fromHtml(homepage)); }
+             **/
         }
     }
 }

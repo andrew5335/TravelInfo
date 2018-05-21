@@ -44,7 +44,10 @@
                 android:id="@+id/nestedScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="2dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
@@ -61,8 +64,14 @@
                     android:layout_marginBottom="10dp"
                     android:gravity="center_horizontal|center|center_vertical"
                     android:textColor="#000000"
-                    android:textSize="24dp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/notosanskr_medium_hestia"
+                    android:ellipsize="none"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:autoLink="web"
+                    android:linksClickable="true"/>
 
                 <ImageView
                     android:id="@+id/detailImg1"
@@ -82,29 +91,54 @@
                     android:id="@+id/detailOverView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:textColor="#000000"
-                    android:textSize="12dp"/>
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:ellipsize="none"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:textSize="16dp"
+                    android:autoLink="web"
+                    android:linksClickable="true" />
 
                 <TextView
                     android:id="@+id/detailAddr1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
-                    android:textSize="12dp"/>
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:ellipsize="none"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:textSize="16dp"
+                    android:autoLink="web"
+                    android:linksClickable="true" />
 
                 <TextView
                     android:id="@+id/detailAddr2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
-                    android:textSize="12dp"/>
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:ellipsize="none"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:textSize="16dp"
+                    android:autoLink="web"
+                    android:linksClickable="true" />
 
                 <TextView
                     android:id="@+id/detailHomepage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
-                    android:textSize="12dp"/>
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:ellipsize="none"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:textSize="16dp"
+                    android:autoLink="web"
+                    android:linksClickable="true" />
 
             </LinearLayout>
 
