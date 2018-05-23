@@ -109,14 +109,14 @@ public class DetailInfoActivity extends BaseActivity {
             TextView detailHomepage = (TextView) findViewById(R.id.detailHomepage);
 
             if(null != firstImage && !"".equalsIgnoreCase(firstImage)) {
-                Picasso.get().load(firstImage).placeholder(R.mipmap.logo_small).into(detailImg1);
+                Picasso.get().load(firstImage).placeholder(R.mipmap.logo_final).into(detailImg1);
             } else {
                 Picasso.get().cancelRequest(detailImg1);
                 detailImg1.setImageResource(R.mipmap.noimage);
             }
 
             if(null != firstImage2 && !"".equalsIgnoreCase(firstImage2)) {
-                Picasso.get().load(firstImage2).placeholder(R.mipmap.logo_small).into(detailImg2);
+                Picasso.get().load(firstImage2).placeholder(R.mipmap.logo_final).into(detailImg2);
             } else {
                 Picasso.get().cancelRequest(detailImg2);
                 detailImg1.setImageResource(R.mipmap.noimage);

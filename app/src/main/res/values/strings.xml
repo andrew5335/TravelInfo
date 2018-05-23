@@ -8,6 +8,10 @@
     <string name="detailCommon">detailCommon</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_info">Info</string>
+    <string name="menu_guide">Guide</string>
     <string name="menu_search">Search</string>
+    <string name="menu_info">Info</string>
+
+    <string name="indexmenu_width">355dp</string>
+    <string name="indexmenu_height">400dp</string>
 </resources>

@@ -59,10 +59,10 @@ public class SearchListViewAdapter extends BaseAdapter {
         // 이미지가 있으면 imageview에 해당 이미지 세팅, 이미지가 없을 경우에는 기본 no image 세팅 처리
         ImageView firstImage = (ImageView) convertView.findViewById(R.id.listImg);
         if(null != listItem.getFirstimage() && "" != listItem.getFirstimage()) {
-            Picasso.get().load(listItem.getFirstimage()).placeholder(R.mipmap.logo_small).into(firstImage);
+            Picasso.get().load(listItem.getFirstimage()).placeholder(R.mipmap.logo_final).into(firstImage);
         } else {
             if(null != listItem.getFirstimage2() && "" != listItem.getFirstimage2()) {
-                Picasso.get().load(listItem.getFirstimage2()).placeholder(R.mipmap.logo_small).into(firstImage);
+                Picasso.get().load(listItem.getFirstimage2()).placeholder(R.mipmap.logo_final).into(firstImage);
             } else {
                 Picasso.get().cancelRequest(firstImage);
                 firstImage.setImageResource(R.mipmap.noimage);

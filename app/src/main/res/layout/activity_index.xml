@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
@@ -58,65 +59,69 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
 
-                    <TextView
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:text="test1"
-                        android:textSize="16dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:background="#fff"
+                        card_view:cardCornerRadius="1dp">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:text="test2"
-                        android:textSize="16dp" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:background="#ddd"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:gravity="bottom|left"
+                            android:fontFamily="@font/utogothic"
+                            android:textSize="16dp"
+                            android:text="내 주변의 관광지는?"/>
+
+                    </android.support.v7.widget.CardView>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
 
-                    <TextView
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:text="test3"
-                        android:textSize="16dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:background="#fff"
+                        card_view:cardCornerRadius="1dp">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:text="test4"
-                        android:textSize="16dp" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:background="#ccc"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:gravity="bottom|left"
+                            android:fontFamily="@font/utogothic"
+                            android:textSize="16dp"
+                            android:text="테마여행"/>
+
+                    </android.support.v7.widget.CardView>
 
                 </LinearLayout>
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/adbanner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:text="test5"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:text="test6"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    app:srcCompat="@android:color/holo_red_light" />
 
             </LinearLayout>
 
