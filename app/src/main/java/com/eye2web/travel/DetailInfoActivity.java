@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -111,15 +112,17 @@ public class DetailInfoActivity extends BaseActivity {
             if(null != firstImage && !"".equalsIgnoreCase(firstImage)) {
                 Picasso.get().load(firstImage).placeholder(R.mipmap.logo_final).into(detailImg1);
             } else {
+                detailImg1.setVisibility(View.GONE);
                 Picasso.get().cancelRequest(detailImg1);
-                detailImg1.setImageResource(R.mipmap.noimage);
+                //detailImg1.setImageResource(R.mipmap.noimage);
             }
 
             if(null != firstImage2 && !"".equalsIgnoreCase(firstImage2)) {
                 Picasso.get().load(firstImage2).placeholder(R.mipmap.logo_final).into(detailImg2);
             } else {
+                detailImg2.setVisibility(View.GONE);
                 Picasso.get().cancelRequest(detailImg2);
-                detailImg1.setImageResource(R.mipmap.noimage);
+                //detailImg1.setImageResource(R.mipmap.noimage);
             }
 
             commonUtil = new CommonUtil();

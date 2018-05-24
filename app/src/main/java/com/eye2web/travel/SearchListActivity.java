@@ -134,14 +134,6 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
             Log.e("Error", "==========Error : " + e.toString());
         }
 
-        //return resultList;
-        /**
-        if (null != resultList && 0 < resultList.size()) {
-            for (int i = 0; i < resultList.size(); i++) {
-                itemList.add(resultList.get(i));
-            }
-        }
-         **/
 
         if(null != resultMap && 0 < resultMap.size()) {
             if("0000".equalsIgnoreCase((String)resultMap.get("resultCode"))) {
@@ -182,9 +174,6 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
             Intent detailInfoIntent = new Intent(getApplicationContext(), DetailInfoActivity.class);
             detailInfoIntent.putExtra("item", item);
             startActivity(detailInfoIntent);
-            //Toast.makeText(getApplicationContext(), "item " + item.getAddr1()
-            //        + "clicked !!!" + "- position : " + position + "- mapx : " + item.getMapx()
-            //        + "- mapy : " + item.getMapy(), Toast.LENGTH_LONG).show();
         }
     };
 

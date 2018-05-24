@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/utogothic"
-            android:text="INFO"
+            android:text="MY INFO"
             android:textColor="#000"
             android:textSize="9dp" />
     </LinearLayout>

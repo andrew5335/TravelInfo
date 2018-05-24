@@ -64,6 +64,7 @@ public class SearchListViewAdapter extends BaseAdapter {
             if(null != listItem.getFirstimage2() && "" != listItem.getFirstimage2()) {
                 Picasso.get().load(listItem.getFirstimage2()).placeholder(R.mipmap.logo_final).into(firstImage);
             } else {
+                firstImage.setVisibility(View.GONE);
                 Picasso.get().cancelRequest(firstImage);
                 firstImage.setImageResource(R.mipmap.noimage);
             }

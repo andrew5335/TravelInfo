@@ -36,4 +36,25 @@ public class CommonUtil {
 
         return result;
     }
+
+    public String getKeyword(String areaGu) {
+        String result = "";
+
+        switch (areaGu) {
+            case "seoul" :
+                result = "서울";
+                break;
+
+            case "daejeon" :
+                result = "대전";
+                break;
+
+            default :
+                result = "서울";
+                break;
+
+        }
+
+        return result;
+    }
 }

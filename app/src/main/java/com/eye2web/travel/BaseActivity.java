@@ -28,9 +28,10 @@ public class BaseActivity extends AppCompatActivity {
      * @Description : 관광정보 버튼
     **/
     public void onBtnTravelClicked(View v) {
-        Toast.makeText(getApplicationContext(), "btn travel clicked", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "btn travel clicked", Toast.LENGTH_LONG).show();
         Intent travelIntent = new Intent(getApplicationContext(), MenuActivity.class);
         travelIntent.putExtra("gu", "travel");
+        travelIntent.putExtra("cateGu", "12");
         startActivity(travelIntent);
     }
 
@@ -41,9 +42,10 @@ public class BaseActivity extends AppCompatActivity {
      * @Description : 공연정보 버튼
     **/
     public void onBtnFestClicked(View v) {
-        Toast.makeText(getApplicationContext(), "btn fest clicked", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "btn fest clicked", Toast.LENGTH_LONG).show();
         Intent festIntent = new Intent(getApplicationContext(), MenuActivity.class);
         festIntent.putExtra("gu", "festival");
+        festIntent.putExtra("cateGu", "15");
         startActivity(festIntent);
     }
 
@@ -54,9 +56,10 @@ public class BaseActivity extends AppCompatActivity {
      * @Description : 숙박정보 버튼
     **/
     public void onBtnStayClicked(View v) {
-        Toast.makeText(getApplicationContext(), "btn stay clicked", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "btn stay clicked", Toast.LENGTH_LONG).show();
         Intent stayIntent = new Intent(getApplicationContext(), MenuActivity.class);
         stayIntent.putExtra("gu", "stay");
+        stayIntent.putExtra("cateGu", "32");
         startActivity(stayIntent);
     }
 
@@ -67,9 +70,10 @@ public class BaseActivity extends AppCompatActivity {
      * @Description : 맛집정보 버튼
     **/
     public void onBtnFoodClicked(View v) {
-        Toast.makeText(getApplicationContext(), "btn food clicked", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "btn food clicked", Toast.LENGTH_LONG).show();
         Intent foodIntent = new Intent(getApplicationContext(), MenuActivity.class);
         foodIntent.putExtra("gu", "food");
+        foodIntent.putExtra("cateGu", "39");
         startActivity(foodIntent);
     }
 
@@ -80,9 +84,10 @@ public class BaseActivity extends AppCompatActivity {
      * @Description : 레포츠 버튼
     **/
     public void onBtnSportClicked(View v) {
-        Toast.makeText(getApplicationContext(), "btn sport clicked", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "btn sport clicked", Toast.LENGTH_LONG).show();
         Intent sportIntent = new Intent(getApplicationContext(), MenuActivity.class);
         sportIntent.putExtra("gu", "sport");
+        sportIntent.putExtra("cateGu", "28");
         startActivity(sportIntent);
     }
 
@@ -93,9 +98,10 @@ public class BaseActivity extends AppCompatActivity {
      * @Description : 쇼핑 버튼
     **/
     public void onBtnShopClicked(View v) {
-        Toast.makeText(getApplicationContext(), "btn shop clicked", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "btn shop clicked", Toast.LENGTH_LONG).show();
         Intent shopIntent = new Intent(getApplicationContext(), MenuActivity.class);
         shopIntent.putExtra("gu", "shop");
+        shopIntent.putExtra("cateGu", "38");
         startActivity(shopIntent);
     }
 
@@ -106,9 +112,10 @@ public class BaseActivity extends AppCompatActivity {
      * @Description : 문화시설 버튼
     **/
     public void onBtnCultureClicked(View v) {
-        Toast.makeText(getApplicationContext(), "btn culture clicked", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "btn culture clicked", Toast.LENGTH_LONG).show();
         Intent cultureIntent = new Intent(getApplicationContext(), MenuActivity.class);
         cultureIntent.putExtra("gu", "culture");
+        cultureIntent.putExtra("cateGu", "14");
         startActivity(cultureIntent);
     }
 
@@ -119,9 +126,10 @@ public class BaseActivity extends AppCompatActivity {
      * @Description : 여행코스 버튼
     **/
     public void onBtnCourseClicked(View v) {
-        Toast.makeText(getApplicationContext(), "btn course clicked", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "btn course clicked", Toast.LENGTH_LONG).show();
         Intent courseIntent = new Intent(getApplicationContext(), MenuActivity.class);
         courseIntent.putExtra("gu", "course");
+        courseIntent.putExtra("cateGu", "25");
         startActivity(courseIntent);
     }
 
