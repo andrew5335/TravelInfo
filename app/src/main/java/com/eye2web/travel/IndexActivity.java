@@ -3,6 +3,7 @@ package com.eye2web.travel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.Spinner;
 import com.eye2web.travel.handler.BackPressCloseHandler;
 import com.eye2web.travel.service.AreaApiService;
 import com.eye2web.travel.vo.AreaListItem;
+import com.eye2web.travel.adapter.IndexPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +28,8 @@ import java.util.Collections;
 public class IndexActivity extends BaseActivity {
 
     private AreaApiService areaApiService;
+
+    private IndexPagerAdapter indexPagerAdapter;
 
     private BackPressCloseHandler backPressCloseHandler;
 
@@ -42,59 +46,12 @@ public class IndexActivity extends BaseActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        ViewPager indexMenuPager = (ViewPager) findViewById(R.id.index_menu_pager);
+        indexPagerAdapter = new IndexPagerAdapter(this, getLayoutInflater());
+        indexMenuPager.setAdapter(indexPagerAdapter);
+
         this.backPressCloseHandler = new BackPressCloseHandler(this);    // 뒤로가기 처리
-        /**
-        final ScrollView indexScrollView = (ScrollView) findViewById(R.id.indexScroll);
-        indexScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                int scrollY = indexScrollView.getScrollY();
-                LinearLayout bottomArea = (LinearLayout) findViewById(R.id.bottomArea);
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) bottomArea.getLayoutParams();
 
-                if(scrollY > 0) {
-                    //bottomArea.setVisibility(View.GONE);
-                    params.height = 0;
-                    bottomArea.setLayoutParams(params);
-                } else {
-                    //bottomArea.setVisibility(View.GONE);
-                    params.height = 120;
-                    bottomArea.setLayoutParams(params);
-                }
-
-            }
-
-        });
-         **/
-
-        /**
-        Spinner areaSpinner = (Spinner) findViewById(R.id.topArea);
-
-        ArrayList<AreaListItem> areaList = new ArrayList<AreaListItem>();
-        areaList = getAreaList();
-
-        if(null != areaList && 0 < areaList.size()) {
-            AreaSpinnerAdapter areaSpinnerAdapter = new AreaSpinnerAdapter(this, R.layout.areaitem, areaList);
-            //ArrayAdapter<AreaListItem> areaSpinnerAdapter = new ArrayAdapter<AreaListItem>(this, R.layout.support_simple_spinner_dropdown_item, areaList);
-            //areaSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-            areaSpinner.setAdapter(areaSpinnerAdapter);
-        }
-
-        areaSpinner.setOnItemSelectedListener(itemSelectedListener);
-
-
-        final EditText keyword = (EditText) findViewById(R.id.keyword);
-        keyword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
-                    keyword.setText("");
-                } else {
-                    keyword.setText("검색어를 입력하세요.");
-                }
-            }
-        });
-         **/
     }
 
     /**

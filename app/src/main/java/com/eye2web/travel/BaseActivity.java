@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 /**
  * @File : BaseActivity
@@ -140,9 +139,40 @@ public class BaseActivity extends AppCompatActivity {
      * @Description : 검색버튼
     **/
     public void onSearchBtnClicked(View v) {
-        Toast.makeText(getApplicationContext(), "search btn clicked", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "search btn clicked", Toast.LENGTH_LONG).show();
         Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
         startActivity(searchIntent);
+    }
+
+    /**
+     * @parameter :
+     * @Date : 2018. 5. 25. PM 2:04
+     * @Author : Andrew Kim
+     * @Description : 홈 버튼
+    **/
+    public void onHomeBtnClicked(View v) {
+        Intent homeIntent = new Intent(getApplicationContext(), IndexActivity.class);
+        startActivity(homeIntent);
+    }
+
+    /**
+     * @parameter :
+     * @Date : 2018. 5. 25. PM 2:04
+     * @Author : Andrew Kim
+     * @Description : 가이드 버튼
+    **/
+    public void onGuideBtnClicked(View v) {
+
+    }
+
+    /**
+     * @parameter :
+     * @Date : 2018. 5. 25. PM 2:05
+     * @Author : Andrew Kim
+     * @Description : 내 정보 버튼
+    **/
+    public void onInfoBtnClicked(View v) {
+
     }
 
     /**

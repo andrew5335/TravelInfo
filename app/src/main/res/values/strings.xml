@@ -14,4 +14,6 @@
 
     <string name="indexmenu_width">355dp</string>
     <string name="indexmenu_height">400dp</string>
+
+    <string name="indexmenu_cnt">8</string>
 </resources>

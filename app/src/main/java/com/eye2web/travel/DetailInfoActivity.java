@@ -110,6 +110,9 @@ public class DetailInfoActivity extends BaseActivity {
             TextView detailHomepage = (TextView) findViewById(R.id.detailHomepage);
 
             if(null != firstImage && !"".equalsIgnoreCase(firstImage)) {
+                if(detailImg1.getVisibility() == View.GONE) {
+                    detailImg1.setVisibility(View.VISIBLE);
+                }
                 Picasso.get().load(firstImage).placeholder(R.mipmap.logo_final).into(detailImg1);
             } else {
                 detailImg1.setVisibility(View.GONE);
@@ -118,6 +121,9 @@ public class DetailInfoActivity extends BaseActivity {
             }
 
             if(null != firstImage2 && !"".equalsIgnoreCase(firstImage2)) {
+                if(detailImg2.getVisibility() == View.GONE) {
+                    detailImg2.setVisibility(View.VISIBLE);
+                }
                 Picasso.get().load(firstImage2).placeholder(R.mipmap.logo_final).into(detailImg2);
             } else {
                 detailImg2.setVisibility(View.GONE);
