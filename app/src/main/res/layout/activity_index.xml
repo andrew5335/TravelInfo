@@ -58,8 +58,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
@@ -71,55 +73,119 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            android:background="#ddd"/>
+                            android:background="#ddd" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            android:gravity="bottom|left"
                             android:fontFamily="@font/utogothic"
-                            android:textSize="16dp"
-                            android:text="내 주변의 관광지는?"/>
+                            android:gravity="bottom|left"
+                            android:text="내 주변의 관광지는?"
+                            android:textSize="16dp" />
 
                     </android.support.v7.widget.CardView>
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="15dp">
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="1dp"
-                        android:background="#fff"
-                        card_view:cardCornerRadius="1dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:background="#ccc"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:gravity="bottom|left"
-                            android:fontFamily="@font/utogothic"
-                            android:textSize="16dp"
-                            android:text="테마여행"/>
-
-                    </android.support.v7.widget.CardView>
-
-                </LinearLayout>
-
 
                 <ImageView
                     android:id="@+id/adbanner"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    app:srcCompat="@android:color/holo_red_light" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:background="#fff"
+                        card_view:cardCornerRadius="1dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:background="#ccc" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:fontFamily="@font/utogothic"
+                            android:gravity="bottom|left"
+                            android:text="테마여행"
+                            android:textSize="16dp" />
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/recommend_tour"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimaryDark" />
+
+                        <ImageView
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimaryDark" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimaryDark" />
+
+                        <ImageView
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimaryDark" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/adbanner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
                     app:srcCompat="@android:color/holo_red_light" />
 
