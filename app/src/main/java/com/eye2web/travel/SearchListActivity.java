@@ -65,7 +65,7 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
         Intent intent = getIntent();
         areaCodeStr = intent.getStringExtra("areaCode");
         keywordStr = intent.getStringExtra("keyword");
-        sort = "A";    // 정렬방식 - A : 제목순 / B : 조회순 / C : 수정일순 / D : 생성일순 | 대표 이미지가 반드시 있는 정렬은 O/P/Q/R로 지정
+        sort = "O";    // 정렬방식 - A : 제목순 / B : 조회순 / C : 수정일순 / D : 생성일순 | 대표 이미지가 반드시 있는 정렬은 O/P/Q/R로 지정
 
         //itemList = new ArrayList<ListItem>();
         //itemList = getContentList(areaCodeStr, keywordStr, sort);
@@ -127,9 +127,10 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
 
         String addr = getResources().getString(R.string.apiUrl) + "searchKeyword?serviceKey=";
         String serviceKey = getResources().getString(R.string.apiKey);
+        String gu = "search";
 
         try {
-            resultMap = searchApiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset);
+            resultMap = searchApiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset, gu, "");
         } catch(Exception e) {
             Log.e("Error", "==========Error : " + e.toString());
         }

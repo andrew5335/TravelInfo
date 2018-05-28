@@ -16,8 +16,9 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_gravity="top">
+            android:layout_height="45dp"
+            android:layout_gravity="top"
+            android:background="#fff">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
@@ -26,9 +27,9 @@
 
                 <include
                     android:id="@+id/logo"
+                    layout="@layout/logo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    layout="@layout/logo" />
+                    android:layout_height="wrap_content" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -54,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="0dp"
                 android:divider="#fff"
-                android:dividerHeight="0.0dp"
+                android:dividerHeight="5dp"
                 android:padding="0dp"
                 android:nestedScrollingEnabled="true"
                 tools:layout_editor_absoluteX="0dp"

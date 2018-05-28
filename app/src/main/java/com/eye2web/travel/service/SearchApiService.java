@@ -29,7 +29,8 @@ public class SearchApiService extends Application {
     static String testServiceKey = "ZjtS%2F7q9SORXFBybZ%2FhYciDyQKRNeP3r0tc8r%2BQLOv97shkq%2FNDa6a7Fp4m9T2lhT5fSjOiB6XR4aD33p7ljvA%3D%3D";
     static String testParameter = "";
 
-    public Map<String, Object> getContent(String addr, String serviceKey, String code, String keyword, String sort, int page, int offset) throws Exception {
+    public Map<String, Object> getContent(String addr, String serviceKey, String code, String keyword
+            , String sort, int page, int offset, String gu, String areaCode) throws Exception {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         List<ListItem> resultList = new ArrayList<ListItem>();
         boolean inAddr = false;
@@ -61,14 +62,38 @@ public class SearchApiService extends Application {
 
         String parameter = "";
 
-        parameter = parameter + "&MobileOS=AND";
-        parameter = parameter + "&MobileApp=TravelInfo";
-        parameter = parameter + "&numOfRows=" + offset;
-        parameter = parameter + "&pageNo=" + page;
-        parameter = parameter + "&listYN=Y";
-        parameter = parameter + "&arrange=" + sort;
-        parameter = parameter + "&contentTypeId=" + code;
-        parameter = parameter + "&keyword=" + keyword;
+        // 구분값 (검색인지, 지역기반 조회인지 등) 이 있을 경우에는 해당 구분값에 맞도록 parameter 구성
+        // 구분값이 없으면 지역 기반의 서울을 기준으로 parameter 구성
+        if(null != gu && !"".equalsIgnoreCase(gu)) {
+            if("search".equalsIgnoreCase(gu)) {
+                parameter = parameter + "&MobileOS=AND";
+                parameter = parameter + "&MobileApp=TravelInfo";
+                parameter = parameter + "&numOfRows=" + offset;
+                parameter = parameter + "&pageNo=" + page;
+                parameter = parameter + "&listYN=Y";
+                parameter = parameter + "&arrange=" + sort;
+                parameter = parameter + "&contentTypeId=" + code;
+                parameter = parameter + "&keyword=" + keyword;
+            } else if("area".equalsIgnoreCase(gu)) {
+                parameter = parameter + "&MobileOS=AND";
+                parameter = parameter + "&MobileApp=TravelInfo";
+                parameter = parameter + "&numOfRows=" + offset;
+                parameter = parameter + "&pageNo=" + page;
+                parameter = parameter + "&listYN=Y";
+                parameter = parameter + "&arrange=" + sort;
+                parameter = parameter + "&contentTypeId=" + code;
+                parameter = parameter + "&areaCode=" + areaCode;
+            }
+        } else {
+            parameter = parameter + "&MobileOS=AND";
+            parameter = parameter + "&MobileApp=TravelInfo";
+            parameter = parameter + "&numOfRows=" + offset;
+            parameter = parameter + "&pageNo=" + page;
+            parameter = parameter + "&listYN=Y";
+            parameter = parameter + "&arrange=" + sort;
+            parameter = parameter + "&contentTypeId=" + code;
+            parameter = parameter + "&areaCode=" + areaCode;
+        }
 
         addr = addr + serviceKey + parameter;
         System.out.println(addr);

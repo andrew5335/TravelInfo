@@ -37,7 +37,7 @@
             android:theme="@style/Theme.AppTheme.Light.NoActionBar" />
         <activity android:name=".DetailInfoActivity" />
         <activity android:name=".BaseActivity" />
-        <activity android:name=".MenuActivity" />
+        <activity android:name=".MenuListActivity" />
         <activity android:name=".SearchActivity"></activity>
     </application>
 

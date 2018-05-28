@@ -19,19 +19,21 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_gravity="top">
+            android:layout_height="55dp"
+            android:layout_gravity="top"
+            android:background="#fff">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="55dp"
+                android:background="#fff"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <include
                     android:id="@+id/logo"
                     layout="@layout/logo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="35dp"
                     app:layout_collapseMode="pin" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
@@ -42,18 +44,20 @@
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="2dp"
+            android:background="#fff"
+            android:paddingTop="0dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#fff"
                 android:orientation="vertical">
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/index_menu_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"/>
+                    android:layout_height="400dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

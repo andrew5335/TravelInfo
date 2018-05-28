@@ -16,19 +16,21 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_gravity="top">
+            android:layout_height="45dp"
+            android:layout_gravity="top"
+            android:background="#fff">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#fff"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <include
                     android:id="@+id/logo"
+                    layout="@layout/logo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    layout="@layout/logo" />
+                    android:layout_height="wrap_content" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -45,8 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:paddingTop="5dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -64,10 +66,11 @@
                     android:layout_marginTop="10dp"
                     android:autoLink="web"
                     android:ellipsize="none"
-                    android:fontFamily="@font/utogothic"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:gravity="center_horizontal|center|center_vertical"
-                    android:lineSpacingExtra="7dp"
+                    android:lineSpacingExtra="5dp"
                     android:lineSpacingMultiplier="1.5"
+                    android:includeFontPadding="false"
                     android:linksClickable="true"
                     android:scrollHorizontally="false"
                     android:singleLine="false"
@@ -82,23 +85,27 @@
                     android:scaleType="fitXY"
                     app:srcCompat="@mipmap/noimage" />
 
-                <ImageView
+                <!--ImageView
                     android:id="@+id/detailImg2"
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     android:scaleType="fitXY"
-                    app:srcCompat="@mipmap/noimage" />
+                    app:srcCompat="@mipmap/noimage" /-->
 
                 <TextView
                     android:id="@+id/detailOverView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
                     android:autoLink="web"
                     android:ellipsize="none"
-                    android:fontFamily="@font/utogothic"
-                    android:lineSpacingExtra="7dp"
-                    android:lineSpacingMultiplier="1.5"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:lineSpacingExtra="3dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:includeFontPadding="false"
                     android:linksClickable="true"
                     android:scrollHorizontally="false"
                     android:singleLine="false"
@@ -109,46 +116,58 @@
                     android:id="@+id/detailAddr1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:autoLink="web"
                     android:ellipsize="none"
-                    android:fontFamily="@font/utogothic"
-                    android:lineSpacingExtra="7dp"
-                    android:lineSpacingMultiplier="1.5"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:lineSpacingExtra="1dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:includeFontPadding="false"
                     android:linksClickable="true"
                     android:scrollHorizontally="false"
                     android:singleLine="false"
                     android:textColor="#000000"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/detailAddr2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:autoLink="web"
                     android:ellipsize="none"
-                    android:fontFamily="@font/utogothic"
-                    android:lineSpacingExtra="7dp"
-                    android:lineSpacingMultiplier="1.5"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:lineSpacingExtra="3dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:includeFontPadding="false"
                     android:linksClickable="true"
                     android:scrollHorizontally="false"
                     android:singleLine="false"
                     android:textColor="#000000"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/detailHomepage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:autoLink="web"
                     android:ellipsize="none"
-                    android:fontFamily="@font/utogothic"
-                    android:lineSpacingExtra="7dp"
-                    android:lineSpacingMultiplier="1.5"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:lineSpacingExtra="1dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:includeFontPadding="false"
                     android:linksClickable="true"
                     android:scrollHorizontally="false"
                     android:singleLine="false"
                     android:textColor="#000000"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
             </LinearLayout>
 

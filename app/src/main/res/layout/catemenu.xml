@@ -43,7 +43,7 @@
                 android:textColor="#000"
                 android:textSize="13dp"
                 android:textStyle="bold"
-                android:onClick="onDaejeonBtnClicked"/>
+                android:onClick="onIncheonBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -54,7 +54,8 @@
                 android:text="대전"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onDaejeonBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -65,18 +66,20 @@
                 android:text="대구"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onDaeguBtnClicked"/>
 
             <TextView
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center|center_horizontal|center_vertical"
-            android:gravity="center"
-            android:fontFamily="@font/notosanskr_regular_hestia"
-            android:text="부산"
-            android:textColor="#000"
-            android:textSize="13dp"
-            android:textStyle="bold" />
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:gravity="center"
+                android:fontFamily="@font/notosanskr_regular_hestia"
+                android:text="부산"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                android:onClick="onBusanBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -87,7 +90,8 @@
                 android:text="광주"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onKwangjuBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -98,7 +102,8 @@
                 android:text="울산"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onUlsanBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -109,7 +114,8 @@
                 android:text="세종"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onSejongBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -120,7 +126,8 @@
                 android:text="경기"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onKyunggiBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -131,7 +138,8 @@
                 android:text="강원"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onKwangwonBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -142,7 +150,8 @@
                 android:text="충북"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onChungbookBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -153,7 +162,8 @@
                 android:text="충남"
                android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onChungnamBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -164,7 +174,8 @@
                 android:text="전북"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onJeonbookBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -175,7 +186,8 @@
                 android:text="전남"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onJeonnamBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -186,7 +198,8 @@
                 android:text="경북"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onKyungbookBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -197,7 +210,8 @@
                 android:text="경남"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onKyungnamBtnClicked"/>
 
             <TextView
                 android:layout_width="70dp"
@@ -208,7 +222,8 @@
                 android:text="제주"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onJejuBtnClicked"/>
 
         </LinearLayout>
 

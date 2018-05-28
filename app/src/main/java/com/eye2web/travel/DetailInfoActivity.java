@@ -89,7 +89,7 @@ public class DetailInfoActivity extends BaseActivity {
             String addr1 = "";
             String addr2 = "";
             String firstImage = "";
-            String firstImage2 = "";
+            //String firstImage2 = "";
 
             overView = detailCommonItem.getOverview();
             homepage = detailCommonItem.getHomepage();
@@ -97,12 +97,12 @@ public class DetailInfoActivity extends BaseActivity {
             addr1 = detailCommonItem.getAddr1();
             addr2 = detailCommonItem.getAddr2();
             firstImage = detailCommonItem.getFirstimage();
-            firstImage2 = detailCommonItem.getFirstimage2();
+            //firstImage2 = detailCommonItem.getFirstimage2();
 
             Log.i("INFO", "================detail Info : " + overView);
 
             ImageView detailImg1 = (ImageView) findViewById(R.id.detailImg1);
-            ImageView detailImg2 = (ImageView) findViewById(R.id.detailImg2);
+            //ImageView detailImg2 = (ImageView) findViewById(R.id.detailImg2);
             TextView detailTitle = (TextView) findViewById(R.id.detailTitle);
             TextView detailOverView = (TextView) findViewById(R.id.detailOverView);
             TextView detailAddr1 = (TextView) findViewById(R.id.detailAddr1);
@@ -120,6 +120,7 @@ public class DetailInfoActivity extends BaseActivity {
                 //detailImg1.setImageResource(R.mipmap.noimage);
             }
 
+            /**
             if(null != firstImage2 && !"".equalsIgnoreCase(firstImage2)) {
                 if(detailImg2.getVisibility() == View.GONE) {
                     detailImg2.setVisibility(View.VISIBLE);
@@ -130,8 +131,13 @@ public class DetailInfoActivity extends BaseActivity {
                 Picasso.get().cancelRequest(detailImg2);
                 //detailImg1.setImageResource(R.mipmap.noimage);
             }
+             **/
 
             commonUtil = new CommonUtil();
+
+            if(null != title && !"".equalsIgnoreCase(title)) {
+                detailTitle.setText(title);
+            }
 
             SpannableStringBuilder overViewBuilder = new SpannableStringBuilder();
             overViewBuilder = commonUtil.convertTxtToLink(getApplicationContext(), overView);

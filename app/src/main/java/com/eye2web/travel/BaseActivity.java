@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.eye2web.travel.handler.BackPressCloseHandler;
+
 /**
  * @File : BaseActivity
  * @Date : 2018. 5. 14. PM 4:42
@@ -13,6 +15,8 @@ import android.view.View;
  * @Description : 공통으로 사용되는 항목의 컨트롤을 위한 BaseActivity
 **/
 public class BaseActivity extends AppCompatActivity {
+
+    private BackPressCloseHandler backPressCloseHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +32,10 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnTravelClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn travel clicked", Toast.LENGTH_LONG).show();
-        Intent travelIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        Intent travelIntent = new Intent(getApplicationContext(), MenuListActivity.class);
         travelIntent.putExtra("gu", "travel");
         travelIntent.putExtra("cateGu", "12");
+        travelIntent.putExtra("cateName", "Travel Info");
         startActivity(travelIntent);
     }
 
@@ -42,9 +47,10 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnFestClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn fest clicked", Toast.LENGTH_LONG).show();
-        Intent festIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        Intent festIntent = new Intent(getApplicationContext(), MenuListActivity.class);
         festIntent.putExtra("gu", "festival");
         festIntent.putExtra("cateGu", "15");
+        festIntent.putExtra("cateName", "Festival Info");
         startActivity(festIntent);
     }
 
@@ -56,9 +62,10 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnStayClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn stay clicked", Toast.LENGTH_LONG).show();
-        Intent stayIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        Intent stayIntent = new Intent(getApplicationContext(), MenuListActivity.class);
         stayIntent.putExtra("gu", "stay");
         stayIntent.putExtra("cateGu", "32");
+        stayIntent.putExtra("cateName", "Stay Info");
         startActivity(stayIntent);
     }
 
@@ -70,9 +77,10 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnFoodClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn food clicked", Toast.LENGTH_LONG).show();
-        Intent foodIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        Intent foodIntent = new Intent(getApplicationContext(), MenuListActivity.class);
         foodIntent.putExtra("gu", "food");
         foodIntent.putExtra("cateGu", "39");
+        foodIntent.putExtra("cateName", "Food Info");
         startActivity(foodIntent);
     }
 
@@ -84,9 +92,10 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnSportClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn sport clicked", Toast.LENGTH_LONG).show();
-        Intent sportIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        Intent sportIntent = new Intent(getApplicationContext(), MenuListActivity.class);
         sportIntent.putExtra("gu", "sport");
         sportIntent.putExtra("cateGu", "28");
+        sportIntent.putExtra("cateName", "Leports Info");
         startActivity(sportIntent);
     }
 
@@ -98,9 +107,10 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnShopClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn shop clicked", Toast.LENGTH_LONG).show();
-        Intent shopIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        Intent shopIntent = new Intent(getApplicationContext(), MenuListActivity.class);
         shopIntent.putExtra("gu", "shop");
         shopIntent.putExtra("cateGu", "38");
+        shopIntent.putExtra("cateName", "Shopping Info");
         startActivity(shopIntent);
     }
 
@@ -112,9 +122,10 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnCultureClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn culture clicked", Toast.LENGTH_LONG).show();
-        Intent cultureIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        Intent cultureIntent = new Intent(getApplicationContext(), MenuListActivity.class);
         cultureIntent.putExtra("gu", "culture");
         cultureIntent.putExtra("cateGu", "14");
+        cultureIntent.putExtra("cateName", "Cultural Facility Info");
         startActivity(cultureIntent);
     }
 
@@ -126,9 +137,10 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onBtnCourseClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn course clicked", Toast.LENGTH_LONG).show();
-        Intent courseIntent = new Intent(getApplicationContext(), MenuActivity.class);
+        Intent courseIntent = new Intent(getApplicationContext(), MenuListActivity.class);
         courseIntent.putExtra("gu", "course");
         courseIntent.putExtra("cateGu", "25");
+        courseIntent.putExtra("cateName", "Travel Course Info");
         startActivity(courseIntent);
     }
 
@@ -152,7 +164,9 @@ public class BaseActivity extends AppCompatActivity {
     **/
     public void onHomeBtnClicked(View v) {
         Intent homeIntent = new Intent(getApplicationContext(), IndexActivity.class);
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(homeIntent);
+        finish();
     }
 
     /**
