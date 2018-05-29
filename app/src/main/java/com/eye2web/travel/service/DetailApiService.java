@@ -29,7 +29,7 @@ public class DetailApiService extends Application {
      * @Description : 상세정보 확인 처리
     **/
     public Map<String, Object> getDetailInfo(String apiUrl, String serviceKey, String contentId, String contentTypeId
-            , String areaCode, float mapx, float mapy) {
+            , String areaCode, double mapx, double mapy) {
         DetailIntroItem detailIntroItem = new DetailIntroItem();
         DetailCommonItem detailCommonItem = new DetailCommonItem();
         Map<String, Object> resultMap = new HashMap<String, Object>();

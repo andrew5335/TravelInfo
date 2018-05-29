@@ -1,6 +1,7 @@
 package com.eye2web.travel.adapter;
 
 import android.content.Context;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eye2web.travel.R;
+import com.eye2web.travel.util.CommonUtil;
 import com.eye2web.travel.vo.ListItem;
 import com.squareup.picasso.Picasso;
 
@@ -26,6 +28,8 @@ public class SearchListViewAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private List<ListItem> data;
     private int layout;
+
+    private CommonUtil commonUtil;
 
     public SearchListViewAdapter(Context context, int layout, List<ListItem> data) {
         this.inflater = (LayoutInflater) context.getSystemService((Context.LAYOUT_INFLATER_SERVICE));
@@ -54,6 +58,7 @@ public class SearchListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(layout, parent, false);
         }
 
+        commonUtil = new CommonUtil();
         ListItem listItem = data.get(position);
 
         // 이미지가 있으면 imageview에 해당 이미지 세팅, 이미지가 없을 경우에는 기본 no image 세팅 처리
@@ -81,6 +86,28 @@ public class SearchListViewAdapter extends BaseAdapter {
 
         TextView title = (TextView) convertView.findViewById(R.id.listTitle);
         title.setText(listItem.getTitle());
+
+        TextView overview = (TextView) convertView.findViewById(R.id.listDetailTxt);
+        String overviewTxt = listItem.getOverview();
+        SpannableStringBuilder overViewBuilder = new SpannableStringBuilder();
+        overViewBuilder = commonUtil.convertTxtToLink(convertView.getContext(), overviewTxt);
+
+        if(null != overViewBuilder) {
+            String overviewStr = overViewBuilder.toString();
+
+            if(100 < overviewStr.length()) {
+                overviewStr = overviewStr.substring(0, 100) + "...";
+            }
+            overview.setText(overviewStr);
+        }
+        /**
+
+        if(150 < overviewTxt.length()) {
+            overviewTxt = overviewTxt.substring(0, 150) + "...";
+        }
+         **/
+
+        //overview.setText(overviewTxt);
 
         return convertView;
     }

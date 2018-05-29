@@ -42,8 +42,8 @@ public class DetailInfoActivity extends BaseActivity {
         String contentId = "";
         String contentTypeId = "";
         String areaCode = "";
-        float mapx = 0;
-        float mapy = 0;
+        double mapx = 0;
+        double mapy = 0;
 
         contentId = item.getContentid();
         contentTypeId = item.getContenttypeid();
@@ -64,7 +64,7 @@ public class DetailInfoActivity extends BaseActivity {
      * @Author : Andrew Kim
      * @Description : 상세정보 조회
     **/
-    public void getContent(String contentId, String contentTypeId, String areaCode, float mapx, float mapy) {
+    public void getContent(String contentId, String contentTypeId, String areaCode, double mapx, double mapy) {
         detailApiService = new DetailApiService();
         DetailIntroItem detailIntroItem = new DetailIntroItem();
         DetailCommonItem detailCommonItem = new DetailCommonItem();

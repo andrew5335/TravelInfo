@@ -77,13 +77,15 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            android:background="#ddd" />
+                            android:background="#ddd"
+                            android:onClick="onLocBtnClicked"/>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
                             android:fontFamily="@font/utogothic"
                             android:gravity="bottom|left"
+                            android:onClick="onLocBtnClicked"
                             android:text="내 주변의 관광지는?"
                             android:textSize="16dp" />
 

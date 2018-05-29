@@ -67,6 +67,7 @@
                     android:textSize="11dp"/>
 
                 <TextView
+                    android:id="@+id/listDetailTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"

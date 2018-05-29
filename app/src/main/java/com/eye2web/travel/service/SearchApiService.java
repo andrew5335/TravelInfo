@@ -30,7 +30,7 @@ public class SearchApiService extends Application {
     static String testParameter = "";
 
     public Map<String, Object> getContent(String addr, String serviceKey, String code, String keyword
-            , String sort, int page, int offset, String gu, String areaCode) throws Exception {
+            , String sort, int page, int offset, String gu, String areaCode, double mapX, double mapY) throws Exception {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         List<ListItem> resultList = new ArrayList<ListItem>();
         boolean inAddr = false;
@@ -61,7 +61,8 @@ public class SearchApiService extends Application {
         float inMapyNum = 0;
 
         String parameter = "";
-
+        Log.i("info", "===============gps info : " + mapX + "=============" + mapY
+                + "===================gu : " + gu + "=================url : " + addr);
         // 구분값 (검색인지, 지역기반 조회인지 등) 이 있을 경우에는 해당 구분값에 맞도록 parameter 구성
         // 구분값이 없으면 지역 기반의 서울을 기준으로 parameter 구성
         if(null != gu && !"".equalsIgnoreCase(gu)) {
@@ -83,6 +84,19 @@ public class SearchApiService extends Application {
                 parameter = parameter + "&arrange=" + sort;
                 parameter = parameter + "&contentTypeId=" + code;
                 parameter = parameter + "&areaCode=" + areaCode;
+            } else if("loc".equalsIgnoreCase(gu)) {
+                parameter = parameter + "&MobileOS=AND";
+                parameter = parameter + "&MobileApp=TravelInfo";
+                parameter = parameter + "&numOfRows=" + offset;
+                parameter = parameter + "&pageNo=" + page;
+                parameter = parameter + "&listYN=Y";
+                parameter = parameter + "&arrange=" + sort;
+                //parameter = parameter + "&contentTypeId=" + code;
+                parameter = parameter + "&radius=5000";
+                parameter = parameter + "&mapX=" + mapX;
+                parameter = parameter + "&mapY=" + mapY;
+                //Toast.makeText(getApplicationContext(), "parameter : " + parameter, Toast.LENGTH_LONG).show();
+                Log.i("info", "=============parameter : " + parameter);
             }
         } else {
             parameter = parameter + "&MobileOS=AND";
@@ -203,7 +217,7 @@ public class SearchApiService extends Application {
                     if(parser.getName().equalsIgnoreCase("item")) {
                         Log.i("firstimage", "===============firstimage : " + inFirstImageStr);
                         ListItem item = new ListItem(inAddrStr, inFirstImageStr, inFirstImage2Str, inTitleStr, inContentIdStr
-                                , inContentTypeIdStr, inCat1Str, inCat2Str, inCat3Str, inMapxNum, inMapyNum);
+                                , inContentTypeIdStr, inCat1Str, inCat2Str, inCat3Str, inMapxNum, inMapyNum, "");
 
                         resultList.add(item);
 

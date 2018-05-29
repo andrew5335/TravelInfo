@@ -22,14 +22,16 @@ public class ListItem implements Serializable {
     private String contenttypeid;
     private String firstimage;
     private String firstimage2;
-    private float mapx;
-    private float mapy;
+    private double mapx;
+    private double mapy;
     private int mlevel;
     private String modifiedtime;
     private int readcount;
     private String siguguncode;
     private String tel;
     private String title;
+
+    private String overview;
 
     public String getAddr1() {
         return addr1;
@@ -119,19 +121,19 @@ public class ListItem implements Serializable {
         this.firstimage2 = firstimage2;
     }
 
-    public float getMapx() {
+    public double getMapx() {
         return mapx;
     }
 
-    public void setMapx(float mapx) {
+    public void setMapx(double mapx) {
         this.mapx = mapx;
     }
 
-    public float getMapy() {
+    public double getMapy() {
         return mapy;
     }
 
-    public void setMapy(float mapy) {
+    public void setMapy(double mapy) {
         this.mapy = mapy;
     }
 
@@ -183,6 +185,10 @@ public class ListItem implements Serializable {
         this.title = title;
     }
 
+    public String getOverview() { return overview; }
+
+    public void setOverview(String overview) { this.overview = overview; }
+
     /**
     public ListItem(String addr1, String addr2, String areacode, String booktour,
                     String cat1, String cat2, String cat3, String contentid, String contenttypeid,
@@ -212,7 +218,7 @@ public class ListItem implements Serializable {
      **/
     public ListItem(String addr1, String firstimage, String firstimage2, String title
             , String contentid, String contenttypeid, String cat1, String cat2, String cat3
-            , float mapx, float mapy) {
+            , double mapx, double mapy, String overview) {
         this.addr1 = addr1;
         this.firstimage = firstimage;
         this.firstimage2 = firstimage2;
@@ -224,5 +230,6 @@ public class ListItem implements Serializable {
         this.cat3 = cat3;
         this.mapx = mapx;
         this.mapy = mapy;
+        this.overview = overview;
     }
 }

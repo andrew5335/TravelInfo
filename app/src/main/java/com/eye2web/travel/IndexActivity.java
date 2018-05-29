@@ -1,8 +1,13 @@
 package com.eye2web.travel;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -10,13 +15,15 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.eye2web.travel.adapter.IndexPagerAdapter;
 import com.eye2web.travel.handler.BackPressCloseHandler;
 import com.eye2web.travel.service.AreaApiService;
 import com.eye2web.travel.vo.AreaListItem;
-import com.eye2web.travel.adapter.IndexPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @File : IndexActivity
@@ -45,6 +52,11 @@ public class IndexActivity extends BaseActivity {
         setContentView(R.layout.activity_index);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        if(Build.VERSION.SDK_INT >= 23
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
 
         ViewPager indexMenuPager = (ViewPager) findViewById(R.id.index_menu_pager);
         indexPagerAdapter = new IndexPagerAdapter(this, getLayoutInflater());
@@ -146,6 +158,26 @@ public class IndexActivity extends BaseActivity {
         searchIntent.putExtra("keyword", keywordStr);
         startActivity(searchIntent);
         //finish();
+    }
+
+    public void onLocBtnClicked(View v) {
+        double mapX = 0;
+        double mapY = 0;
+        Map<String, Object> gpsMap = new HashMap<String, Object>();
+        gpsMap = getGpsInfo();
+
+        if(null != gpsMap && 0 < gpsMap.size()) {
+            mapX = (Double) gpsMap.get("mapX");
+            mapY = (Double) gpsMap.get("mapY");
+
+            //Log.i("info", "===============gps info : " + mapX + "=============" + mapY);
+            Intent locIntent = new Intent(this, MenuListActivity.class);
+            locIntent.putExtra("mapX", mapX);
+            locIntent.putExtra("mapY", mapY);
+            locIntent.putExtra("loc", "loc");
+            locIntent.putExtra("cateName", "주변 검색 결과");
+            startActivity(locIntent);
+        }
     }
 
     /**

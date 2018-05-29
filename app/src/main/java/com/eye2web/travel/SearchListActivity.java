@@ -38,7 +38,7 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
     private List<ListItem> itemList = new ArrayList<ListItem>();;
     private SearchListViewAdapter adapter;
     private int page = 1;
-    private final int offset = 20;
+    private final int offset = 10;
     private ProgressBar progressBar;
     private boolean mLockListView = false;
     private String areaCodeStr = "";
@@ -130,7 +130,7 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
         String gu = "search";
 
         try {
-            resultMap = searchApiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset, gu, "");
+            resultMap = searchApiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset, gu, "", 0, 0);
         } catch(Exception e) {
             Log.e("Error", "==========Error : " + e.toString());
         }
