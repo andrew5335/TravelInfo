@@ -1,5 +1,6 @@
 package com.eye2web.travel;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
@@ -13,6 +14,12 @@ import com.eye2web.travel.util.CommonUtil;
 import com.eye2web.travel.vo.DetailCommonItem;
 import com.eye2web.travel.vo.DetailIntroItem;
 import com.eye2web.travel.vo.ListItem;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -25,11 +32,16 @@ import java.util.Map;
  * @Version : 1.0.0
  * @Description : 상세정보 페이지
 **/
-public class DetailInfoActivity extends BaseActivity {
+public class DetailInfoActivity extends BaseActivity implements OnMapReadyCallback {
 
     private DetailApiService detailApiService;
 
     private CommonUtil commonUtil;
+
+    private String title;
+    private String mapAddr;
+    private double mapx = 0;
+    private double mapy = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +54,6 @@ public class DetailInfoActivity extends BaseActivity {
         String contentId = "";
         String contentTypeId = "";
         String areaCode = "";
-        double mapx = 0;
-        double mapy = 0;
 
         contentId = item.getContentid();
         contentTypeId = item.getContenttypeid();
@@ -52,6 +62,24 @@ public class DetailInfoActivity extends BaseActivity {
         mapy = item.getMapy();
 
         getContent(contentId, contentTypeId, areaCode, mapx, mapy);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        MapFragment mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.map_info);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(final GoogleMap map) {
+        LatLng location = new LatLng(mapy, mapx);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(location);
+        markerOptions.title(title);
+        markerOptions.snippet(mapAddr);
+        map.addMarker(markerOptions);
+
+        map.moveCamera(CameraUpdateFactory.newLatLng(location));
+        map.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
     /**
@@ -85,7 +113,7 @@ public class DetailInfoActivity extends BaseActivity {
 
             String overView = "";
             String homepage = "";
-            String title = "";
+            title = "";
             String addr1 = "";
             String addr2 = "";
             String firstImage = "";
@@ -96,6 +124,7 @@ public class DetailInfoActivity extends BaseActivity {
             title = detailCommonItem.getTitle();
             addr1 = detailCommonItem.getAddr1();
             addr2 = detailCommonItem.getAddr2();
+            mapAddr = addr1 + " " + addr2;
             firstImage = detailCommonItem.getFirstimage();
             //firstImage2 = detailCommonItem.getFirstimage2();
 
