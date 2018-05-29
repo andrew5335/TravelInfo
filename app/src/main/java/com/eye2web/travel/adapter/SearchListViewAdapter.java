@@ -90,7 +90,9 @@ public class SearchListViewAdapter extends BaseAdapter {
         TextView overview = (TextView) convertView.findViewById(R.id.listDetailTxt);
         String overviewTxt = listItem.getOverview();
         SpannableStringBuilder overViewBuilder = new SpannableStringBuilder();
-        overViewBuilder = commonUtil.convertTxtToLink(convertView.getContext(), overviewTxt);
+        if(null != overviewTxt && 0 < overviewTxt.length()) {
+            overViewBuilder = commonUtil.convertTxtToLink(convertView.getContext(), overviewTxt);
+        }
 
         if(null != overViewBuilder) {
             String overviewStr = overViewBuilder.toString();

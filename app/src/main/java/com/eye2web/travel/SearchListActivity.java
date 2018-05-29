@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import com.eye2web.travel.adapter.SearchListViewAdapter;
 import com.eye2web.travel.handler.BackPressCloseHandler;
+import com.eye2web.travel.service.DetailApiService;
 import com.eye2web.travel.service.SearchApiService;
+import com.eye2web.travel.vo.DetailCommonItem;
 import com.eye2web.travel.vo.ListItem;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import java.util.Map;
 public class SearchListActivity extends BaseActivity implements AbsListView.OnScrollListener {
 
     private SearchApiService searchApiservice;
+    private DetailApiService detailApiService;
 
     private ListView contentList;
     private boolean lastItemVisibleFlag = false;
@@ -126,6 +129,7 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
         List<ListItem> resultList = new ArrayList<ListItem>();
 
         String addr = getResources().getString(R.string.apiUrl) + "searchKeyword?serviceKey=";
+        String detailAddr = getResources().getString(R.string.apiUrl);
         String serviceKey = getResources().getString(R.string.apiKey);
         String gu = "search";
 
@@ -135,13 +139,41 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
             Log.e("Error", "==========Error : " + e.toString());
         }
 
-
+        /**
         if(null != resultMap && 0 < resultMap.size()) {
             if("0000".equalsIgnoreCase((String)resultMap.get("resultCode"))) {
                 resultList = (List<ListItem>) resultMap.get("resultList");
 
                 if(null != resultList && 0 < resultList.size()) {
                     for(int i=0; i < resultList.size(); i++) {
+                        itemList.add(resultList.get(i));
+                    }
+                }
+            }
+        }
+         **/
+        if(null != resultMap && 0 < resultMap.size()) {
+            if("0000".equalsIgnoreCase((String)resultMap.get("resultCode"))) {
+                resultList = (List<ListItem>) resultMap.get("resultList");
+
+                if(null != resultList && 0 < resultList.size()) {
+                    detailApiService = new DetailApiService();
+                    for(int i=0; i < resultList.size(); i++) {
+                        Map<String, Object> detailMap = new HashMap<String, Object>();
+                        detailMap = detailApiService.getDetailInfo(detailAddr, serviceKey, resultList.get(i).getContentid()
+                                , resultList.get(i).getContenttypeid(), resultList.get(i).getAreacode()
+                                , resultList.get(i).getMapx(), resultList.get(i).getMapy());
+
+                        if(null != detailMap && 0 < detailMap.size()) {
+                            DetailCommonItem detailCommonItem = new DetailCommonItem();
+                            detailCommonItem = (DetailCommonItem) detailMap.get("detailCommon");
+
+                            if(null != detailCommonItem) {
+                                String overviewTxt = detailCommonItem.getOverview();
+                                resultList.get(i).setOverview(overviewTxt);
+                            }
+                        }
+
                         itemList.add(resultList.get(i));
                     }
                 }
