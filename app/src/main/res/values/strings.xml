@@ -16,4 +16,8 @@
     <string name="indexmenu_height">400dp</string>
 
     <string name="indexmenu_cnt">8</string>
+
+    <string name="naver_client_id">eh2QuN2U0b9M6WNzMwwZ</string>
+    <string name="naver_client_secret">U7sQVCWCnt</string>
+    <string name="str_done">완료</string>
 </resources>

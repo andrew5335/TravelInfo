@@ -18,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
@@ -43,6 +44,8 @@ public class DetailInfoActivity extends BaseActivity implements OnMapReadyCallba
     private double mapx = 0;
     private double mapy = 0;
 
+    private UiSettings uiSettings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +69,23 @@ public class DetailInfoActivity extends BaseActivity implements OnMapReadyCallba
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.map_info);
         mapFragment.getMapAsync(this);
+
+        /** 네이버 지도 api 연동 완료 - 2018-05-30
+        NaverFragment naverFragment = new NaverFragment();
+        naverFragment.setArguments(new Bundle());
+        naverFragment.setMenuVisibility(true);
+        naverFragment.setPosition(mapx, mapy, title, mapAddr);
+        android.support.v4.app.FragmentManager naverFragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction naverFragmentTransaction = naverFragmentManager.beginTransaction();
+        naverFragmentTransaction.add(R.id.detail_naver_map, naverFragment);
+        naverFragmentTransaction.commit();
+         **/
     }
 
     @Override
     public void onMapReady(final GoogleMap map) {
         LatLng location = new LatLng(mapy, mapx);
+        uiSettings = map.getUiSettings();
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(location);
@@ -80,6 +95,10 @@ public class DetailInfoActivity extends BaseActivity implements OnMapReadyCallba
 
         map.moveCamera(CameraUpdateFactory.newLatLng(location));
         map.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+        uiSettings.isZoomControlsEnabled();
+        uiSettings.setZoomControlsEnabled(true);
+        uiSettings.setMapToolbarEnabled(true);
     }
 
     /**

@@ -181,7 +181,7 @@
                 <LinearLayout
                     android:id="@+id/detail_map_info"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="300dp"
                     android:orientation="vertical">
 
                     <fragment
@@ -191,6 +191,14 @@
                         android:layout_height="match_parent" />
 
                 </LinearLayout>
+
+                <!--LinearLayout
+                    android:id="@+id/detail_naver_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:orientation="vertical">
+
+                </LinearLayout-->
 
             </LinearLayout>
 
