@@ -10,7 +10,9 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,6 +44,7 @@ public class DetailApiService extends Application {
         boolean inFirstImage = false;
         boolean inFirstImage2 = false;
         boolean inItem = false;
+        boolean inOriginalImg = false;
 
         String inOverviewStr = "";
         String inHomepageStr = "";
@@ -50,6 +53,8 @@ public class DetailApiService extends Application {
         String inAddr2Str = "";
         String inFirstImageStr = "";
         String inFirstImage2Str = "";
+        String inOriginalImgStr = "";
+        List<String> imgUrlList = new ArrayList<String>();
 
         String introAddr = apiUrl + "detailIntro?serviceKey=" + serviceKey;
         String commonAddr = apiUrl + "detailCommon?serviceKey=" + serviceKey;
@@ -73,6 +78,14 @@ public class DetailApiService extends Application {
         detailCommonParameter = detailCommonParameter + "&mapinfoYN=Y";
         detailCommonParameter = detailCommonParameter + "&overviewYN=Y";
 
+        imageParameter = imageParameter + "&numOfRows=10";
+        imageParameter = introParameter + "&pageNo=1";
+        imageParameter = imageParameter + "&MobileOS=AND";
+        imageParameter = imageParameter + "&MobileApp=TravelInfo";
+        imageParameter = imageParameter + "&contentId=" + contentId;
+        imageParameter = imageParameter + "&imageYN=Y";
+        imageParameter = imageParameter + "&subImageYN=Y";
+
         introAddr = introAddr + introParameter;
         commonAddr = commonAddr + detailCommonParameter;
         imageAddr = imageAddr + imageParameter;
@@ -81,6 +94,7 @@ public class DetailApiService extends Application {
             URL introUrl = new URL(introAddr);
             URL commonUrl = new URL(commonAddr);
             URL imageUrl = new URL(imageAddr);
+            Log.i("info", "image addr : " + imageUrl);
 
             XmlPullParserFactory parserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser introParser = parserFactory.newPullParser();
@@ -167,6 +181,33 @@ public class DetailApiService extends Application {
                 }
                 commonParserEvent = commonParser.next();
             }
+
+            while(imageParserEvent != XmlPullParser.END_DOCUMENT) {
+                switch (imageParserEvent) {
+                    case XmlPullParser.START_TAG :
+                        if(imageParser.getName().equalsIgnoreCase("originimgurl")) {
+                            inOriginalImg = true;
+                        }
+                        break;
+
+                    case XmlPullParser.TEXT :
+                        if(inOriginalImg) {
+                            inOriginalImgStr = imageParser.getText();
+                            inOriginalImg = false;
+                        }
+                        break;
+
+                    case XmlPullParser.END_TAG :
+                        if(imageParser.getName().equalsIgnoreCase("item")) {
+                            imgUrlList.add(inOriginalImgStr);
+                        }
+                        break;
+                }
+                imageParserEvent = imageParser.next();
+            }
+
+            detailCommonItem.setImgUrlList(imgUrlList);
+
             resultMap.put("detailCommon", detailCommonItem);
 
         } catch(Exception e) {

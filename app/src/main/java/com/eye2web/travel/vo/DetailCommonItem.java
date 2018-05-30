@@ -1,6 +1,7 @@
 package com.eye2web.travel.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class DetailCommonItem implements Serializable {
 
@@ -26,6 +27,7 @@ public class DetailCommonItem implements Serializable {
     private String mlevel;
     private String overview;
     private String title;
+    private List<String> imgUrlList;
 
     public String getContentid() {
         return contentid;
@@ -202,4 +204,8 @@ public class DetailCommonItem implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public List<String> getImgUrlList() { return imgUrlList; }
+
+    public void setImgUrlList(List<String> imgUrlList) { this.imgUrlList = imgUrlList; }
 }

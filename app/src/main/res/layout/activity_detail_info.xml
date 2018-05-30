@@ -85,19 +85,16 @@
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
-                    <ImageView
+                    <!--ImageView
                         android:id="@+id/detailImg1"
                         android:layout_width="match_parent"
                         android:layout_height="240dp"
                         android:scaleType="fitXY"
-                        app:srcCompat="@mipmap/noimage" />
-
-                    <!--ImageView
-                        android:id="@+id/detailImg2"
-                        android:layout_width="match_parent"
-                        android:layout_height="240dp"
-                        android:scaleType="fitXY"
                         app:srcCompat="@mipmap/noimage" /-->
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/detail_img_viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="280dp" />
 
                     <TextView
                         android:id="@+id/detailOverView"

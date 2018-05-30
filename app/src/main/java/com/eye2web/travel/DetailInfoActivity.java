@@ -3,12 +3,12 @@ package com.eye2web.travel;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.eye2web.travel.adapter.DetailImageViewPagerAdapter;
 import com.eye2web.travel.service.DetailApiService;
 import com.eye2web.travel.util.CommonUtil;
 import com.eye2web.travel.vo.DetailCommonItem;
@@ -21,9 +21,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,6 +37,8 @@ import java.util.Map;
 public class DetailInfoActivity extends BaseActivity implements OnMapReadyCallback {
 
     private DetailApiService detailApiService;
+    private ViewPager imageViewPager;
+    private DetailImageViewPagerAdapter detailImageViewPagerAdapter;
 
     private CommonUtil commonUtil;
 
@@ -136,6 +139,7 @@ public class DetailInfoActivity extends BaseActivity implements OnMapReadyCallba
             String addr1 = "";
             String addr2 = "";
             String firstImage = "";
+            List<String> imgUrlList = new ArrayList<String>();
             //String firstImage2 = "";
 
             overView = detailCommonItem.getOverview();
@@ -144,12 +148,14 @@ public class DetailInfoActivity extends BaseActivity implements OnMapReadyCallba
             addr1 = detailCommonItem.getAddr1();
             addr2 = detailCommonItem.getAddr2();
             mapAddr = addr1 + " " + addr2;
+            imgUrlList = (List<String>) detailCommonItem.getImgUrlList();
             firstImage = detailCommonItem.getFirstimage();
             //firstImage2 = detailCommonItem.getFirstimage2();
 
             Log.i("INFO", "================detail Info : " + overView);
+            Log.i("INFO", "================firstimage Info : " + firstImage);
 
-            ImageView detailImg1 = (ImageView) findViewById(R.id.detailImg1);
+            //ImageView detailImg1 = (ImageView) findViewById(R.id.detailImg1);
             //ImageView detailImg2 = (ImageView) findViewById(R.id.detailImg2);
             TextView detailTitle = (TextView) findViewById(R.id.detailTitle);
             TextView detailOverView = (TextView) findViewById(R.id.detailOverView);
@@ -157,6 +163,7 @@ public class DetailInfoActivity extends BaseActivity implements OnMapReadyCallba
             TextView detailAddr2 = (TextView) findViewById(R.id.detailAddr2);
             TextView detailHomepage = (TextView) findViewById(R.id.detailHomepage);
 
+            /**
             if(null != firstImage && !"".equalsIgnoreCase(firstImage)) {
                 if(detailImg1.getVisibility() == View.GONE) {
                     detailImg1.setVisibility(View.VISIBLE);
@@ -167,6 +174,7 @@ public class DetailInfoActivity extends BaseActivity implements OnMapReadyCallba
                 Picasso.get().cancelRequest(detailImg1);
                 //detailImg1.setImageResource(R.mipmap.noimage);
             }
+             **/
 
             /**
             if(null != firstImage2 && !"".equalsIgnoreCase(firstImage2)) {
@@ -202,6 +210,10 @@ public class DetailInfoActivity extends BaseActivity implements OnMapReadyCallba
             SpannableStringBuilder homePageBuilder = new SpannableStringBuilder();
             homePageBuilder = commonUtil.convertTxtToLink(getApplicationContext(), homepage);
             if(null != homePageBuilder) { detailHomepage.setText(homePageBuilder.toString()); }
+
+            imageViewPager = (ViewPager) findViewById(R.id.detail_img_viewpager);
+            detailImageViewPagerAdapter = new DetailImageViewPagerAdapter(this, getLayoutInflater(), imgUrlList, firstImage);
+            imageViewPager.setAdapter(detailImageViewPagerAdapter);
 
             /**
             if(null != title && !"".equalsIgnoreCase(title)) { detailTitle.setText(title); }
