@@ -22,208 +22,225 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/seoulBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onSeoulBtnClicked"
                 android:text="서울"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onSeoulBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/incheonBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onIncheonBtnClicked"
                 android:text="인천"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onIncheonBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/daejeonBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onDaejeonBtnClicked"
                 android:text="대전"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onDaejeonBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/daeguBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onDaeguBtnClicked"
                 android:text="대구"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onDaeguBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/busanBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onBusanBtnClicked"
                 android:text="부산"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onBusanBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/kwangjuBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onKwangjuBtnClicked"
                 android:text="광주"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onKwangjuBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/ulsanBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onUlsanBtnClicked"
                 android:text="울산"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onUlsanBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/sejongBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onSejongBtnClicked"
                 android:text="세종"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onSejongBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/kyunggiBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onKyunggiBtnClicked"
                 android:text="경기"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onKyunggiBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/kangwonBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onKwangwonBtnClicked"
                 android:text="강원"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onKwangwonBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/chungbookBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onChungbookBtnClicked"
                 android:text="충북"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onChungbookBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/chungnamBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onChungnamBtnClicked"
                 android:text="충남"
-               android:textColor="#000"
+                android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onChungnamBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/jeonbookBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onJeonbookBtnClicked"
                 android:text="전북"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onJeonbookBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/jeonnamBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onJeonnamBtnClicked"
                 android:text="전남"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onJeonnamBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/kyungbookBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onKyungbookBtnClicked"
                 android:text="경북"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onKyungbookBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/kyungnamBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onKyungnamBtnClicked"
                 android:text="경남"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onKyungnamBtnClicked"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/jejuBtn"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center"
                 android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center"
+                android:onClick="onJejuBtnClicked"
                 android:text="제주"
                 android:textColor="#000"
                 android:textSize="13dp"
-                android:textStyle="bold"
-                android:onClick="onJejuBtnClicked"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 

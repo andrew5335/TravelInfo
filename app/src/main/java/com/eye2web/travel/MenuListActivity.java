@@ -1,6 +1,7 @@
 package com.eye2web.travel;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -50,6 +51,7 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
     private boolean mLockListView = false;
     private String keyword = "";
     private String sort = "";
+    private TextView btnText;
 
     private String loc = "";
     private double mapX = 0;
@@ -112,6 +114,94 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
             keyword = "서울";
             areaGu = "1";
             getContentList(cateGu, areaGu, keyword, sort);
+        }
+
+        // 상단 메뉴 텍스트 색상 설정
+        switch(areaGu) {
+            case "1" :
+                btnText = (TextView) findViewById(R.id.seoulBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "2" :
+                btnText = (TextView) findViewById(R.id.incheonBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "3" :
+                btnText = (TextView) findViewById(R.id.daejeonBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "4" :
+                btnText = (TextView) findViewById(R.id.daeguBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "5" :
+                btnText = (TextView) findViewById(R.id.kwangjuBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "6" :
+                btnText = (TextView) findViewById(R.id.busanBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "7" :
+                btnText = (TextView) findViewById(R.id.ulsanBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "8" :
+                btnText = (TextView) findViewById(R.id.sejongBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "31" :
+                btnText = (TextView) findViewById(R.id.kyunggiBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "32" :
+                btnText = (TextView) findViewById(R.id.kangwonBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "33" :
+                btnText = (TextView) findViewById(R.id.chungbookBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "34" :
+                btnText = (TextView) findViewById(R.id.chungnamBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "35" :
+                btnText = (TextView) findViewById(R.id.kyungbookBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "36" :
+                btnText = (TextView) findViewById(R.id.kyungnamBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "37" :
+                btnText = (TextView) findViewById(R.id.jeonbookBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "38" :
+                btnText = (TextView) findViewById(R.id.jeonnamBtn);
+                btnText.setTextColor(Color.RED);
+                break;
+
+            case "39" :
+                btnText = (TextView) findViewById(R.id.jejuBtn);
+                btnText.setTextColor(Color.RED);
+                break;
         }
 
         contentList.setOnItemClickListener(itemClickListener);
