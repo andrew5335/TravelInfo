@@ -18,4 +18,10 @@
         <item name="android:colorControlNormal">#cccccc</item>
     </style>
 
+    <style name="tabFont" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/utogothic</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
 </resources>

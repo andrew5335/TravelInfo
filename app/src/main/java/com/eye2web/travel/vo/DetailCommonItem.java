@@ -22,8 +22,8 @@ public class DetailCommonItem implements Serializable {
     private String cat3;
     private String addr1;
     private String addr2;
-    private float mapx;
-    private float mapy;
+    private double mapx;
+    private double mapy;
     private String mlevel;
     private String overview;
     private String title;
@@ -165,19 +165,19 @@ public class DetailCommonItem implements Serializable {
         this.addr2 = addr2;
     }
 
-    public float getMapx() {
+    public double getMapx() {
         return mapx;
     }
 
-    public void setMapx(float mapx) {
+    public void setMapx(double mapx) {
         this.mapx = mapx;
     }
 
-    public float getMapy() {
+    public double getMapy() {
         return mapy;
     }
 
-    public void setMapy(float mapy) {
+    public void setMapy(double mapy) {
         this.mapy = mapy;
     }
 

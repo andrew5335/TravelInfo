@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="#ffffff">
 
-        <android.support.design.widget.AppBarLayout
+        <!--android.support.design.widget.AppBarLayout
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -23,8 +23,9 @@
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="#fff"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
 
                 <include
                     android:id="@+id/logo"
@@ -32,17 +33,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-            </android.support.design.widget.CollapsingToolbarLayout>
+            <!--/android.support.design.widget.CollapsingToolbarLayout>
 
-        </android.support.design.widget.AppBarLayout>
+        </android.support.design.widget.AppBarLayout-->
 
-    <!--include
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/indexmenu" /-->
-
-        <android.support.v4.widget.NestedScrollView
+        <!--android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -50,21 +45,23 @@
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
             android:paddingTop="5dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+
+        <LinearLayout
+            android:id="@+id/detail_common"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="45dp"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/detail_common"
+                android:id="@+id/detail_common_info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/detail_common_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
+                <!--TextView
                         android:id="@+id/detailTitle"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
@@ -83,15 +80,32 @@
                         android:singleLine="false"
                         android:textColor="#000000"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold" /-->
 
-                    <!--ImageView
-                        android:id="@+id/detailImg1"
-                        android:layout_width="match_parent"
-                        android:layout_height="240dp"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@mipmap/noimage" /-->
-                    <android.support.v4.view.ViewPager
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/detail_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#13000000"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="#d2374a"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabMode="fixed"
+                    app:tabPaddingEnd="2dp"
+                    app:tabPaddingStart="0dp"
+                    app:tabSelectedTextColor="#d2374a"
+                    app:tabTextAppearance="@style/tabFont"
+                    app:tabTextColor="@color/cardview_dark_background" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/detail_content_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                <!--android.support.v4.view.ViewPager
                         android:id="@+id/detail_img_viewpager"
                         android:layout_width="match_parent"
                         android:layout_height="280dp" />
@@ -171,11 +185,11 @@
                         android:scrollHorizontally="false"
                         android:singleLine="false"
                         android:textColor="#000000"
-                        android:textSize="14dp" />
+                        android:textSize="14dp" /-->
 
-                </LinearLayout>
+            </LinearLayout>
 
-                <LinearLayout
+            <!--LinearLayout
                     android:id="@+id/detail_map_info"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
@@ -187,9 +201,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
-                </LinearLayout>
+                </LinearLayout-->
 
-                <!--LinearLayout
+            <!--LinearLayout
                     android:id="@+id/detail_naver_map"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
@@ -197,9 +211,9 @@
 
                 </LinearLayout-->
 
-            </LinearLayout>
+        </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+        <!--/android.support.v4.widget.NestedScrollView-->
 
         <include
             android:id="@+id/bottom_navigation_view"

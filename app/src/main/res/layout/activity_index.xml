@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="#ffffff">
 
-        <android.support.design.widget.AppBarLayout
+        <!--android.support.design.widget.AppBarLayout
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="#fff"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
 
                 <include
                     android:id="@+id/logo"
@@ -36,16 +36,18 @@
                     android:layout_height="35dp"
                     app:layout_collapseMode="pin" />
 
-            </android.support.design.widget.CollapsingToolbarLayout>
+            <!--/android.support.design.widget.CollapsingToolbarLayout>
 
-        </android.support.design.widget.AppBarLayout>
+        </android.support.design.widget.AppBarLayout-->
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
             android:background="#fff"
             android:paddingTop="0dp"
+            android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
@@ -78,7 +80,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
                             android:background="#ddd"
-                            android:onClick="onLocBtnClicked"/>
+                            android:onClick="onLocBtnClicked" />
 
                         <TextView
                             android:layout_width="match_parent"
