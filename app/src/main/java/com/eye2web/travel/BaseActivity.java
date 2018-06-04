@@ -27,6 +27,8 @@ public class BaseActivity extends AppCompatActivity {
 
     private BackPressCloseHandler backPressCloseHandler;
 
+    private Intent cityIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -280,72 +282,212 @@ public class BaseActivity extends AppCompatActivity {
         super.onBackPressed();    // index가 아닌 경우에는 그냥 이전 activity로 이동
     }
 
+    /**
+     *
+     **/
+
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:45
+     * @Author : Andrew Kim
+     * @Description : 서울버튼 클릭
+    **/
     public void seoulBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "1");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:45
+     * @Author : Andrew Kim
+     * @Description : 인천버튼 클릭
+    **/
     public void incheonBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "2");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:46
+     * @Author : Andrew Kim
+     * @Description : 대전버튼 클릭
+    **/
     public void daejeonBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "3");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:46
+     * @Author : Andrew Kim
+     * @Description : 대구버튼 클릭
+    **/
     public void daeguBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "4");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:46
+     * @Author : Andrew Kim
+     * @Description : 부산버튼 클릭
+    **/
     public void busanBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "6");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:46
+     * @Author : Andrew Kim
+     * @Description : 광주버튼 클릭
+    **/
     public void kwangjuBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "5");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:46
+     * @Author : Andrew Kim
+     * @Description : 울산버튼 클릭
+    **/
     public void ulsanBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "7");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:47
+     * @Author : Andrew Kim
+     * @Description : 세종버튼 클릭
+    **/
     public void sejongBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "8");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:47
+     * @Author : Andrew Kim
+     * @Description : 경기버튼 클릭
+    **/
     public void kyunggiBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "31");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:47
+     * @Author : Andrew Kim
+     * @Description : 강원버튼 클릭
+    **/
     public void kangwonBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "32");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:48
+     * @Author : Andrew Kim
+     * @Description : 충북버튼 클릭
+    **/
     public void chungbookBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "33");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:48
+     * @Author : Andrew Kim
+     * @Description : 충남버튼 클릭
+    **/
     public void chungnamBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "34");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:48
+     * @Author : Andrew Kim
+     * @Description : 전북버튼 클릭
+    **/
     public void jeonbookBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "37");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:48
+     * @Author : Andrew Kim
+     * @Description : 전남버튼 클릭
+    **/
     public void jeonnamBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "38");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:48
+     * @Author : Andrew Kim
+     * @Description : 경북버튼 클릭
+    **/
     public void kyungbookBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "35");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:48
+     * @Author : Andrew Kim
+     * @Description : 경남버튼 클릭
+    **/
     public void kyungnamBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "36");
+        startActivity(cityIntent);
     }
 
+    /**
+     * @parameter :
+     * @Date : 2018-06-04 오후 4:49
+     * @Author : Andrew Kim
+     * @Description : 제주버튼 클릭
+    **/
     public void jejuBtnClicked(View v) {
-
+        cityIntent = new Intent(getApplicationContext(), CityMainActivity.class);
+        cityIntent.putExtra("cityGu", "39");
+        startActivity(cityIntent);
     }
 
 }

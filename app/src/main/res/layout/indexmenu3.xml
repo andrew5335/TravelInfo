@@ -23,9 +23,9 @@
                     android:layout_height="@dimen/indexmenu_height"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
-                    android:background="@mipmap/daejeon"
                     android:onClick="daejeonBtnClicked"
                     android:padding="0dp"
+                    android:scaleType="fitXY"
                     android:textColor="#000000" />
 
                 <TextView

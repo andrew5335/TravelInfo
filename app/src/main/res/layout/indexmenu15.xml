@@ -23,10 +23,9 @@
             android:layout_height="@dimen/indexmenu_height"
             android:layout_margin="0dp"
             android:layout_weight="1"
-            android:background="@mipmap/kyungbook"
             android:onClick="kyungbookBtnClicked"
             android:padding="0dp"
-            android:text="여행코스"
+            android:scaleType="fitXY"
             android:textColor="#000000" />
 
         <TextView
