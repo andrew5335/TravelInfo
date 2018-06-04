@@ -23,6 +23,7 @@ import com.eye2web.travel.vo.AreaListItem;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,12 +59,38 @@ public class IndexActivity extends BaseActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
 
+        List<String> cityList = new ArrayList<String>();
+        cityList = getCityList();
         ViewPager indexMenuPager = (ViewPager) findViewById(R.id.index_menu_pager);
-        indexPagerAdapter = new IndexPagerAdapter(this, getLayoutInflater());
+        indexPagerAdapter = new IndexPagerAdapter(this, getLayoutInflater(), cityList);
         indexMenuPager.setAdapter(indexPagerAdapter);
 
         this.backPressCloseHandler = new BackPressCloseHandler(this);    // 뒤로가기 처리
 
+    }
+
+    public List<String> getCityList() {
+        List<String> resultList = new ArrayList<String>();
+
+        resultList.add("02");    // 서울
+        resultList.add("032");   // 인천
+        resultList.add("051");   // 부산
+        resultList.add("053");   // 대구
+        resultList.add("062");   // 광주
+        resultList.add("042");   // 대전
+        resultList.add("052");   // 울산
+        resultList.add("044");   // 세종
+        resultList.add("031");   // 경기
+        resultList.add("033");   // 강원
+        resultList.add("043");   // 충북
+        resultList.add("041");   // 충남
+        resultList.add("063");   // 전북
+        resultList.add("061");   // 전남
+        resultList.add("054");   // 경북
+        resultList.add("055");   // 경남
+        resultList.add("064");   // 제주
+
+        return resultList;
     }
 
     /**

@@ -18,13 +18,13 @@
             card_view:cardCornerRadius="0dp">
 
                 <ImageView
-                    android:id="@+id/btnCulture"
+                    android:id="@+id/ulsan_btn"
                     android:layout_width="@dimen/indexmenu_width"
                     android:layout_height="@dimen/indexmenu_height"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
-                    android:background="@mipmap/books"
-                    android:onClick="onBtnCultureClicked"
+                    android:background="@mipmap/ulsan"
+                    android:onClick="ulsanBtnClicked"
                     android:padding="0dp"
                     android:textColor="#000000" />
 
@@ -40,10 +40,11 @@
                     android:shadowDx="3"
                     android:shadowDy="3"
                     android:shadowRadius="1.5"
-                    android:text="문화시설"
+                    android:text="ULSAN"
                     android:textColor="#fff"
                     android:textColorHighlight="#000"
-                    android:textSize="24dp" />
+                    android:textSize="24dp"
+                    android:textStyle="bold" />
         </android.support.v7.widget.CardView>
 
 </LinearLayout>

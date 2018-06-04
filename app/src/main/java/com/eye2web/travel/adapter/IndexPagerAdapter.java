@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.eye2web.travel.R;
 
+import java.util.List;
+
 /**
  * @File : IndexPagerAdapter
  * @Date : 2018. 5. 25. PM 2:05
@@ -20,15 +22,17 @@ public class IndexPagerAdapter extends PagerAdapter {
 
     private Context ctx;
     private LayoutInflater inflater;
+    private List<String> cityList;
 
-    public IndexPagerAdapter(Context ctx, LayoutInflater inflater) {
+    public IndexPagerAdapter(Context ctx, LayoutInflater inflater, List<String> cityList) {
         this.ctx = ctx;
         this.inflater = inflater;
+        this.cityList = cityList;
     }
 
     @Override
     public int getCount() {
-        return Integer.parseInt(ctx.getString(R.string.indexmenu_cnt));
+        return cityList.size();
     }
 
     @Override
@@ -70,6 +74,42 @@ public class IndexPagerAdapter extends PagerAdapter {
 
             case 7 :
                 view = inflater.inflate(R.layout.indexmenu8, null);
+                break;
+
+            case 8 :
+                view = inflater.inflate(R.layout.indexmenu9, null);
+                break;
+
+            case 9 :
+                view = inflater.inflate(R.layout.indexmenu10, null);
+                break;
+
+            case 10 :
+                view = inflater.inflate(R.layout.indexmenu11, null);
+                break;
+
+            case 11 :
+                view = inflater.inflate(R.layout.indexmenu12, null);
+                break;
+
+            case 12 :
+                view = inflater.inflate(R.layout.indexmenu13, null);
+                break;
+
+            case 13 :
+                view = inflater.inflate(R.layout.indexmenu14, null);
+                break;
+
+            case 14 :
+                view = inflater.inflate(R.layout.indexmenu15, null);
+                break;
+
+            case 15 :
+                view = inflater.inflate(R.layout.indexmenu16, null);
+                break;
+
+            case 16 :
+                view = inflater.inflate(R.layout.indexmenu17, null);
                 break;
 
             default :

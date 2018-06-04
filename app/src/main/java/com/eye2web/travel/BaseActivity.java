@@ -55,17 +55,17 @@ public class BaseActivity extends AppCompatActivity {
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-                Toast.makeText(getApplicationContext(), "status changed", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "status changed", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-                Toast.makeText(getApplicationContext(), "provider enabled", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "provider enabled", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-                Toast.makeText(getApplicationContext(), "provider disabled", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "provider disabled", Toast.LENGTH_LONG).show();
             }
         };
 
@@ -93,6 +93,7 @@ public class BaseActivity extends AppCompatActivity {
      * @Author : Andrew Kim
      * @Description : 관광정보 버튼
     **/
+    /**
     public void onBtnTravelClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn travel clicked", Toast.LENGTH_LONG).show();
         Intent travelIntent = new Intent(getApplicationContext(), MenuListActivity.class);
@@ -101,6 +102,7 @@ public class BaseActivity extends AppCompatActivity {
         travelIntent.putExtra("cateName", "Travel Info");
         startActivity(travelIntent);
     }
+     **/
 
     /**
      * @parameter :
@@ -108,6 +110,7 @@ public class BaseActivity extends AppCompatActivity {
      * @Author : Andrew Kim
      * @Description : 공연정보 버튼
     **/
+    /**
     public void onBtnFestClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn fest clicked", Toast.LENGTH_LONG).show();
         Intent festIntent = new Intent(getApplicationContext(), MenuListActivity.class);
@@ -116,6 +119,7 @@ public class BaseActivity extends AppCompatActivity {
         festIntent.putExtra("cateName", "Festival Info");
         startActivity(festIntent);
     }
+     **/
 
     /**
      * @parameter :
@@ -123,6 +127,7 @@ public class BaseActivity extends AppCompatActivity {
      * @Author : Andrew Kim
      * @Description : 숙박정보 버튼
     **/
+    /**
     public void onBtnStayClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn stay clicked", Toast.LENGTH_LONG).show();
         Intent stayIntent = new Intent(getApplicationContext(), MenuListActivity.class);
@@ -131,6 +136,7 @@ public class BaseActivity extends AppCompatActivity {
         stayIntent.putExtra("cateName", "Stay Info");
         startActivity(stayIntent);
     }
+     **/
 
     /**
      * @parameter :
@@ -138,6 +144,7 @@ public class BaseActivity extends AppCompatActivity {
      * @Author : Andrew Kim
      * @Description : 맛집정보 버튼
     **/
+    /**
     public void onBtnFoodClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn food clicked", Toast.LENGTH_LONG).show();
         Intent foodIntent = new Intent(getApplicationContext(), MenuListActivity.class);
@@ -146,6 +153,7 @@ public class BaseActivity extends AppCompatActivity {
         foodIntent.putExtra("cateName", "Food Info");
         startActivity(foodIntent);
     }
+     **/
 
     /**
      * @parameter :
@@ -153,6 +161,7 @@ public class BaseActivity extends AppCompatActivity {
      * @Author : Andrew Kim
      * @Description : 레포츠 버튼
     **/
+    /**
     public void onBtnSportClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn sport clicked", Toast.LENGTH_LONG).show();
         Intent sportIntent = new Intent(getApplicationContext(), MenuListActivity.class);
@@ -161,6 +170,7 @@ public class BaseActivity extends AppCompatActivity {
         sportIntent.putExtra("cateName", "Leports Info");
         startActivity(sportIntent);
     }
+     **/
 
     /**
      * @parameter :
@@ -168,6 +178,7 @@ public class BaseActivity extends AppCompatActivity {
      * @Author : Andrew Kim
      * @Description : 쇼핑 버튼
     **/
+    /**
     public void onBtnShopClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn shop clicked", Toast.LENGTH_LONG).show();
         Intent shopIntent = new Intent(getApplicationContext(), MenuListActivity.class);
@@ -176,6 +187,7 @@ public class BaseActivity extends AppCompatActivity {
         shopIntent.putExtra("cateName", "Shopping Info");
         startActivity(shopIntent);
     }
+     **/
 
     /**
      * @parameter :
@@ -183,6 +195,7 @@ public class BaseActivity extends AppCompatActivity {
      * @Author : Andrew Kim
      * @Description : 문화시설 버튼
     **/
+    /**
     public void onBtnCultureClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn culture clicked", Toast.LENGTH_LONG).show();
         Intent cultureIntent = new Intent(getApplicationContext(), MenuListActivity.class);
@@ -191,6 +204,7 @@ public class BaseActivity extends AppCompatActivity {
         cultureIntent.putExtra("cateName", "Cultural Facility Info");
         startActivity(cultureIntent);
     }
+     **/
 
     /**
      * @parameter :
@@ -198,6 +212,7 @@ public class BaseActivity extends AppCompatActivity {
      * @Author : Andrew Kim
      * @Description : 여행코스 버튼
     **/
+    /**
     public void onBtnCourseClicked(View v) {
         //Toast.makeText(getApplicationContext(), "btn course clicked", Toast.LENGTH_LONG).show();
         Intent courseIntent = new Intent(getApplicationContext(), MenuListActivity.class);
@@ -206,6 +221,7 @@ public class BaseActivity extends AppCompatActivity {
         courseIntent.putExtra("cateName", "Travel Course Info");
         startActivity(courseIntent);
     }
+     **/
 
     /**
      * @parameter :
@@ -263,4 +279,73 @@ public class BaseActivity extends AppCompatActivity {
         //this.backPressCloseHandler.onBackPressed();
         super.onBackPressed();    // index가 아닌 경우에는 그냥 이전 activity로 이동
     }
+
+    public void seoulBtnClicked(View v) {
+
+    }
+
+    public void incheonBtnClicked(View v) {
+
+    }
+
+    public void daejeonBtnClicked(View v) {
+
+    }
+
+    public void daeguBtnClicked(View v) {
+
+    }
+
+    public void busanBtnClicked(View v) {
+
+    }
+
+    public void kwangjuBtnClicked(View v) {
+
+    }
+
+    public void ulsanBtnClicked(View v) {
+
+    }
+
+    public void sejongBtnClicked(View v) {
+
+    }
+
+    public void kyunggiBtnClicked(View v) {
+
+    }
+
+    public void kangwonBtnClicked(View v) {
+
+    }
+
+    public void chungbookBtnClicked(View v) {
+
+    }
+
+    public void chungnamBtnClicked(View v) {
+
+    }
+
+    public void jeonbookBtnClicked(View v) {
+
+    }
+
+    public void jeonnamBtnClicked(View v) {
+
+    }
+
+    public void kyungbookBtnClicked(View v) {
+
+    }
+
+    public void kyungnamBtnClicked(View v) {
+
+    }
+
+    public void jejuBtnClicked(View v) {
+
+    }
+
 }
