@@ -3,7 +3,12 @@ package com.eye2web.travel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.view.View;
+import android.webkit.WebView;
 
 import com.squareup.picasso.Picasso;
 
@@ -19,6 +24,10 @@ public class CityMainActivity extends BaseActivity {
     private String cityGu;    // 도시 구분값
     private String citySetting;    // 도시 구분값에 따른 도시 세팅
     private String imageUrl;
+    private String areaGu;
+    private String cateGu;
+    private String cateName;
+    private Intent cateIntent;
 
     private ImageView imageView;
 
@@ -104,5 +113,37 @@ public class CityMainActivity extends BaseActivity {
                 Picasso.get().load(imageUrl + "jeju.jpg").placeholder(R.mipmap.logo_final).into(imageView);
                 break;
         }
+    }
+
+    public void travelBtnClicked(View v) {
+
+    }
+
+    public void hotelBtnClicked(View v) {
+
+    }
+
+    public void foodBtnClicked(View v) {
+
+    }
+
+    public void festivalBtnClicked(View v) {
+
+    }
+
+    public void courseBtnClicked(View v) {
+
+    }
+
+    public void sportsBtnClicked(View v) {
+
+    }
+
+    public void shopBtnClicked(View v) {
+
+    }
+
+    public void cultureBtnClicked(View v) {
+
     }
 }

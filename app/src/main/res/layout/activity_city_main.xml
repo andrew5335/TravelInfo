@@ -39,106 +39,149 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="1dp"
+                    android:layout_height="53.5dp"
+                    android:layout_marginTop="1.5dp"
+                    android:background="#1e000000"
                     android:gravity="center_vertical|center_horizontal|center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="3dp">
 
                     <Button
                         android:layout_width="50dp"
-                        android:layout_height="30dp"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/citymain_btn_bg"
-                        android:text="관광지"
-                        android:textColor="#3a3a3a"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/notosanskr_regular_hestia"/>
+                        android:background="@drawable/menubtn_border_top_left"
+                        android:drawablePadding="-10dp"
+                        android:drawableTop="@mipmap/travel_icon"
+                        android:fontFamily="@font/utogothic"
+                        android:gravity="center_vertical|center_horizontal|center"
+                        android:onClick="travelBtnClicked"
+                        android:paddingTop="7dp"
+                        android:text="관광"
+                        android:textColor="#5a5a5a"
+                        android:textDirection="inherit"
+                        android:textSize="10dp" />
 
                     <Button
                         android:layout_width="50dp"
-                        android:layout_height="30dp"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/citymain_btn_bg"
-                        android:text="관광지"
-                        android:textColor="#3a3a3a"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/notosanskr_regular_hestia"/>
+                        android:background="@drawable/menubtn_border_top_left"
+                        android:drawablePadding="-10dp"
+                        android:drawableTop="@mipmap/hotel_icon"
+                        android:fontFamily="@font/utogothic"
+                        android:onClick="hotelBtnClicked"
+                        android:paddingTop="7dp"
+                        android:text="호텔"
+                        android:textColor="#5a5a5a"
+                        android:textSize="10dp" />
 
                     <Button
                         android:layout_width="50dp"
-                        android:layout_height="30dp"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/citymain_btn_bg"
-                        android:text="관광지"
-                        android:textColor="#3a3a3a"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/notosanskr_regular_hestia"/>
+                        android:background="@drawable/menubtn_border_top_left"
+                        android:drawablePadding="-10dp"
+                        android:drawableTop="@mipmap/food_icon"
+                        android:fontFamily="@font/utogothic"
+                        android:onClick="foodBtnClicked"
+                        android:paddingTop="7dp"
+                        android:text="맛집"
+                        android:textColor="#5a5a5a"
+                        android:textSize="10dp" />
 
                     <Button
                         android:layout_width="50dp"
-                        android:layout_height="30dp"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/citymain_btn_bg"
-                        android:text="관광지"
-                        android:textColor="#3a3a3a"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/notosanskr_regular_hestia"/>
+                        android:background="@drawable/menubtn_border_top_right"
+                        android:drawablePadding="-10dp"
+                        android:drawableTop="@mipmap/festival_icon"
+                        android:fontFamily="@font/utogothic"
+                        android:onClick="festivalBtnClicked"
+                        android:paddingTop="7dp"
+                        android:text="축제/공연"
+                        android:textColor="#5a5a5a"
+                        android:textSize="10dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="53.5dp"
+                    android:background="#1e000000"
                     android:gravity="center_vertical|center_horizontal|center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="0dp">
 
                     <Button
                         android:layout_width="50dp"
-                        android:layout_height="30dp"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/citymain_btn_bg"
-                        android:text="관광지"
-                        android:textColor="#3a3a3a"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/notosanskr_regular_hestia"/>
+                        android:background="@drawable/menubtn_border_bottom_left"
+                        android:drawablePadding="-10dp"
+                        android:drawableTop="@mipmap/course_icon"
+                        android:fontFamily="@font/utogothic"
+                        android:onClick="courseBtnClicked"
+                        android:paddingTop="7dp"
+                        android:text="여행코스"
+                        android:textColor="#5a5a5a"
+                        android:textSize="10dp" />
 
                     <Button
                         android:layout_width="50dp"
-                        android:layout_height="30dp"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/citymain_btn_bg"
-                        android:text="관광지"
-                        android:textColor="#3a3a3a"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/notosanskr_regular_hestia"/>
+                        android:background="@drawable/menubtn_border_bottom_left"
+                        android:drawablePadding="-10dp"
+                        android:drawableTop="@mipmap/sports_icon"
+                        android:fontFamily="@font/utogothic"
+                        android:onClick="sportsBtnClicked"
+                        android:paddingTop="7dp"
+                        android:text="레포츠"
+                        android:textColor="#5a5a5a"
+                        android:textSize="10dp" />
 
                     <Button
                         android:layout_width="50dp"
-                        android:layout_height="30dp"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/citymain_btn_bg"
-                        android:text="관광지"
-                        android:textColor="#3a3a3a"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/notosanskr_regular_hestia"/>
+                        android:background="@drawable/menubtn_border_bottom_left"
+                        android:drawablePadding="-10dp"
+                        android:drawableTop="@mipmap/shopping_icon"
+                        android:fontFamily="@font/utogothic"
+                        android:onClick="shopBtnClicked"
+                        android:paddingTop="7dp"
+                        android:text="쇼핑"
+                        android:textColor="#5a5a5a"
+                        android:textSize="10dp" />
 
                     <Button
                         android:layout_width="50dp"
-                        android:layout_height="30dp"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/citymain_btn_bg"
-                        android:text="관광지"
-                        android:textColor="#3a3a3a"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/notosanskr_regular_hestia"/>
+                        android:background="@drawable/menubtn_border_bottom_right"
+                        android:drawablePadding="-10dp"
+                        android:drawableTop="@mipmap/culture_icon"
+                        android:fontFamily="@font/utogothic"
+                        android:onClick="cultureBtnClicked"
+                        android:paddingTop="7dp"
+                        android:text="문화시설"
+                        android:textColor="#5a5a5a"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:orientation="vertical">
 
                 </LinearLayout>
 

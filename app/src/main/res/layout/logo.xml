@@ -38,14 +38,15 @@
         <LinearLayout
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:background="#fff">
+            android:background="#fff"
+            android:gravity="center_vertical|center">
 
             <ImageView
                 android:id="@+id/search_btn"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:onClick="onSearchBtnClicked"
-                app:srcCompat="@android:drawable/ic_menu_search" />
+                app:srcCompat="@mipmap/search_icon" />
 
         </LinearLayout>
 

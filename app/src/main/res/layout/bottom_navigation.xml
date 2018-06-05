@@ -25,16 +25,16 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:onClick="onHomeBtnClicked"
-            app:srcCompat="@mipmap/home_btn" />
+            app:srcCompat="@mipmap/home_icon" />
 
         <TextView
             android:id="@+id/homeTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onHomeBtnClicked"
             android:fontFamily="@font/utogothic"
-            android:text="HOME"
+            android:onClick="onHomeBtnClicked"
+            android:text="홈"
             android:textColor="#000"
             android:textSize="9dp" />
     </LinearLayout>
@@ -56,16 +56,16 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:onClick="onGuideBtnClicked"
-            app:srcCompat="@mipmap/guide_btn" />
+            app:srcCompat="@mipmap/guide_icon" />
 
         <TextView
             android:id="@+id/guideTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onGuideBtnClicked"
             android:fontFamily="@font/utogothic"
-            android:text="GUIDE"
+            android:onClick="onGuideBtnClicked"
+            android:text="가이드"
             android:textColor="#000"
             android:textSize="9dp" />
     </LinearLayout>
@@ -87,16 +87,16 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:onClick="onSearchBtnClicked"
-            app:srcCompat="@mipmap/search_btn" />
+            app:srcCompat="@mipmap/search_icon" />
 
         <TextView
             android:id="@+id/searchTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onSearchBtnClicked"
             android:fontFamily="@font/utogothic"
-            android:text="SEARCH"
+            android:onClick="onSearchBtnClicked"
+            android:text="검색"
             android:textColor="#000"
             android:textSize="9dp" />
     </LinearLayout>
@@ -118,16 +118,16 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:onClick="onInfoBtnClicked"
-            app:srcCompat="@mipmap/info_btn" />
+            app:srcCompat="@mipmap/myinfo_icon" />
 
         <TextView
             android:id="@+id/infoTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onInfoBtnClicked"
             android:fontFamily="@font/utogothic"
-            android:text="MY INFO"
+            android:onClick="onInfoBtnClicked"
+            android:text="내정보"
             android:textColor="#000"
             android:textSize="9dp" />
     </LinearLayout>
