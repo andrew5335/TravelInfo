@@ -180,7 +180,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                 </LinearLayout>
@@ -191,11 +191,11 @@
 
         <include
             android:id="@+id/bottom_navigation_view"
+            layout="@layout/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            layout="@layout/bottom_navigation"
-            app:layout_behavior=".behavior.BottomNavigationBehavior"/>
+            app:layout_behavior=".behavior.BottomNavigationBehavior" />
 
     </android.support.design.widget.CoordinatorLayout>
 

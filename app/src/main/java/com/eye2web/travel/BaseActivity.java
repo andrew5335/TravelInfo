@@ -6,12 +6,17 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.eye2web.travel.handler.BackPressCloseHandler;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.places.Places;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,16 +28,40 @@ import java.util.Map;
  * @Version : 1.0.0
  * @Description : 공통으로 사용되는 항목의 컨트롤을 위한 BaseActivity
 **/
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private BackPressCloseHandler backPressCloseHandler;
 
     private Intent cityIntent;
 
+    private GoogleApiClient googleApiClient;    // google api client
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(this, this)
+                .build();
+    }
+
+    public boolean getGoogleApiClientConnect() {
+        boolean result = false;
+
+        try {
+            googleApiClient.connect();
+        } catch(Exception e) {
+            Log.e("Error", "Error : " + e.toString());
+        }
+
+        if(googleApiClient.isConnected()) {
+            result = true;
+        }
+
+        return result;
     }
 
     public Map<String, Object> getGpsInfo() {
@@ -490,4 +519,8 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(cityIntent);
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }

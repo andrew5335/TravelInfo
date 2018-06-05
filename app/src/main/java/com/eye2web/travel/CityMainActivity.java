@@ -3,12 +3,8 @@ package com.eye2web.travel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.view.View;
-import android.webkit.WebView;
+import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,11 +19,20 @@ public class CityMainActivity extends BaseActivity {
 
     private String cityGu;    // 도시 구분값
     private String citySetting;    // 도시 구분값에 따른 도시 세팅
-    private String imageUrl;
-    private String areaGu;
-    private String cateGu;
-    private String cateName;
+    private String imageUrl;    // 이미지 파일 주소 url
+    private String areaGu;    // 지역 구분값 (cityGu와 동일)
+    private String cateGu;    // 카테고리 구분값 (관광, 숙박, 축제 등)
+    private String cateName;    // 카테고리명
     private Intent cateIntent;
+
+    // google place 관련 변수
+    private boolean googleApiClientConYn = false;
+    private String googlePlacesApiUrl;
+    private String googleRetType;
+    private String googleSearchType;
+    private double latitude = 0;
+    private double longitude = 0;
+    private String reqParam = "";
 
     private ImageView imageView;
 
@@ -38,15 +43,22 @@ public class CityMainActivity extends BaseActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        googlePlacesApiUrl = getResources().getString(R.string.google_places_api_url);
+        googleRetType = "json";
+        googlePlacesApiUrl = googlePlacesApiUrl + googleRetType;
+
         imageUrl = getResources().getString(R.string.image_url);
         imageUrl = imageUrl + "/images/indexmenu/";
         imageView = (ImageView) findViewById(R.id.city_main_image);
+        googleApiClientConYn = getGoogleApiClientConnect();
         Intent cityMainIntent = getIntent();
         cityGu = cityMainIntent.getStringExtra("cityGu");
 
         switch (cityGu) {
             case "1" :
                 Picasso.get().load(imageUrl + "seoul.jpg").placeholder(R.mipmap.logo_final).into(imageView);
+                latitude = 37.5662994;
+                longitude = 126.9757511;
                 break;
 
             case "2" :
