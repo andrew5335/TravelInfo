@@ -67,7 +67,6 @@ public class JsonParsingUtil {
                             String reference = "";
                             String formattedAddress = "";
 
-
                             if (result.has("geometry")) {
                                 geometry = result.getJSONObject("geometry");
 
@@ -80,16 +79,17 @@ public class JsonParsingUtil {
 
                             if (result.has("photos")) {
                                 photos = result.getJSONArray("photos");
+
                                 for(int j=0; j < photos.length(); j++) {
                                     JSONObject photoObj = photos.getJSONObject(j);
 
-                                    if(photoObj.has("height")) {
-                                        height = photoObj.getInt("height");
-                                    }
+                                    //if(photoObj.has("height")) {
+                                    //    height = photoObj.getInt("height");
+                                    //}
 
-                                    if(photoObj.has("width")) {
-                                        width = photoObj.getInt("width");
-                                    }
+                                    //if(photoObj.has("width")) {
+                                    //    width = photoObj.getInt("width");
+                                    //}
 
                                     if(photoObj.has("photo_reference")) {
                                         photoReference = photoObj.getString("photo_reference");
@@ -98,36 +98,44 @@ public class JsonParsingUtil {
                             }
 
                             if (result.has("icon")) {
-                                icon = result.getString("icon");
-                            }    // 지도에 결과를 표시할 경우 사용할 수 있는 권장 아이콘의 주소(url)
+                                icon = result.getString("icon");    // 지도에 결과를 표시할 경우 사용할 수 있는 권장 아이콘의 주소(url)
+                            }
+
                             if (result.has("id")) {
-                                id = result.getString("id");
-                            }    // 장소를 표시하는 고유 식별자
+                                id = result.getString("id");    // 장소를 표시하는 고유 식별자
+                            }
+
                             if (result.has("name")) {
-                                name = result.getString("name");
-                            }    // 장소의 명칭
+                                name = result.getString("name");    // 장소의 명칭
+                            }
+
                             if (result.has("opennow")) {
-                                openNow = result.getString("opennow");
-                            }    // 현재 영업중 유무
+                                openNow = result.getString("opennow");    // 현재 영업중 유무
+                            }
 
                             if (result.has("place_id")) {
-                                placeId = result.getString(("place_id"));
-                            }    // 장소를 고유하게 식별하는 텍스트 식별자 - 장소에 대한 상세정보 요청 시 사용
+                                placeId = result.getString(("place_id"));    // 장소를 고유하게 식별하는 텍스트 식별자 - 장소에 대한 상세정보 요청 시 사용
+                            }
+
                             if (result.has("scope")) {
-                                scope = result.getString("scope");
-                            }    // place_id의 범위 - APP : 장소 ID는 본인의 애플리케이션에서만 인식됨 / GOOGLE : 장소 ID를 다른 애플리케이션 및 구글 지도에서 사용가능
+                                scope = result.getString("scope");    // place_id의 범위 - APP : 장소 ID는 본인의 애플리케이션에서만 인식됨 / GOOGLE : 장소 ID를 다른 애플리케이션 및 구글 지도에서 사용가능
+                            }
+
                             if (result.has("price_level")) {
-                                priceLevel = result.getInt("price_level");
-                            }    // 장소의 가격수준 - 0 : 무료 / 1 : 저렴 / 2 : 보통 / 3 : 비쌈 / 4 : 매우 비쌈
+                                priceLevel = result.getInt("price_level");    // 장소의 가격수준 - 0 : 무료 / 1 : 저렴 / 2 : 보통 / 3 : 비쌈 / 4 : 매우 비쌈
+                            }
+
                             if (result.has("rating")) {
-                                rating = result.getString("rating");
-                            }    // 장소의 평점 (사용자 리뷰 기준으로 1.0 ~ 5.0)
-                            if (result.has("reference")) {
-                                reference = result.getString("reference");
-                            }    // 장소 세부정보 요청 시 사용되는 고유한 문자열 (현재는 place id로 대체되어 사용하지 않음)
+                                rating = result.getString("rating");    // 장소의 평점 (사용자 리뷰 기준으로 1.0 ~ 5.0)
+                            }
+
+                            //if (result.has("reference")) {
+                            //    reference = result.getString("reference");    // 장소 세부정보 요청 시 사용되는 고유한 문자열 (현재는 place id로 대체되어 사용하지 않음)
+                            //}
+
                             if (result.has("formatted_address")) {
-                                formattedAddress = result.getString("formatted_address");
-                            }    // 장소의 주소 (우편주소)
+                                formattedAddress = result.getString("formatted_address");    // 장소의 주소 (우편주소)
+                            }
                             //String photoUrl = "";    // 사진 url
 
                             GooglePlaceItem googlePlaceItem = new GooglePlaceItem();
@@ -136,39 +144,47 @@ public class JsonParsingUtil {
                             } else {
                                 googlePlaceItem.setLat(0);
                             }
+
                             if (null != lng && !"".equalsIgnoreCase(lng)) {
                                 googlePlaceItem.setLng(Double.parseDouble(lng));
                             } else {
                                 googlePlaceItem.setLng(0);
                             }
+
                             googlePlaceItem.setIcon(icon);
                             googlePlaceItem.setId(id);
                             googlePlaceItem.setName(name);
+
                             if (null != openNow && !"".equalsIgnoreCase(openNow)) {
                                 googlePlaceItem.setOpenNow(Boolean.valueOf(openNow));
                             } else {
                                 googlePlaceItem.setOpenNow(false);
                             }
-                            if (0 < height) {
-                                googlePlaceItem.setHeight(height);
-                            } else {
-                                googlePlaceItem.setHeight(0);
-                            }
-                            if (0 < width) {
-                                googlePlaceItem.setWidth(width);
-                            } else {
-                                googlePlaceItem.setWidth(0);
-                            }
-                            googlePlaceItem.setPhotoHtmlAttribution(photoHtmlAttribution);
+
+                            //if (0 < height) {
+                            //    googlePlaceItem.setHeight(height);
+                            //} else {
+                            //    googlePlaceItem.setHeight(0);
+                            //}
+
+                            //if (0 < width) {
+                            //    googlePlaceItem.setWidth(width);
+                            //} else {
+                            //    googlePlaceItem.setWidth(0);
+                            //}
+
+                            //googlePlaceItem.setPhotoHtmlAttribution(photoHtmlAttribution);
                             googlePlaceItem.setPhotoReference(photoReference);
                             googlePlaceItem.setPlaceId(placeId);
                             googlePlaceItem.setScope(scope);
                             googlePlaceItem.setPriceLevel(priceLevel);
+
                             if (null != rating && !"".equalsIgnoreCase(rating)) {
                                 googlePlaceItem.setRating(Float.parseFloat(rating));
                             } else {
                                 googlePlaceItem.setRating(0);
                             }
+
                             googlePlaceItem.setReference(reference);
                             googlePlaceItem.setFormattedAddress(formattedAddress);
 

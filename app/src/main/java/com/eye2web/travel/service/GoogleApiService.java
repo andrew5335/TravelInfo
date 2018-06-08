@@ -95,9 +95,9 @@ public class GoogleApiService {
                 }
 
                 if (null != searchStrBuilder.toString() && !"".equalsIgnoreCase(searchStrBuilder.toString())) {
-                    String searchRsltStr = "";
-                    searchRsltStr = searchStrBuilder.toString();
-                    placeInfo = jsonParsingUtil.getGooglePlaceVO(searchRsltStr);
+                    //String searchRsltStr = "";
+                    //searchRsltStr = searchStrBuilder.toString();
+                    placeInfo = jsonParsingUtil.getGooglePlaceVO(searchStrBuilder.toString());
 
                     if (null != placeInfo) {
                         List<GooglePlaceItem> placeItems = new ArrayList<GooglePlaceItem>();
