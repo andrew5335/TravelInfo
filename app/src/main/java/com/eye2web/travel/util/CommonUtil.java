@@ -41,6 +41,8 @@ public class CommonUtil {
         return result;
     }
 
+
+
     public String getKeyword(String areaGu) {
         String result = "";
 

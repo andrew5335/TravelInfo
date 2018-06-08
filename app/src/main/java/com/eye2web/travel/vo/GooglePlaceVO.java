@@ -5,11 +5,13 @@ import java.util.List;
 
 public class GooglePlaceVO implements Serializable {
 
-    private String htmlAttributions;
+    private static final long serialVersionUID = -4875072485971482614L;
 
-    private String nextPageToken;
+    private String htmlAttributions;    // html내용
 
-    private List<GooglePlaceItem> placeItem;
+    private String nextPageToken;    // 다음 페이지 호출용 토큰
+
+    private List<GooglePlaceItem> placeItem;    // 페이지 구성 내용 리스트
 
     public String getHtmlAttributions() {
         return htmlAttributions;
