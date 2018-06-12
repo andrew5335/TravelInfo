@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- WIFI 상태 활용 권한 획득(WIFI 상태변경접근) -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -43,7 +44,8 @@
         <activity android:name=".BaseActivity" />
         <activity android:name=".MenuListActivity" />
         <activity android:name=".SearchActivity" />
-        <activity android:name=".CityMainActivity"></activity>
+        <activity android:name=".CityMainActivity" />
+        <activity android:name=".GoogleCateList"></activity>
     </application>
 
 </manifest>

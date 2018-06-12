@@ -1,7 +1,5 @@
 package com.eye2web.travel.service;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.eye2web.travel.util.CommonUtil;
@@ -12,6 +10,7 @@ import com.eye2web.travel.vo.GooglePlaceVO;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,25 +45,34 @@ public class GoogleApiService {
             , String summaryApiUrl
             , String wikiDetailApiUrl
             , String googleKey
+            , String nextPageToken
             , double lat
             , double lng
             , String searchKeyword
             , String wikiSearchKeyword
-            , String gu) throws Exception, IOException {
+            , String gu
+            , String cateGu) throws Exception, IOException {
 
         GooglePlaceVO placeInfo = new GooglePlaceVO();
+        commonUtil = new CommonUtil();
 
         BufferedReader searchResultStr = null;
         //BufferedReader photoResultStr = null;
         BufferedReader summaryResultStr = null;
 
+        HttpURLConnection urlConnection = null;
+
         URL searchUrl = null;
         URL photoUrl = null;
         URL summaryUrl = null;
 
+        String googlePhotoUrl = "";
+
         InputStreamReader sris = null;
         InputStreamReader pris = null;
         InputStreamReader mris = null;
+
+        String commonParam = "&language=ko";
 
         try {
             if (null != searchApiUrl && !"".equalsIgnoreCase(searchApiUrl)) {
@@ -74,18 +82,29 @@ public class GoogleApiService {
                 String gSearchParam = "";
                 if (null != gu && !"".equalsIgnoreCase(gu)) {
                     if ("1".equalsIgnoreCase(gu)) {
-                        gSearchParam = gSearchParam + "?query=" + wikiSearchKeyword;
+                        gSearchParam = gSearchParam + "?query=" + wikiSearchKeyword + commonParam;
                     } else {
-                        gSearchParam = gSearchParam + "?query=" + searchKeyword;
+                        gSearchParam = gSearchParam + "?query=" + searchKeyword + "+" + cateGu + commonParam;
                     }
                     gSearchParam = gSearchParam + "&key=" + googleKey;
-                    gSearchParam = gSearchParam + "&location=" + lat + "," + lng;
+
+                    //if("1".equalsIgnoreCase(gu)) {
+                        //gSearchParam = gSearchParam + "&radius=20000&location=" + lat + "," + lng;
+                    //}
+
+                    if(null != nextPageToken && !"".equalsIgnoreCase(nextPageToken)) {
+                        gSearchParam = gSearchParam + "&pagetoken=" + nextPageToken;
+                    }
                 }
 
-                searchApiUrl = searchApiUrl + gSearchParam;
-                searchUrl = new URL(searchApiUrl);
+                //searchApiUrl = searchApiUrl + gSearchParam;
+                Log.i("Info", "Search API URL : " + gSearchParam);
+                searchUrl = new URL(searchApiUrl + gSearchParam);
 
-                sris = new InputStreamReader(searchUrl.openStream());
+                urlConnection = (HttpURLConnection) searchUrl.openConnection();
+
+                //sris = new InputStreamReader(searchUrl.openStream());
+                sris = new InputStreamReader(urlConnection.getInputStream());
 
                 searchResultStr = new BufferedReader(sris);
                 String searchResultLine;
@@ -105,96 +124,94 @@ public class GoogleApiService {
 
                         if (null != placeItems && 0 < placeItems.size()) {
                             if (null != photoApiUrl && !"".equalsIgnoreCase(photoApiUrl)) {
-                                StringBuilder photoBuilder = new StringBuilder();
-
-                                String gPhotoParam = "";
-                                gPhotoParam = gPhotoParam + "?key=" + googleKey;
-                                gPhotoParam = gPhotoParam + "&maxheight=240";
+                                //StringBuilder photoBuilder = new StringBuilder();
 
                                 for (int i = 0; i < placeItems.size(); i++) {
-                                    String photoReference = placeItems.get(i).getPhotoReference();
+                                    String photoReference = "";
+                                    photoReference = placeItems.get(i).getPhotoReference();
+
+                                    String gPhotoParam = "";
                                     if (null != photoReference && !"".equalsIgnoreCase(photoReference)) {
-                                        gPhotoParam = gPhotoParam + "&photoreference=" + photoReference;
 
-                                        photoApiUrl = photoApiUrl + gPhotoParam;
-                                        photoUrl = new URL(photoApiUrl);
+                                        gPhotoParam = gPhotoParam + "?key=" + googleKey;
+                                        gPhotoParam = gPhotoParam + "&maxheight=240";
+                                        gPhotoParam = gPhotoParam + "&photoreference=" + photoReference  + commonParam;
 
-                                        Bitmap googlePhoto = BitmapFactory.decodeStream(photoUrl.openConnection().getInputStream());
+                                        //photoApiUrl = photoApiUrl;
+                                        //photoUrl = new URL(photoApiUrl + gPhotoParam);
+                                        googlePhotoUrl =photoApiUrl + gPhotoParam;
+                                        placeItems.get(i).setGooglePhotoUrl(googlePhotoUrl);
+                                        //urlConnection = (HttpURLConnection) photoUrl.openConnection();
 
-                                        /**
-                                         photoResultStr = new BufferedReader(new InputStreamReader(photoUrl.openStream()));
-                                         String photoResultLine;
+                                        //BitmapFactory.Options option = new BitmapFactory.Options();
+                                        //option.inJustDecodeBounds = true;
+                                        //InputStream is = urlConnection.getInputStream();
+                                        //Bitmap googlePhoto = commonUtil.decodeSampledBitmapFromStream(is, 320, 240);
 
-                                         while((photoResultLine = photoResultStr.readLine()) != null) {
-                                         photoBuilder.append(photoResultLine);
-                                         }
-                                         **/
+                                        //googlePhoto = commonUtil.decodeSampledBitmapFromStream(is, imgWidth, imgHeight);
 
-                                        if (null != googlePhoto) {
-                                            placeItems.get(i).setPhotoUrl(googlePhoto);
+                                        //if (null != googlePhoto) {
+                                        //    placeItems.get(i).setPhotoUrl(googlePhoto);
+                                        //}
+                                    } else {
+                                        placeItems.get(i).setPhotoUrl(null);
+                                        gPhotoParam = "";
+                                        //placeItems.remove(i);
+                                    }
+                                }
+                            }
+
+                            if("1".equalsIgnoreCase(gu)) {
+                                if (null != summaryApiUrl && !"".equalsIgnoreCase(summaryApiUrl)) {
+                                    StringBuilder summaryBuilder = new StringBuilder();
+
+                                    if (null != placeItems && 0 < placeItems.size()) {
+                                        for (int j = 0; j < placeItems.size(); j++) {
+                                            if (null != gu && !"".equalsIgnoreCase(gu)) {
+
+                                                // 기본은 각 카테고리 리스트를 위한 summary 조회를 위해 구글 place api를 통해 조회된 지역명으로 조회
+                                                summaryUrl = new URL(summaryApiUrl + placeItems.get(j).getName());
+
+                                                // 구분값이 1인 경우 도시 메인 페이지용 summary 조회가 필요하므로 위키피디어 조회용 키워드로 대체
+                                                if ("1".equalsIgnoreCase(gu)) {
+                                                    summaryUrl = new URL(summaryApiUrl + wikiSearchKeyword);
+                                                }
+
+                                                urlConnection = (HttpURLConnection) summaryUrl.openConnection();
+                                                mris = new InputStreamReader(urlConnection.getInputStream());
+
+                                                summaryResultStr = new BufferedReader(mris);
+                                                String summaryResultLine;
+
+                                                while ((summaryResultLine = summaryResultStr.readLine()) != null) {
+                                                    summaryBuilder.append(summaryResultLine);
+                                                }
+
+                                                if (null != summaryBuilder.toString() && !"".equalsIgnoreCase(summaryBuilder.toString())) {
+                                                    String summary = "";
+                                                    summary = jsonParsingUtil.getSummary(summaryBuilder.toString());
+                                                    placeItems.get(j).setSummary(summary);
+
+                                                }
+                                            }
                                         }
                                     }
                                 }
-
                             }
 
-                            if (null != summaryApiUrl && !"".equalsIgnoreCase(summaryApiUrl)) {
-                                StringBuilder summaryBuilder = new StringBuilder();
-
-
-                                if (null != placeItems && 0 < placeItems.size()) {
-                                    for (int j = 0; j < placeItems.size(); j++) {
-                                        if (null != gu && !"".equalsIgnoreCase(gu)) {
-
-                                            // 기본은 각 카테고리 리스트를 위한 summary 조회를 위해 구글 place api를 통해 조회된 지역명으로 조회
-                                            summaryUrl = new URL(summaryApiUrl + placeItems.get(j).getName());
-
-                                            // 구분값이 1인 경우 도시 메인 페이지용 summary 조회가 필요하므로 위키피디어 조회용 키워드로 대체
-                                            if ("1".equalsIgnoreCase(gu)) {
-                                                summaryUrl = new URL(summaryApiUrl + wikiSearchKeyword);
-                                            }
-
-                                            mris = new InputStreamReader(summaryUrl.openStream());
-
-                                            summaryResultStr = new BufferedReader(mris);
-                                            String summaryResultLine;
-
-                                            while ((summaryResultLine = summaryResultStr.readLine()) != null) {
-                                                summaryBuilder.append(summaryResultLine);
-                                            }
-
-                                            if (null != summaryBuilder.toString() && !"".equalsIgnoreCase(summaryBuilder.toString())) {
-                                                String summary = "";
-                                                //if("1".equalsIgnoreCase(gu)) {
-                                                //    summary = jsonParsingUtil.getCityMainSummary(summaryBuilder.toString());
-                                                //} else {
-                                                summary = jsonParsingUtil.getSummary(summaryBuilder.toString());
-                                                //}
-                                                placeItems.get(j).setSummary(summary);
-
-                                            }
-                                        }
-                                    }
-                                }
-
-                            }
+                            placeInfo.setPlaceItem(placeItems);
                         }
                     }
                 }
-
-                return placeInfo;
             }
 
         } catch(Exception e) {
             Log.e("Error", "Error : " + e.toString());
         } finally {
-            if(null != searchUrl.openStream()) { searchUrl.openStream().close(); }
-            if(null != photoUrl.openStream()) { photoUrl.openStream().close(); }
-            if(null != summaryUrl.openStream()) { summaryUrl.openStream().close(); }
             if(null != summaryResultStr) { summaryResultStr.close(); }
             if(null != searchResultStr) { searchResultStr.close(); }
         }
 
-        return null;
+        return placeInfo;
     }
 }

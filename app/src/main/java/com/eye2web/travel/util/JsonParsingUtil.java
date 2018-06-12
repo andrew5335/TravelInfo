@@ -52,9 +52,6 @@ public class JsonParsingUtil {
 
                             String lat = "";
                             String lng = "";
-                            int height = 0;
-                            int width = 0;
-                            String photoHtmlAttribution = "";
                             String photoReference = "";
                             String icon = "";
                             String id = "";
@@ -82,14 +79,6 @@ public class JsonParsingUtil {
 
                                 for(int j=0; j < photos.length(); j++) {
                                     JSONObject photoObj = photos.getJSONObject(j);
-
-                                    //if(photoObj.has("height")) {
-                                    //    height = photoObj.getInt("height");
-                                    //}
-
-                                    //if(photoObj.has("width")) {
-                                    //    width = photoObj.getInt("width");
-                                    //}
 
                                     if(photoObj.has("photo_reference")) {
                                         photoReference = photoObj.getString("photo_reference");
@@ -129,16 +118,12 @@ public class JsonParsingUtil {
                                 rating = result.getString("rating");    // 장소의 평점 (사용자 리뷰 기준으로 1.0 ~ 5.0)
                             }
 
-                            //if (result.has("reference")) {
-                            //    reference = result.getString("reference");    // 장소 세부정보 요청 시 사용되는 고유한 문자열 (현재는 place id로 대체되어 사용하지 않음)
-                            //}
-
                             if (result.has("formatted_address")) {
                                 formattedAddress = result.getString("formatted_address");    // 장소의 주소 (우편주소)
                             }
-                            //String photoUrl = "";    // 사진 url
 
                             GooglePlaceItem googlePlaceItem = new GooglePlaceItem();
+
                             if (null != lat && !"".equalsIgnoreCase(lat)) {
                                 googlePlaceItem.setLat(Double.parseDouble(lat));
                             } else {
@@ -161,19 +146,6 @@ public class JsonParsingUtil {
                                 googlePlaceItem.setOpenNow(false);
                             }
 
-                            //if (0 < height) {
-                            //    googlePlaceItem.setHeight(height);
-                            //} else {
-                            //    googlePlaceItem.setHeight(0);
-                            //}
-
-                            //if (0 < width) {
-                            //    googlePlaceItem.setWidth(width);
-                            //} else {
-                            //    googlePlaceItem.setWidth(0);
-                            //}
-
-                            //googlePlaceItem.setPhotoHtmlAttribution(photoHtmlAttribution);
                             googlePlaceItem.setPhotoReference(photoReference);
                             googlePlaceItem.setPlaceId(placeId);
                             googlePlaceItem.setScope(scope);

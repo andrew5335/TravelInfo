@@ -38,7 +38,7 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
 
     private ListView contentList;
     private boolean lastItemVisibleFlag = false;
-    private List<ListItem> itemList = new ArrayList<ListItem>();;
+    private List<ListItem> itemList = new ArrayList<ListItem>();
     private SearchListViewAdapter adapter;
     private int page = 1;
     private final int offset = 10;

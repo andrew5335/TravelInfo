@@ -1,6 +1,8 @@
 package com.eye2web.travel.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spannable;
@@ -10,6 +12,7 @@ import android.text.style.URLSpan;
 
 import com.eye2web.travel.vo.AreaListItem;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class CommonUtil {
@@ -29,6 +32,36 @@ public class CommonUtil {
         return buffer;
     }
 
+    public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if(height > reqHeight || width > reqWidth) {
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            while((halfHeight / inSampleSize) > reqHeight &&
+                    (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    public Bitmap decodeSampledBitmapFromStream(InputStream is, int reqWidth, int reqHeight) {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(is, null, options);
+
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        options.inJustDecodeBounds = false;
+
+        return BitmapFactory.decodeStream(is);
+    }
+
     public Spanned convertTxtToHtml(String str) {
         Spanned result;
 
@@ -40,8 +73,6 @@ public class CommonUtil {
 
         return result;
     }
-
-
 
     public String getKeyword(String areaGu) {
         String result = "";

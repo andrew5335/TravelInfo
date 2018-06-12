@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.text.Html;
 import android.util.Log;
@@ -65,13 +66,41 @@ public class CityMainActivity extends BaseActivity {
     private String gu = "1";    // 도시 메인 혹은 리스트 유무 구분값 - 1 : 도시메인 / 2 : 각 카테고리 리스트
 
     private ImageView imageView;
+    private TextView city_summary_text;
+    private ImageView city_main_photo;
+
+    private Handler handler = null;
+
+    private GooglePlaceVO googlePlaceVO = new GooglePlaceVO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /**
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()   // or .detectAll() for all detectable problems
+                .penaltyLog()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
+         **/
+
         setContentView(R.layout.activity_city_main);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        city_main_photo = (ImageView) findViewById(R.id.city_main_photo);
+        city_summary_text = (TextView) findViewById(R.id.city_main_text);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().penaltyLog().build();
         StrictMode.setThreadPolicy(policy);
+        StrictMode.VmPolicy vmPolicy = new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build();
+        StrictMode.setVmPolicy(vmPolicy);
 
         googlePlacesApiNearbySearchUrl = getResources().getString(R.string.google_places_api_nearby_search_url);
         googlePlacesApiTextSearchUrl = getResources().getString(R.string.google_places_api_text_search_url);
@@ -232,12 +261,45 @@ public class CityMainActivity extends BaseActivity {
                 break;
         }
 
-        GooglePlaceVO googlePlaceVO = new GooglePlaceVO();
-        googlePlaceVO = getContent();
+        //GooglePlaceVO googlePlaceVO = new GooglePlaceVO();
 
+        handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getContent();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(null != googlePlaceVO) {
+                            city_summary_text = (TextView) findViewById(R.id.city_main_text);
+                            city_main_photo = (ImageView) findViewById(R.id.city_main_photo);
+
+                            List<GooglePlaceItem> itemList = googlePlaceVO.getPlaceItem();
+
+                            if(null != itemList && 0 < itemList.size()) {
+                                for (int i = 0; i < itemList.size(); i++) {
+                                    city_summary_text.setText(itemList.get(i).getSummary());
+                                    Picasso.get().load(itemList.get(i).getGooglePhotoUrl()).placeholder(R.mipmap.logo_final).into(city_main_photo);
+                                }
+                            }
+                        }
+                    }
+                });
+
+            }
+        }).start();
+
+
+        //googlePlaceVO = getContent();
+
+        //GooglePlaceVO googlePlaceVO = new GooglePlaceVO();
+        //googlePlaceVO = getContent();
+
+        /**
         if(null != googlePlaceVO) {
-            TextView city_summary_text = (TextView) findViewById(R.id.city_main_text);
-            ImageView city_main_photo = (ImageView) findViewById(R.id.city_main_photo);
+            city_summary_text = (TextView) findViewById(R.id.city_main_text);
+            city_main_photo = (ImageView) findViewById(R.id.city_main_photo);
 
             List<GooglePlaceItem> itemList = googlePlaceVO.getPlaceItem();
 
@@ -249,20 +311,38 @@ public class CityMainActivity extends BaseActivity {
                 }
             }
         }
+         **/
     }
 
-    public GooglePlaceVO getContent() {
-        GooglePlaceVO googlePlaceVO = new GooglePlaceVO();
+    public void getContent() {
+        //GooglePlaceVO googlePlaceVO = new GooglePlaceVO();
         googleApiService = new GoogleApiService();
+
+        //city_summary_text = (TextView) findViewById(R.id.city_main_text);
+        //city_main_photo = (ImageView) findViewById(R.id.city_main_photo);
 
         try {
             googlePlaceVO = googleApiService.getPlaceInfo(googlePlacesApiTextSearchUrl, googlePlacesApiPhotoUrl
-                    , wikipedia_api_summary, wikipieda_api_detail, googleApiKey, latitude, longitude, searchKeyword, wikiSearchKeyword, gu);
+                    , wikipedia_api_summary, wikipieda_api_detail, googleApiKey, "", latitude, longitude, searchKeyword, wikiSearchKeyword, gu, "");
+
+            /**
+            if(null != googlePlaceVO) {
+                List<GooglePlaceItem> itemList = googlePlaceVO.getPlaceItem();
+
+                if(null != itemList && 0 < itemList.size()) {
+                    for (int i = 0; i < itemList.size(); i++) {
+                        city_summary_text.setText(itemList.get(i).getSummary());
+                        city_main_photo.setImageBitmap(itemList.get(i).getPhotoUrl());
+                        //city_summary_text.setText(Html.fromHtml(itemList.get(i).getSummary(), new ImageGetter(), null));
+                    }
+                }
+            }
+             **/
         } catch (Exception e) {
             Log.e("Error", "Error : " + e.toString());
         }
 
-        return googlePlaceVO;
+        //return googlePlaceVO;
     }
 
     private class ImageGetter implements Html.ImageGetter {
@@ -318,34 +398,146 @@ public class CityMainActivity extends BaseActivity {
     };
 
     public void travelBtnClicked(View v) {
+        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent.putExtra("searchKeyword", searchKeyword);
+        cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
+        cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
+        cateIntent.putExtra("summaryApiUrl", wikipedia_api_summary);
+        cateIntent.putExtra("wikiDetailApiUrl", wikipieda_api_detail);
+        cateIntent.putExtra("googleKey", googleApiKey);
+        cateIntent.putExtra("nextPageToken", "");
+        cateIntent.putExtra("lat", latitude);
+        cateIntent.putExtra("lng", longitude);
+        cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
+        cateIntent.putExtra("gu", "2");
+        cateIntent.putExtra("cateGu", "관광");
 
+        startActivity(cateIntent);
     }
 
     public void hotelBtnClicked(View v) {
+        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent.putExtra("searchKeyword", searchKeyword);
+        cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
+        cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
+        cateIntent.putExtra("summaryApiUrl", wikipedia_api_summary);
+        cateIntent.putExtra("wikiDetailApiUrl", wikipieda_api_detail);
+        cateIntent.putExtra("googleKey", googleApiKey);
+        cateIntent.putExtra("nextPageToken", "");
+        cateIntent.putExtra("lat", latitude);
+        cateIntent.putExtra("lng", longitude);
+        cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
+        cateIntent.putExtra("gu", "2");
+        cateIntent.putExtra("cateGu", "숙박");
 
+        startActivity(cateIntent);
     }
 
     public void foodBtnClicked(View v) {
+        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent.putExtra("searchKeyword", searchKeyword);
+        cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
+        cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
+        cateIntent.putExtra("summaryApiUrl", wikipedia_api_summary);
+        cateIntent.putExtra("wikiDetailApiUrl", wikipieda_api_detail);
+        cateIntent.putExtra("googleKey", googleApiKey);
+        cateIntent.putExtra("nextPageToken", "");
+        cateIntent.putExtra("lat", latitude);
+        cateIntent.putExtra("lng", longitude);
+        cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
+        cateIntent.putExtra("gu", "2");
+        cateIntent.putExtra("cateGu", "맛집");
 
+        startActivity(cateIntent);
     }
 
     public void festivalBtnClicked(View v) {
+        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent.putExtra("searchKeyword", searchKeyword);
+        cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
+        cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
+        cateIntent.putExtra("summaryApiUrl", wikipedia_api_summary);
+        cateIntent.putExtra("wikiDetailApiUrl", wikipieda_api_detail);
+        cateIntent.putExtra("googleKey", googleApiKey);
+        cateIntent.putExtra("nextPageToken", "");
+        cateIntent.putExtra("lat", latitude);
+        cateIntent.putExtra("lng", longitude);
+        cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
+        cateIntent.putExtra("gu", "2");
+        cateIntent.putExtra("cateGu", "축제");
 
+        startActivity(cateIntent);
     }
 
     public void courseBtnClicked(View v) {
+        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent.putExtra("searchKeyword", searchKeyword);
+        cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
+        cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
+        cateIntent.putExtra("summaryApiUrl", wikipedia_api_summary);
+        cateIntent.putExtra("wikiDetailApiUrl", wikipieda_api_detail);
+        cateIntent.putExtra("googleKey", googleApiKey);
+        cateIntent.putExtra("nextPageToken", "");
+        cateIntent.putExtra("lat", latitude);
+        cateIntent.putExtra("lng", longitude);
+        cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
+        cateIntent.putExtra("gu", "2");
+        cateIntent.putExtra("cateGu", "여행코스");
 
+        startActivity(cateIntent);
     }
 
     public void sportsBtnClicked(View v) {
+        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent.putExtra("searchKeyword", searchKeyword);
+        cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
+        cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
+        cateIntent.putExtra("summaryApiUrl", wikipedia_api_summary);
+        cateIntent.putExtra("wikiDetailApiUrl", wikipieda_api_detail);
+        cateIntent.putExtra("googleKey", googleApiKey);
+        cateIntent.putExtra("nextPageToken", "");
+        cateIntent.putExtra("lat", latitude);
+        cateIntent.putExtra("lng", longitude);
+        cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
+        cateIntent.putExtra("gu", "2");
+        cateIntent.putExtra("cateGu", "레포츠");
 
+        startActivity(cateIntent);
     }
 
     public void shopBtnClicked(View v) {
+        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent.putExtra("searchKeyword", searchKeyword);
+        cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
+        cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
+        cateIntent.putExtra("summaryApiUrl", wikipedia_api_summary);
+        cateIntent.putExtra("wikiDetailApiUrl", wikipieda_api_detail);
+        cateIntent.putExtra("googleKey", googleApiKey);
+        cateIntent.putExtra("nextPageToken", "");
+        cateIntent.putExtra("lat", latitude);
+        cateIntent.putExtra("lng", longitude);
+        cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
+        cateIntent.putExtra("gu", "2");
+        cateIntent.putExtra("cateGu", "쇼핑");
 
+        startActivity(cateIntent);
     }
 
     public void cultureBtnClicked(View v) {
+        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent.putExtra("searchKeyword", searchKeyword);
+        cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
+        cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
+        cateIntent.putExtra("summaryApiUrl", wikipedia_api_summary);
+        cateIntent.putExtra("wikiDetailApiUrl", wikipieda_api_detail);
+        cateIntent.putExtra("googleKey", googleApiKey);
+        cateIntent.putExtra("nextPageToken", "");
+        cateIntent.putExtra("lat", latitude);
+        cateIntent.putExtra("lng", longitude);
+        cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
+        cateIntent.putExtra("gu", "2");
+        cateIntent.putExtra("cateGu", "문화시설");
 
+        startActivity(cateIntent);
     }
 }

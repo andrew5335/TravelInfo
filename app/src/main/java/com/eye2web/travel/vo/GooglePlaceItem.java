@@ -40,7 +40,9 @@ public class GooglePlaceItem implements Serializable{
 
     private String formattedAddress;    // 장소의 주소 (우편주소)
 
-    private Bitmap photoUrl;    // 사진 url
+    private Bitmap photoUrl;    // Bitmap image
+
+    private String googlePhotoUrl;    // google photo url
 
     private String summary;
 
@@ -179,6 +181,14 @@ public class GooglePlaceItem implements Serializable{
 
     public void setPhotoUrl(Bitmap photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getGooglePhotoUrl() {
+        return googlePhotoUrl;
+    }
+
+    public void setGooglePhotoUrl(String googlePhotoUrl) {
+        this.googlePhotoUrl = googlePhotoUrl;
     }
 
     public String getSummary() {
