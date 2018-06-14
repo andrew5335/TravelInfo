@@ -19,7 +19,7 @@
 
                 <ImageView
                     android:id="@+id/incheon_btn"
-                    android:layout_width="@dimen/indexmenu_width"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/indexmenu_height"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
@@ -29,7 +29,7 @@
                     android:textColor="#000000" />
 
                 <TextView
-                    android:layout_width="@dimen/indexmenu_width"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:fontFamily="@font/utogothic"
