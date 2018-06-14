@@ -1,7 +1,6 @@
 package com.eye2web.travel;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -14,6 +13,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.eye2web.travel.adapter.AreaSpinnerAdapter;
 import com.eye2web.travel.adapter.SearchListViewAdapter;
@@ -40,6 +40,7 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
     private String cateGu;
     private String cateName;
     private Intent cateIntent;
+    private String aroundGu;
 
     private ListView contentList;
     private boolean lastItemVisibleFlag = false;
@@ -74,6 +75,8 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
         loc = menuIntent.getStringExtra("loc");
         mapX = menuIntent.getDoubleExtra("mapX", 0);
         mapY = menuIntent.getDoubleExtra("mapY", 0);
+        aroundGu = menuIntent.getStringExtra("aroundGu");
+
         //Log.i("info", "===============gps info : " + mapX + "=============" + mapY);
         if(null != sort && !"".equalsIgnoreCase(sort)) {} else { sort = "O"; }    // 정렬 기준이 없을 경우에는 기본 제목순 정렬
         commonUtil = new CommonUtil();
@@ -117,6 +120,7 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
         }
 
         // 상단 메뉴 텍스트 색상 설정
+        /**
         switch(areaGu) {
             case "1" :
                 btnText = (TextView) findViewById(R.id.seoulBtn);
@@ -203,6 +207,7 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
                 btnText.setTextColor(Color.RED);
                 break;
         }
+         **/
 
         contentList.setOnItemClickListener(itemClickListener);
     }
@@ -216,10 +221,15 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
             sortIntent.putExtra("cateGu", cateGu);
             sortIntent.putExtra("cateName", cateName);
             sortIntent.putExtra("areaGu", areaGu);
+            sortIntent.putExtra("code", cateGu);
+            sortIntent.putExtra("aroundGu", aroundGu);
+            sortIntent.putExtra("loc", loc);
+            sortIntent.putExtra("mapX", mapX);
+            sortIntent.putExtra("mapY", mapY);
             sortIntent.putExtra("sort", item.getCode());
             startActivity(sortIntent);
             finish();
-            //Toast.makeText(getApplicationContext(), item.getName() + "-" + item.getCode() + " selected !!!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), item.getName() + "-" + item.getCode() + "-" + aroundGu + " selected !!!", Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -443,6 +453,28 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
             if("loc".equalsIgnoreCase(loc)) {
                 gu = "loc";
                 addr = getResources().getString(R.string.apiUrl) + "locationBasedList?serviceKey=";
+
+                if(null != aroundGu && !"".equalsIgnoreCase(aroundGu)) {
+                    switch (aroundGu) {
+                        case "food" :
+                            areaGu = "39";
+                            code = "39";
+                            break;
+
+                        case "hotel" :
+                            areaGu = "32";
+                            code = "32";
+                            break;
+
+                        case "travel" :
+                            areaGu = "12";
+                            code = "12";
+                            break;
+                    }
+                } else {
+                    areaGu = "12";
+                    code = "12";
+                }
             }
         }
         //Log.i("info", "===============gps info : " + mapX + "=============" + mapY + "===================loc : " +loc);

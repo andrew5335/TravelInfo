@@ -61,35 +61,122 @@
                     android:layout_width="match_parent"
                     android:layout_height="400dp" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical|left"
+                    android:textColor="#ca2525"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:text="주변 검색"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="2dp"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_margin="1dp"
                         android:background="#fff"
                         card_view:cardCornerRadius="1dp">
 
                         <ImageView
+                            android:id="@+id/search_around_food"
                             android:layout_width="match_parent"
-                            android:layout_height="300dp"
+                            android:layout_height="70dp"
                             android:background="#ddd"
-                            android:onClick="onLocBtnClicked" />
+                            android:scaleType="fitXY"
+                            android:onClick="onFoodAroundBtnClicked" />
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:fontFamily="@font/utogothic"
-                            android:gravity="bottom|left"
-                            android:onClick="onLocBtnClicked"
-                            android:text="내 주변의 관광지는?"
-                            android:textSize="16dp" />
+                            android:layout_height="70dp"
+                            android:fontFamily="@font/notosanskr_regular_hestia"
+                            android:gravity="center_horizontal|center_vertical|center"
+                            android:onClick="onFoodAroundBtnClicked"
+                            android:text="맛집"
+                            android:textColor="#fff"
+                            android:textSize="14dp"
+                            android:textStyle="bold"
+                            android:shadowColor="@android:color/background_dark"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="1.5"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="1dp"
+                        android:background="#fff"
+                        card_view:cardCornerRadius="1dp">
+
+                        <ImageView
+                            android:id="@+id/search_around_stay"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:background="#ddd"
+                            android:scaleType="fitXY"
+                            android:onClick="onHotelAroundBtnClicked" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:fontFamily="@font/notosanskr_regular_hestia"
+                            android:gravity="center_horizontal|center_vertical|center"
+                            android:onClick="onHotelAroundBtnClicked"
+                            android:text="호텔"
+                            android:textColor="#fff"
+                            android:textSize="14dp"
+                            android:textStyle="bold"
+                            android:shadowColor="@android:color/background_dark"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="1.5"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="1dp"
+                        android:background="#fff"
+                        card_view:cardCornerRadius="1dp">
+
+                        <ImageView
+                            android:id="@+id/search_around_travel"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:background="#ddd"
+                            android:scaleType="fitXY"
+                            android:onClick="onTravelAroundBtnClicked" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:fontFamily="@font/notosanskr_regular_hestia"
+                            android:gravity="center_horizontal|center_vertical|center"
+                            android:onClick="onTravelAroundBtnClicked"
+                            android:text="관광"
+                            android:textColor="#fff"
+                            android:textSize="14dp"
+                            android:textStyle="bold"
+                            android:shadowColor="@android:color/background_dark"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="1.5"/>
 
                     </android.support.v7.widget.CardView>
 

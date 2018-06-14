@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.widget.TextView;
 
 import com.eye2web.travel.adapter.DetailViewPagerAdapter;
 import com.eye2web.travel.adapter.DetailViewTabPagerAdapger;
@@ -78,6 +80,7 @@ public class DetailInfoActivity extends BaseActivity {
         detailContentPager = (ViewPager) findViewById(R.id.detail_content_viewpager);
         detailContentPager.setAdapter(detailViewTabPagerAdapger);
         tabLayout.setupWithViewPager(detailContentPager);
+        createTabIcon();
 
         /** 네이버 지도 api 연동 완료 - 2018-05-30
         NaverFragment naverFragment = new NaverFragment();
@@ -89,6 +92,28 @@ public class DetailInfoActivity extends BaseActivity {
         naverFragmentTransaction.add(R.id.detail_naver_map, naverFragment);
         naverFragmentTransaction.commit();
          **/
+    }
+
+    public void createTabIcon() {
+        TextView tab1 = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tab1.setText("기본정보");
+        tab1.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.basic_info, 0, 0);
+        tabLayout.getTabAt(0).setCustomView(tab1);
+
+        TextView tab2 = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tab2.setText("상세정보");
+        tab2.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.detail_info, 0, 0);
+        tabLayout.getTabAt(1).setCustomView(tab2);
+
+        TextView tab3 = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tab3.setText("위치정보");
+        tab3.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.place_info, 0, 0);
+        tabLayout.getTabAt(2).setCustomView(tab3);
+
+        TextView tab4 = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tab4.setText("주변정보");
+        tab4.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.place_around_info, 0, 0);
+        tabLayout.getTabAt(3).setCustomView(tab4);
     }
 
     /**
@@ -139,6 +164,8 @@ public class DetailInfoActivity extends BaseActivity {
 
         if(null != resultMap && 0 < resultMap.size()) {
             detailCommonItem = (DetailCommonItem) resultMap.get("detailCommon");
+            detailCommonItem.setMapx(mapx);
+            detailCommonItem.setMapy(mapy);
             /**
             title = (String) detailCommonItem.getTitle();
 

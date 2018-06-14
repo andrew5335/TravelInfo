@@ -14,10 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="5.0dp"
         android:background="#fff"
-        card_view:cardCornerRadius="5dp"
-        card_view:contentPadding="7dp"
+        card_view:cardCornerRadius="0dp"
+        card_view:contentPadding="1dp"
         card_view:cardBackgroundColor="#fff"
-        card_view:cardElevation="2.0dp">
+        card_view:cardElevation="0.5dp">
 
         <LinearLayout
             android:layout_width="match_parent"

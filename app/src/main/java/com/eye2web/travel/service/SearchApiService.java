@@ -91,7 +91,7 @@ public class SearchApiService extends Application {
                 parameter = parameter + "&pageNo=" + page;
                 parameter = parameter + "&listYN=Y";
                 parameter = parameter + "&arrange=" + sort;
-                //parameter = parameter + "&contentTypeId=" + code;
+                parameter = parameter + "&contentTypeId=" + code;
                 parameter = parameter + "&radius=5000";
                 parameter = parameter + "&mapX=" + mapX;
                 parameter = parameter + "&mapY=" + mapY;

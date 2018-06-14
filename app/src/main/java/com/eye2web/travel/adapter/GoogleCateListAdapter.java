@@ -20,6 +20,7 @@ public class GoogleCateListAdapter  extends BaseAdapter {
     private LayoutInflater inflater;
     private List<GooglePlaceItem> data;
     private int layout;
+    private Context context;
 
     private CommonUtil commonUtil;
 
@@ -27,6 +28,7 @@ public class GoogleCateListAdapter  extends BaseAdapter {
         this.inflater = (LayoutInflater) context.getSystemService((Context.LAYOUT_INFLATER_SERVICE));
         this.data = data;
         this.layout = layout;
+        this.context = context;
     }
 
     @Override
@@ -65,6 +67,8 @@ public class GoogleCateListAdapter  extends BaseAdapter {
         if(null != item.getGooglePhotoUrl() && !"".equalsIgnoreCase(item.getGooglePhotoUrl())) {
             Picasso.get().load(item.getGooglePhotoUrl()).placeholder(R.mipmap.logo_final).into(googleImage);
             //Glide.with(convertView.getContext()).load(item.getGooglePhotoUrl()).into(googleImage);
+        } else {
+            googleImage.setImageBitmap(null);
         }
 
         if(null != item.getName() && !"".equalsIgnoreCase(item.getName())) {

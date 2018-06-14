@@ -64,6 +64,7 @@ public class DetailViewTabPagerAdapger extends FragmentPagerAdapter {
         return 4;
     }
 
+    /**
     @Override
     public CharSequence getPageTitle(int position) {
         String title = "";
@@ -88,4 +89,5 @@ public class DetailViewTabPagerAdapger extends FragmentPagerAdapter {
 
         return title;
     }
+    **/
 }

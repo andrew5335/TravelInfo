@@ -13,12 +13,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.eye2web.travel.adapter.IndexPagerAdapter;
 import com.eye2web.travel.handler.BackPressCloseHandler;
 import com.eye2web.travel.service.AreaApiService;
 import com.eye2web.travel.vo.AreaListItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,6 +43,9 @@ public class IndexActivity extends BaseActivity {
 
     private BackPressCloseHandler backPressCloseHandler;
 
+    private String imageUrl;
+
+
     /**
      * @parameter :
      * @Date : 2018. 5. 10. PM 12:21
@@ -54,6 +59,9 @@ public class IndexActivity extends BaseActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        imageUrl = getResources().getString(R.string.image_url);
+        imageUrl = imageUrl + "/images/";
+
         if(Build.VERSION.SDK_INT >= 23
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
@@ -64,6 +72,17 @@ public class IndexActivity extends BaseActivity {
         ViewPager indexMenuPager = (ViewPager) findViewById(R.id.index_menu_pager);
         indexPagerAdapter = new IndexPagerAdapter(this, getLayoutInflater(), cityList);
         indexMenuPager.setAdapter(indexPagerAdapter);
+
+        //ImageView search_around = (ImageView) findViewById(R.id.search_around);
+        //Picasso.get().load(imageUrl + "compas.png").placeholder(R.mipmap.compas).into(search_around);
+
+        ImageView food_around = (ImageView) findViewById(R.id.search_around_food);
+        ImageView hotel_around = (ImageView) findViewById(R.id.search_around_stay);
+        ImageView travel_around = (ImageView) findViewById(R.id.search_around_travel);
+
+        Picasso.get().load(imageUrl + "food.jpg").placeholder(R.mipmap.food_index).into(food_around);
+        Picasso.get().load(imageUrl + "hotel.jpg").placeholder(R.mipmap.hotel_index).into(hotel_around);
+        Picasso.get().load(imageUrl + "travel.jpg").placeholder(R.mipmap.travel_index).into(travel_around);
 
         this.backPressCloseHandler = new BackPressCloseHandler(this);    // 뒤로가기 처리
 
@@ -187,7 +206,47 @@ public class IndexActivity extends BaseActivity {
         //finish();
     }
 
-    public void onLocBtnClicked(View v) {
+    public void onFoodAroundBtnClicked(View v) {
+        double mapX = 0;
+        double mapY = 0;
+        Map<String, Object> gpsMap = new HashMap<String, Object>();
+        gpsMap = getGpsInfo();
+
+        if(null != gpsMap && 0 < gpsMap.size()) {
+            mapX = (Double) gpsMap.get("mapX");
+            mapY = (Double) gpsMap.get("mapY");
+
+            Intent locIntent = new Intent(this, MenuListActivity.class);
+            locIntent.putExtra("mapX", mapX);
+            locIntent.putExtra("mapY", mapY);
+            locIntent.putExtra("loc", "loc");
+            locIntent.putExtra("aroundGu", "food");
+            locIntent.putExtra("cateName", "맛집 검색 결과");
+            startActivity(locIntent);
+        }
+    }
+
+    public void onHotelAroundBtnClicked(View v) {
+        double mapX = 0;
+        double mapY = 0;
+        Map<String, Object> gpsMap = new HashMap<String, Object>();
+        gpsMap = getGpsInfo();
+
+        if(null != gpsMap && 0 < gpsMap.size()) {
+            mapX = (Double) gpsMap.get("mapX");
+            mapY = (Double) gpsMap.get("mapY");
+
+            Intent locIntent = new Intent(this, MenuListActivity.class);
+            locIntent.putExtra("mapX", mapX);
+            locIntent.putExtra("mapY", mapY);
+            locIntent.putExtra("loc", "loc");
+            locIntent.putExtra("aroundGu", "hotel");
+            locIntent.putExtra("cateName", "호텔 검색 결과");
+            startActivity(locIntent);
+        }
+    }
+
+    public void onTravelAroundBtnClicked(View v) {
         double mapX = 0;
         double mapY = 0;
         Map<String, Object> gpsMap = new HashMap<String, Object>();
@@ -202,7 +261,8 @@ public class IndexActivity extends BaseActivity {
             locIntent.putExtra("mapX", mapX);
             locIntent.putExtra("mapY", mapY);
             locIntent.putExtra("loc", "loc");
-            locIntent.putExtra("cateName", "주변 검색 결과");
+            locIntent.putExtra("aroundGu", "travel");
+            locIntent.putExtra("cateName", "관광지 검색 결과");
             startActivity(locIntent);
         }
     }

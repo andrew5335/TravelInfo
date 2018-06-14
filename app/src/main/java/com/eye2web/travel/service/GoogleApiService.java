@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.eye2web.travel.util.CommonUtil;
 import com.eye2web.travel.util.JsonParsingUtil;
+import com.eye2web.travel.vo.GooglePlaceDetailItem;
+import com.eye2web.travel.vo.GooglePlaceDetailPhoto;
+import com.eye2web.travel.vo.GooglePlaceDetailReviews;
 import com.eye2web.travel.vo.GooglePlaceItem;
 import com.eye2web.travel.vo.GooglePlaceVO;
 
@@ -88,22 +91,16 @@ public class GoogleApiService {
                     }
                     gSearchParam = gSearchParam + "&key=" + googleKey;
 
-                    //if("1".equalsIgnoreCase(gu)) {
-                        //gSearchParam = gSearchParam + "&radius=20000&location=" + lat + "," + lng;
-                    //}
-
                     if(null != nextPageToken && !"".equalsIgnoreCase(nextPageToken)) {
                         gSearchParam = gSearchParam + "&pagetoken=" + nextPageToken;
                     }
                 }
 
-                //searchApiUrl = searchApiUrl + gSearchParam;
                 Log.i("Info", "Search API URL : " + gSearchParam);
                 searchUrl = new URL(searchApiUrl + gSearchParam);
 
                 urlConnection = (HttpURLConnection) searchUrl.openConnection();
 
-                //sris = new InputStreamReader(searchUrl.openStream());
                 sris = new InputStreamReader(urlConnection.getInputStream());
 
                 searchResultStr = new BufferedReader(sris);
@@ -114,8 +111,6 @@ public class GoogleApiService {
                 }
 
                 if (null != searchStrBuilder.toString() && !"".equalsIgnoreCase(searchStrBuilder.toString())) {
-                    //String searchRsltStr = "";
-                    //searchRsltStr = searchStrBuilder.toString();
                     placeInfo = jsonParsingUtil.getGooglePlaceVO(searchStrBuilder.toString());
 
                     if (null != placeInfo) {
@@ -124,39 +119,28 @@ public class GoogleApiService {
 
                         if (null != placeItems && 0 < placeItems.size()) {
                             if (null != photoApiUrl && !"".equalsIgnoreCase(photoApiUrl)) {
-                                //StringBuilder photoBuilder = new StringBuilder();
 
                                 for (int i = 0; i < placeItems.size(); i++) {
                                     String photoReference = "";
                                     photoReference = placeItems.get(i).getPhotoReference();
 
                                     String gPhotoParam = "";
+                                    googlePhotoUrl = "";
+                                    //placeItems.get(i).setGooglePhotoUrl(null);
                                     if (null != photoReference && !"".equalsIgnoreCase(photoReference)) {
 
                                         gPhotoParam = gPhotoParam + "?key=" + googleKey;
                                         gPhotoParam = gPhotoParam + "&maxheight=240";
                                         gPhotoParam = gPhotoParam + "&photoreference=" + photoReference  + commonParam;
 
-                                        //photoApiUrl = photoApiUrl;
-                                        //photoUrl = new URL(photoApiUrl + gPhotoParam);
-                                        googlePhotoUrl =photoApiUrl + gPhotoParam;
+                                        googlePhotoUrl = photoApiUrl + gPhotoParam;
                                         placeItems.get(i).setGooglePhotoUrl(googlePhotoUrl);
-                                        //urlConnection = (HttpURLConnection) photoUrl.openConnection();
-
-                                        //BitmapFactory.Options option = new BitmapFactory.Options();
-                                        //option.inJustDecodeBounds = true;
-                                        //InputStream is = urlConnection.getInputStream();
-                                        //Bitmap googlePhoto = commonUtil.decodeSampledBitmapFromStream(is, 320, 240);
-
-                                        //googlePhoto = commonUtil.decodeSampledBitmapFromStream(is, imgWidth, imgHeight);
-
-                                        //if (null != googlePhoto) {
-                                        //    placeItems.get(i).setPhotoUrl(googlePhoto);
-                                        //}
+                                        Log.i("Info", "Photo Info : " + i + "-" + placeItems.get(i).getGooglePhotoUrl());
                                     } else {
-                                        placeItems.get(i).setPhotoUrl(null);
+                                        //placeItems.get(i).setPhotoUrl(null);
+                                        placeItems.get(i).setGooglePhotoUrl(null);
+                                        googlePhotoUrl = "";
                                         gPhotoParam = "";
-                                        //placeItems.remove(i);
                                     }
                                 }
                             }
@@ -213,5 +197,23 @@ public class GoogleApiService {
         }
 
         return placeInfo;
+    }
+
+    public GooglePlaceDetailItem getDetailInfo() {
+        GooglePlaceDetailItem detailItem = new GooglePlaceDetailItem();
+
+        return detailItem;
+    }
+
+    public GooglePlaceDetailPhoto getDetailPhoto() {
+        GooglePlaceDetailPhoto detailPhoto = new GooglePlaceDetailPhoto();
+
+        return detailPhoto;
+    }
+
+    public GooglePlaceDetailReviews getDetailReview() {
+        GooglePlaceDetailReviews detailReviews = new GooglePlaceDetailReviews();
+
+        return detailReviews;
     }
 }

@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.StrictMode;
 import android.text.Html;
 import android.util.Log;
 import android.view.Display;
@@ -97,10 +96,10 @@ public class CityMainActivity extends BaseActivity {
         city_main_photo = (ImageView) findViewById(R.id.city_main_photo);
         city_summary_text = (TextView) findViewById(R.id.city_main_text);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().penaltyLog().build();
-        StrictMode.setThreadPolicy(policy);
-        StrictMode.VmPolicy vmPolicy = new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build();
-        StrictMode.setVmPolicy(vmPolicy);
+        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().penaltyLog().build();
+        //StrictMode.setThreadPolicy(policy);
+        //StrictMode.VmPolicy vmPolicy = new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build();
+        //StrictMode.setVmPolicy(vmPolicy);
 
         googlePlacesApiNearbySearchUrl = getResources().getString(R.string.google_places_api_nearby_search_url);
         googlePlacesApiTextSearchUrl = getResources().getString(R.string.google_places_api_text_search_url);
@@ -398,7 +397,7 @@ public class CityMainActivity extends BaseActivity {
     };
 
     public void travelBtnClicked(View v) {
-        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent = new Intent(this, SearchListActivity.class);
         cateIntent.putExtra("searchKeyword", searchKeyword);
         cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
         cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
@@ -410,13 +409,15 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("lng", longitude);
         cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
         cateIntent.putExtra("gu", "2");
-        cateIntent.putExtra("cateGu", "관광");
+        cateIntent.putExtra("cateGu", "관광지");
+        cateIntent.putExtra("areaCode", "12");
+        cateIntent.putExtra("keyword", searchKeyword);
 
         startActivity(cateIntent);
     }
 
     public void hotelBtnClicked(View v) {
-        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent = new Intent(this, SearchListActivity.class);
         cateIntent.putExtra("searchKeyword", searchKeyword);
         cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
         cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
@@ -428,13 +429,16 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("lng", longitude);
         cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
         cateIntent.putExtra("gu", "2");
-        cateIntent.putExtra("cateGu", "숙박");
+        cateIntent.putExtra("cateGu", "호텔 모텔 여관 숙박");
+        cateIntent.putExtra("areaCode", "32");
+        cateIntent.putExtra("keyword", searchKeyword);
+
 
         startActivity(cateIntent);
     }
 
     public void foodBtnClicked(View v) {
-        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent = new Intent(this, SearchListActivity.class);
         cateIntent.putExtra("searchKeyword", searchKeyword);
         cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
         cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
@@ -446,13 +450,15 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("lng", longitude);
         cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
         cateIntent.putExtra("gu", "2");
-        cateIntent.putExtra("cateGu", "맛집");
+        cateIntent.putExtra("cateGu", "restaurant 음식");
+        cateIntent.putExtra("areaCode", "39");
+        cateIntent.putExtra("keyword", searchKeyword);
 
         startActivity(cateIntent);
     }
 
     public void festivalBtnClicked(View v) {
-        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent = new Intent(this, SearchListActivity.class);
         cateIntent.putExtra("searchKeyword", searchKeyword);
         cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
         cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
@@ -464,13 +470,15 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("lng", longitude);
         cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
         cateIntent.putExtra("gu", "2");
-        cateIntent.putExtra("cateGu", "축제");
+        cateIntent.putExtra("cateGu", "festival 축제");
+        cateIntent.putExtra("areaCode", "15");
+        cateIntent.putExtra("keyword", searchKeyword);
 
         startActivity(cateIntent);
     }
 
     public void courseBtnClicked(View v) {
-        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent = new Intent(this, SearchListActivity.class);
         cateIntent.putExtra("searchKeyword", searchKeyword);
         cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
         cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
@@ -483,12 +491,14 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
         cateIntent.putExtra("gu", "2");
         cateIntent.putExtra("cateGu", "여행코스");
+        cateIntent.putExtra("areaCode", "25");
+        cateIntent.putExtra("keyword", searchKeyword);
 
         startActivity(cateIntent);
     }
 
     public void sportsBtnClicked(View v) {
-        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent = new Intent(this, SearchListActivity.class);
         cateIntent.putExtra("searchKeyword", searchKeyword);
         cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
         cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
@@ -500,13 +510,15 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("lng", longitude);
         cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
         cateIntent.putExtra("gu", "2");
-        cateIntent.putExtra("cateGu", "레포츠");
+        cateIntent.putExtra("cateGu", "체육+스포츠");
+        cateIntent.putExtra("areaCode", "28");
+        cateIntent.putExtra("keyword", searchKeyword);
 
         startActivity(cateIntent);
     }
 
     public void shopBtnClicked(View v) {
-        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent = new Intent(this, SearchListActivity.class);
         cateIntent.putExtra("searchKeyword", searchKeyword);
         cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
         cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
@@ -518,13 +530,15 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("lng", longitude);
         cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
         cateIntent.putExtra("gu", "2");
-        cateIntent.putExtra("cateGu", "쇼핑");
+        cateIntent.putExtra("cateGu", "shopping 백화점");
+        cateIntent.putExtra("areaCode", "38");
+        cateIntent.putExtra("keyword", searchKeyword);
 
         startActivity(cateIntent);
     }
 
     public void cultureBtnClicked(View v) {
-        cateIntent = new Intent(this, GoogleCateList.class);
+        cateIntent = new Intent(this, SearchListActivity.class);
         cateIntent.putExtra("searchKeyword", searchKeyword);
         cateIntent.putExtra("searchApiUrl", googlePlacesApiTextSearchUrl);
         cateIntent.putExtra("photoApiUrl", googlePlacesApiPhotoUrl);
@@ -536,7 +550,9 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("lng", longitude);
         cateIntent.putExtra("wikiSearchKeyword", wikiSearchKeyword);
         cateIntent.putExtra("gu", "2");
-        cateIntent.putExtra("cateGu", "문화시설");
+        cateIntent.putExtra("cateGu", "culture+박물관");
+        cateIntent.putExtra("areaCode", "14");
+        cateIntent.putExtra("keyword", searchKeyword);
 
         startActivity(cateIntent);
     }
