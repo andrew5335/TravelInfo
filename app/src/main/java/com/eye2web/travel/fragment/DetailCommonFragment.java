@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,6 +107,7 @@ public class DetailCommonFragment extends Fragment {
         mapAddr = addr1 + " " + addr2;
         imgUrlList = (List<String>) detailCommonItem.getImgUrlList();
         firstImage = detailCommonItem.getFirstimage();
+        Log.i("Info", "detailItem Info : " + overView + "-" + title + "-" + homepage + "-" + addr1 + "-" + addr2);
         //return inflater.inflate(R.layout.fragment_detail_common, container, false);
         TextView detailOverView = (TextView) view.findViewById(R.id.detailOverView);
         TextView detailAddr1 = (TextView) view.findViewById(R.id.detailAddr1);
@@ -119,19 +121,27 @@ public class DetailCommonFragment extends Fragment {
         //detailOverView.setText(overView);
 
         SpannableStringBuilder overViewBuilder = new SpannableStringBuilder();
-        overViewBuilder = commonUtil.convertTxtToLink(getContext(), overView);
+        if(null != overView && !"".equalsIgnoreCase(overView)) {
+            overViewBuilder = commonUtil.convertTxtToLink(getContext(), overView);
+        }
         if(null != overViewBuilder) { detailOverView.setText(overViewBuilder.toString()); }
 
         SpannableStringBuilder addr1Builder = new SpannableStringBuilder();
-        addr1Builder = commonUtil.convertTxtToLink(getContext(), addr1);
+        if(null != addr1 && !"".equalsIgnoreCase(addr1)) {
+            addr1Builder = commonUtil.convertTxtToLink(getContext(), addr1);
+        }
         if(null != addr1Builder) { detailAddr1.setText(addr1Builder.toString()); }
 
         SpannableStringBuilder addr2Builder = new SpannableStringBuilder();
-        addr2Builder = commonUtil.convertTxtToLink(getContext(), addr1);
+        if(null != addr2 && !"".equalsIgnoreCase(addr2)) {
+            addr2Builder = commonUtil.convertTxtToLink(getContext(), addr2);
+        }
         if(null != addr2Builder) { detailAddr2.setText(addr2Builder.toString()); }
 
         SpannableStringBuilder homePageBuilder = new SpannableStringBuilder();
-        homePageBuilder = commonUtil.convertTxtToLink(getContext(), homepage);
+        if(null != homepage && !"".equalsIgnoreCase(homepage)) {
+            homePageBuilder = commonUtil.convertTxtToLink(getContext(), homepage);
+        }
         if(null != homePageBuilder) { detailHomepage.setText(homePageBuilder.toString()); }
 
         imageViewPager = (ViewPager) view.findViewById(R.id.detail_img_viewpager);

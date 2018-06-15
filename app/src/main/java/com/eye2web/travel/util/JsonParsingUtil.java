@@ -1,7 +1,11 @@
 package com.eye2web.travel.util;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.eye2web.travel.vo.GooglePlaceDetailItem;
+import com.eye2web.travel.vo.GooglePlaceDetailPhoto;
+import com.eye2web.travel.vo.GooglePlaceDetailReviews;
 import com.eye2web.travel.vo.GooglePlaceItem;
 import com.eye2web.travel.vo.GooglePlaceVO;
 
@@ -211,6 +215,85 @@ public class JsonParsingUtil {
                         //result = removeTag(result);
                     }
                 }
+            } catch (Exception e) {
+                Log.e("Error", "Error : " + e.toString());
+            }
+        }
+
+        return result;
+    }
+
+    public GooglePlaceDetailItem getGooglePlaceDetailInfo(String str) {
+        GooglePlaceDetailItem result = new GooglePlaceDetailItem();
+
+        if(null != str && !"".equalsIgnoreCase(str)) {
+            try {
+                JSONArray jsonArray;
+                JSONObject jsonObject;
+
+                jsonObject = new JSONObject(str);
+
+                if(jsonObject.has("results")) {
+                    String formattedAddress = "";
+                    String formattedPhoneNumber = "";
+                    double lat = 0;
+                    double lng = 0;
+                    String icon = "";
+                    String id = "";
+                    String internationalPhoneNumber = "";
+                    String name = "";
+                    boolean openNow = false;
+                    String[] weekdayText = null;
+                    List<GooglePlaceDetailPhoto> photoList = null;
+                    String placeId = "";
+                    float rating = 0;
+                    List<GooglePlaceDetailReviews> reviewsList = null;
+                    String scope = "";
+                    String url = "";
+                    List<Bitmap> bitmapPhotoList = null;
+
+                    if(jsonObject.has("formatted_address")) { result.setFormattedAddress(jsonObject.getString("formatted_address")); }
+                    if(jsonObject.has("formatted_phone_number")) { result.setFormattedPhoneNumber(jsonObject.getString("formatted_phone_number")); }
+
+                    if (jsonObject.has("geometry")) {
+                        JSONObject geometry;
+                        geometry = jsonObject.getJSONObject("geometry");
+
+                        if (geometry.has("location")) {
+                            JSONObject location;
+                            location = geometry.getJSONObject("location");
+                            lat = Double.parseDouble(location.getString("lat"));    // latitude 위도
+                            lng = Double.parseDouble(location.getString("lng"));    // longitude 경도
+
+                            result.setLat(lat);
+                            result.setLng(lng);
+                        }
+                    }
+
+                    if(jsonObject.has("icon")) { result.setIcon(jsonObject.getString("icon")); }
+                    if(jsonObject.has("id")) { result.setId(jsonObject.getString("id")); }
+                    if(jsonObject.has("international_phone_number")) { result.setInternationalPhoneNumber(jsonObject.getString("international_phone_number")); }
+                    if(jsonObject.has("name")) { result.setName(jsonObject.getString("name")); }
+                    if(jsonObject.has("opening_horus")) {
+                        JSONObject openingHours;
+                        openingHours = jsonObject.getJSONObject("opening_hours");
+
+                        if(openingHours.has("open_now")) { result.setOpenNow(openingHours.getBoolean("open_now")); }
+                    }
+
+                    if(jsonObject.has("weekday_text")) {
+                        JSONArray weekday;
+                        weekday = jsonObject.getJSONArray("weekday_text");
+                        weekdayText = new String[weekday.length()];
+
+                        for(int i=0; i < weekday.length(); i++) {
+                            weekdayText[i] = weekday.optString(i);
+                        }
+
+                        result.setWeekdayText(weekdayText);
+                    }
+                }
+
             } catch (Exception e) {
                 Log.e("Error", "Error : " + e.toString());
             }

@@ -11,8 +11,11 @@ import android.widget.TextView;
 import com.eye2web.travel.adapter.DetailViewPagerAdapter;
 import com.eye2web.travel.adapter.DetailViewTabPagerAdapger;
 import com.eye2web.travel.service.DetailApiService;
+import com.eye2web.travel.service.GoogleApiService;
 import com.eye2web.travel.vo.DetailCommonItem;
 import com.eye2web.travel.vo.DetailIntroItem;
+import com.eye2web.travel.vo.GooglePlaceDetailItem;
+import com.eye2web.travel.vo.GooglePlaceItem;
 import com.eye2web.travel.vo.ListItem;
 import com.google.android.gms.maps.UiSettings;
 
@@ -32,6 +35,7 @@ public class DetailInfoActivity extends BaseActivity {
     private ViewPager detailContentPager;
     private DetailViewPagerAdapter detailViewPagerAdapter;
     private DetailViewTabPagerAdapger detailViewTabPagerAdapger;
+    private GoogleApiService googleApiService;
 
     private TabLayout tabLayout;
 
@@ -68,13 +72,6 @@ public class DetailInfoActivity extends BaseActivity {
             detailCommonItem.setMapy(mapy);
         }
 
-        /**
-        FragmentManager fragmentManager = getFragmentManager();
-
-        detailContentPager = (ViewPager) findViewById(R.id.detail_content_viewpager);
-        detailViewPagerAdapter = new DetailViewPagerAdapter(this, getLayoutInflater(), fragmentManager, detailCommonItem, mapx, mapy);
-        detailContentPager.setAdapter(detailViewPagerAdapter);
-         **/
         tabLayout = (TabLayout) findViewById(R.id.detail_tab);
         detailViewTabPagerAdapger = new DetailViewTabPagerAdapger(getSupportFragmentManager(), detailCommonItem, mapx, mapy);
         detailContentPager = (ViewPager) findViewById(R.id.detail_content_viewpager);
@@ -117,27 +114,6 @@ public class DetailInfoActivity extends BaseActivity {
     }
 
     /**
-    @Override
-    public void onMapReady(final GoogleMap map) {
-        LatLng location = new LatLng(mapy, mapx);
-        uiSettings = map.getUiSettings();
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(location);
-        markerOptions.title(title);
-        markerOptions.snippet(mapAddr);
-        map.addMarker(markerOptions);
-
-        map.moveCamera(CameraUpdateFactory.newLatLng(location));
-        map.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-        uiSettings.isZoomControlsEnabled();
-        uiSettings.setZoomControlsEnabled(true);
-        uiSettings.setMapToolbarEnabled(true);
-    }
-    **/
-
-    /**
      * @parameter : contentId - 컨텐츠 아이디값
      *              contentTypeId - 컨텐츠 타입 (관광, 숙박, 공연 등)
      *              areaCode - 지역코드
@@ -155,6 +131,9 @@ public class DetailInfoActivity extends BaseActivity {
 
         String addr = getResources().getString(R.string.apiUrl);
         String serviceKey = getResources().getString(R.string.apiKey);
+        String googleSearchAddr = getResources().getString(R.string.google_places_api_text_search_url);
+        String googleDetailAddr = getResources().getString(R.string.google_places_api_detail_info_url);
+        String googleServiceKey = getResources().getString(R.string.google_maps_key);
 
         try {
             resultMap = detailApiService.getDetailInfo(addr, serviceKey, contentId, contentTypeId, areaCode, mapx, mapy);
@@ -166,14 +145,27 @@ public class DetailInfoActivity extends BaseActivity {
             detailCommonItem = (DetailCommonItem) resultMap.get("detailCommon");
             detailCommonItem.setMapx(mapx);
             detailCommonItem.setMapy(mapy);
-            /**
-            title = (String) detailCommonItem.getTitle();
+            //Log.i("Info", "Place Info : " + detailCommonItem.getTitle() + "-" + mapx + "-" + mapy);
 
-            TextView detailTitle = (TextView) findViewById(R.id.detailTitle);
-            if(null != title && !"".equalsIgnoreCase(title)) {
-                detailTitle.setText(title);
+            // 결과값이 있을 경우 구글 검색 주소, 검색어(이 경우 타이틀/제목값, 구글 api key 로 구글 검색을 통해 place_id값을 가져온다.
+            // 만약 구글 검색 결과 place_id가 없으면 정부 데이터의 소개정보를 조회한다.
+            GooglePlaceItem googlePlaceItem = new GooglePlaceItem();
+            googlePlaceItem = googleApiService.getSearchInfo(googleSearchAddr, detailCommonItem.getTitle(), googleServiceKey, mapx, mapy);
+
+            if(null != googlePlaceItem) {
+                String placeId = googlePlaceItem.getPlaceId();
+
+                if(null != placeId && !"".equalsIgnoreCase(placeId)) {
+                    GooglePlaceDetailItem googlePlaceDetailItem = new GooglePlaceDetailItem();
+                    googlePlaceDetailItem = googleApiService.getDetailInfo(googleDetailAddr, placeId, googleServiceKey);
+
+                    if(null != googlePlaceDetailItem) {
+                        detailCommonItem.setGooglePlaceDetailItem(googlePlaceDetailItem);
+                    }
+                }
+            } else {
+                // 구글 검색 결과가 없을 경우 정부 데이터의 소개 정보를 조회한다. (6/18날 추가 예정)
             }
-             **/
         }
 
         return detailCommonItem;

@@ -29,6 +29,8 @@ public class DetailCommonItem implements Serializable {
     private String title;
     private List<String> imgUrlList;
 
+    private GooglePlaceDetailItem googlePlaceDetailItem;
+
     public String getContentid() {
         return contentid;
     }
@@ -208,4 +210,12 @@ public class DetailCommonItem implements Serializable {
     public List<String> getImgUrlList() { return imgUrlList; }
 
     public void setImgUrlList(List<String> imgUrlList) { this.imgUrlList = imgUrlList; }
+
+    public GooglePlaceDetailItem getGooglePlaceDetailItem() {
+        return googlePlaceDetailItem;
+    }
+
+    public void setGooglePlaceDetailItem(GooglePlaceDetailItem googlePlaceDetailItem) {
+        this.googlePlaceDetailItem = googlePlaceDetailItem;
+    }
 }

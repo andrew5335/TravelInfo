@@ -5,8 +5,6 @@ import android.util.Log;
 import com.eye2web.travel.util.CommonUtil;
 import com.eye2web.travel.util.JsonParsingUtil;
 import com.eye2web.travel.vo.GooglePlaceDetailItem;
-import com.eye2web.travel.vo.GooglePlaceDetailPhoto;
-import com.eye2web.travel.vo.GooglePlaceDetailReviews;
 import com.eye2web.travel.vo.GooglePlaceItem;
 import com.eye2web.travel.vo.GooglePlaceVO;
 
@@ -199,21 +197,134 @@ public class GoogleApiService {
         return placeInfo;
     }
 
-    public GooglePlaceDetailItem getDetailInfo() {
-        GooglePlaceDetailItem detailItem = new GooglePlaceDetailItem();
+    /**
+     * @parameter : googleAddr - 구글 주변 검색 주소
+     *              keyword - 검색 키워드 (주유소, 주차장)
+     *              googleKey - google api key
+     *              mapx - 경도
+     *              mapy - 위도
+     * @Date : 2018. 6. 15. PM 3:42
+     * @Author : Andrew Kim
+     * @Description :
+    **/
+    public GooglePlaceItem getNearbyInfo(String googleAddr, String keyword, String googleKey, double mapx, double mapy) {
+        GooglePlaceItem googlePlaceItem = new GooglePlaceItem();
 
-        return detailItem;
+        return googlePlaceItem;
     }
 
-    public GooglePlaceDetailPhoto getDetailPhoto() {
-        GooglePlaceDetailPhoto detailPhoto = new GooglePlaceDetailPhoto();
+    /**
+     * @parameter : googleAddr - 구글 텍스트 검색 주소
+     *              keyword - 검색 키워드 (주유소, 주차장)
+     *              googleKey - google api key
+     *              mapx - 경도
+     *              mapy - 위도
+     * @Date : 2018. 6. 15. PM 4:44
+     * @Author : Andrew Kim
+     * @Description :
+    **/
+    public GooglePlaceItem getSearchInfo(String googleAddr, String keyword, String googleKey, double mapx, double mapy) {
+        GooglePlaceItem googlePlaceItem = new GooglePlaceItem();
 
-        return detailPhoto;
+        GooglePlaceVO placeInfo = new GooglePlaceVO();
+        commonUtil = new CommonUtil();
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader searchResultStr = null;
+        URL searchUrl = null;
+        InputStreamReader sris = null;
+        String commonParam = "&language=ko";
+
+        if(null != googleAddr && !"".equalsIgnoreCase(googleAddr)) {
+            jsonParsingUtil = new JsonParsingUtil();
+            StringBuilder searchStrBuilder = new StringBuilder();
+            String gSearchParam = "";
+            gSearchParam = gSearchParam + "?query=" + keyword + commonParam;
+            gSearchParam = gSearchParam + "&key=" + googleKey;
+
+            Log.i("Info", "Search API URL : " + gSearchParam);
+
+            try {
+                searchUrl = new URL(googleAddr + gSearchParam);
+
+                urlConnection = (HttpURLConnection) searchUrl.openConnection();
+
+                sris = new InputStreamReader(urlConnection.getInputStream());
+
+                searchResultStr = new BufferedReader(sris);
+                String searchResultLine;
+
+                while ((searchResultLine = searchResultStr.readLine()) != null) {
+                    searchStrBuilder.append(searchResultLine);
+                }
+
+                if (null != searchStrBuilder.toString() && !"".equalsIgnoreCase(searchStrBuilder.toString())) {
+                    placeInfo = jsonParsingUtil.getGooglePlaceVO(searchStrBuilder.toString());
+
+                    if (null != placeInfo) {
+                        List<GooglePlaceItem> placeItems = new ArrayList<GooglePlaceItem>();
+                        placeItems = placeInfo.getPlaceItem();
+
+                        if(null != placeItems && 0 < placeItems.size()) {
+                            googlePlaceItem = placeItems.get(0);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("Error", "Error : " + e.toString());
+            }
+        }
+
+        return googlePlaceItem;
     }
 
-    public GooglePlaceDetailReviews getDetailReview() {
-        GooglePlaceDetailReviews detailReviews = new GooglePlaceDetailReviews();
+    /**
+     * @parameter : googleAddr - 구글 상세정보 검색 주소
+     *              placeId - 위치 고유값
+     *              googleKey - google api key
+     * @Date : 2018. 6. 15. PM 3:46
+     * @Author : Andrew Kim
+     * @Description :
+    **/
+    public GooglePlaceDetailItem getDetailInfo(String googleAddr, String placeId, String googleKey) {
+        GooglePlaceDetailItem googlePlaceDetailItem = new GooglePlaceDetailItem();
 
-        return detailReviews;
+        HttpURLConnection urlConnection = null;
+        BufferedReader detailResultStr = null;
+        URL detailUrl = null;
+        InputStreamReader dris = null;
+        String commonParam = "&language=ko";
+
+        if(null != googleAddr && !"".equalsIgnoreCase(googleAddr)) {
+            jsonParsingUtil = new JsonParsingUtil();
+            StringBuilder detailStrBuilder = new StringBuilder();
+            String gSearchParam = "";
+            gSearchParam = gSearchParam + "?placeid=" + placeId + commonParam;
+            gSearchParam = gSearchParam + "&key=" + googleKey;
+
+            try {
+                detailUrl = new URL(googleAddr + gSearchParam);
+
+                urlConnection = (HttpURLConnection) detailUrl.openConnection();
+
+                dris = new InputStreamReader(urlConnection.getInputStream());
+
+                detailResultStr = new BufferedReader(dris);
+                String searchResultLine;
+
+                while ((searchResultLine = detailResultStr.readLine()) != null) {
+                    detailStrBuilder.append(searchResultLine);
+                }
+
+                if (null != detailStrBuilder.toString() && !"".equalsIgnoreCase(detailStrBuilder.toString())) {
+                    googlePlaceDetailItem = jsonParsingUtil.getGooglePlaceDetailInfo(detailStrBuilder.toString());
+                }
+            } catch (Exception e) {
+                Log.e("Error", "Error : " + e.toString());
+            }
+        }
+
+
+        return googlePlaceDetailItem;
     }
 }
