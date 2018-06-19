@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
-        AIzaSyDjEfCtzRlF7hP8G28u8PkDgDNXMa_Mq30
-    </string>
+    
     <string name="google_places_api_nearby_search_url">https://maps.googleapis.com/maps/api/place/nearbysearch/</string>
     <string name="google_places_api_text_search_url">https://maps.googleapis.com/maps/api/place/textsearch/</string>
     <string name="google_places_api_detail_info_url">https://maps.googleapis.com/maps/api/place/details/</string>
