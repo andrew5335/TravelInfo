@@ -94,7 +94,7 @@
                     app:tabMode="fixed"
                     app:tabPaddingEnd="3dp"
                     app:tabPaddingStart="1dp"
-                    app:tabSelectedTextColor="#d2374a"
+                    app:tabSelectedTextColor="#f73951"
                     app:tabTextAppearance="@style/tabFont"
                     app:tabTextColor="@color/cardview_dark_background" />
 

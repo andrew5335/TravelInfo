@@ -97,6 +97,7 @@ public class DetailInfoActivity extends BaseActivity {
         tab1.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.basic_info, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tab1);
 
+        /**
         TextView tab2 = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tab2.setText("상세정보");
         tab2.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.detail_info, 0, 0);
@@ -106,11 +107,12 @@ public class DetailInfoActivity extends BaseActivity {
         tab3.setText("위치정보");
         tab3.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.place_info, 0, 0);
         tabLayout.getTabAt(2).setCustomView(tab3);
+         **/
 
         TextView tab4 = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tab4.setText("주변정보");
         tab4.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.place_around_info, 0, 0);
-        tabLayout.getTabAt(3).setCustomView(tab4);
+        tabLayout.getTabAt(1).setCustomView(tab4);
     }
 
     /**
@@ -125,6 +127,7 @@ public class DetailInfoActivity extends BaseActivity {
     **/
     public DetailCommonItem getContent(String contentId, String contentTypeId, String areaCode, double mapx, double mapy) {
         detailApiService = new DetailApiService();
+        googleApiService = new GoogleApiService();
         DetailIntroItem detailIntroItem = new DetailIntroItem();
         DetailCommonItem detailCommonItem = new DetailCommonItem();
         Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -132,8 +135,14 @@ public class DetailInfoActivity extends BaseActivity {
         String addr = getResources().getString(R.string.apiUrl);
         String serviceKey = getResources().getString(R.string.apiKey);
         String googleSearchAddr = getResources().getString(R.string.google_places_api_text_search_url);
+        String googleNearbySearchAddr = getResources().getString(R.string.google_places_api_nearby_search_url);
         String googleDetailAddr = getResources().getString(R.string.google_places_api_detail_info_url);
         String googleServiceKey = getResources().getString(R.string.google_maps_key);
+        String googleRetType = "json";
+
+        googleSearchAddr = googleSearchAddr + googleRetType;
+        googleNearbySearchAddr = googleNearbySearchAddr + googleRetType;
+        googleDetailAddr = googleDetailAddr + googleRetType;
 
         try {
             resultMap = detailApiService.getDetailInfo(addr, serviceKey, contentId, contentTypeId, areaCode, mapx, mapy);
@@ -150,7 +159,7 @@ public class DetailInfoActivity extends BaseActivity {
             // 결과값이 있을 경우 구글 검색 주소, 검색어(이 경우 타이틀/제목값, 구글 api key 로 구글 검색을 통해 place_id값을 가져온다.
             // 만약 구글 검색 결과 place_id가 없으면 정부 데이터의 소개정보를 조회한다.
             GooglePlaceItem googlePlaceItem = new GooglePlaceItem();
-            googlePlaceItem = googleApiService.getSearchInfo(googleSearchAddr, detailCommonItem.getTitle(), googleServiceKey, mapx, mapy);
+            googlePlaceItem = googleApiService.getSearchInfo(googleNearbySearchAddr, detailCommonItem.getTitle(), googleServiceKey, mapx, mapy);
 
             if(null != googlePlaceItem) {
                 String placeId = googlePlaceItem.getPlaceId();

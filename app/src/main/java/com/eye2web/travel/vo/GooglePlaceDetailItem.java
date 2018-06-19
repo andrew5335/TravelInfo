@@ -9,39 +9,43 @@ public class GooglePlaceDetailItem implements Serializable {
 
     private static final long serialVersionUID = -2785182748060086164L;
 
-    private String formattedAddress;
+    private String formattedAddress;    // 주소
 
-    private String formattedPhoneNumber;
+    private String formattedPhoneNumber;    // 전화번호
 
-    private double lat;
+    private double lat;    // 위도
 
-    private double lng;
+    private double lng;    // 경도
 
-    private String icon;
+    private String icon;    // 아이콘 이미지 url
 
-    private String id;
+    private String id;    // 고유 id값
 
-    private String internationalPhoneNumber;
+    private String internationalPhoneNumber;    // 국제 전화번호
 
-    private String name;
+    private String name;    // 명칭
 
-    private boolean openNow;
+    private boolean openNow;    // 영업유무
 
-    private String[] weekdayText;
+    private String[] weekdayText;    // 영업일 정보
 
-    private List<GooglePlaceDetailPhoto> photoList;
+    private List<GooglePlaceDetailPhoto> photoList;    // 사진 이미지 리스트
 
-    private String placeId;
+    private String placeId;    // 장소 아이디값
 
-    private float rating;
+    private float rating;    // 장소 평점
 
-    private List<GooglePlaceDetailReviews> reviewsList;
+    private List<GooglePlaceDetailReviews> reviewsList;    // 리뷰 리스트
 
-    private String scope;
+    private String scope;    // 범위
 
-    private String url;
+    private String url;    // 구글 공식 페이지 url
 
     private List<Bitmap> bitmapPhotoList;
+
+    private String website;    // 웹 사이트 url
+
+    private String utcOffSet;    // UTC 기준 시간대 표시
 
     public String getFormattedAddress() {
         return formattedAddress;
@@ -178,4 +182,16 @@ public class GooglePlaceDetailItem implements Serializable {
     public void setBitmapPhotoList(List<Bitmap> bitmapPhotoList) {
         this.bitmapPhotoList = bitmapPhotoList;
     }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getUtcOffSet() { return utcOffSet; }
+
+    public void setUtcOffSet(String utcOffSet) { this.utcOffSet = utcOffSet; }
 }

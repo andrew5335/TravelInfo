@@ -47,6 +47,9 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
     private String areaCodeStr = "";
     private String keywordStr = "";
     private String sort = "";
+    private String cityGu = "";
+    private String callType = "";
+    private String areaCode = "";
 
     private BackPressCloseHandler backPressCloseHandler;
 
@@ -69,6 +72,8 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
         areaCodeStr = intent.getStringExtra("areaCode");
         keywordStr = intent.getStringExtra("keyword");
         sort = "O";    // 정렬방식 - A : 제목순 / B : 조회순 / C : 수정일순 / D : 생성일순 | 대표 이미지가 반드시 있는 정렬은 O/P/Q/R로 지정
+        cityGu = intent.getStringExtra("cityGu");
+        callType = intent.getStringExtra("callType");
 
         //itemList = new ArrayList<ListItem>();
         //itemList = getContentList(areaCodeStr, keywordStr, sort);
@@ -133,8 +138,14 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
         String serviceKey = getResources().getString(R.string.apiKey);
         String gu = "search";
 
+        if(null != callType && !"".equalsIgnoreCase(callType)) {
+            gu = "area";
+            areaCode = cityGu;
+            addr = getResources().getString(R.string.apiUrl) + "areaBasedList?serviceKey=";
+        }
+
         try {
-            resultMap = searchApiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset, gu, "", 0, 0);
+            resultMap = searchApiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset, gu, areaCode, 0, 0);
         } catch(Exception e) {
             Log.e("Error", "==========Error : " + e.toString());
         }

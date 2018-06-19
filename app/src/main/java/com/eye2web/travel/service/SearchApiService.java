@@ -111,6 +111,7 @@ public class SearchApiService extends Application {
 
         addr = addr + serviceKey + parameter;
         System.out.println(addr);
+        Log.i("Info", "Call API Info : " + addr);
 
         URL url = new URL(addr);
 

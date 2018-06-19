@@ -34,8 +34,12 @@ public class DetailImageViewPagerAdapter extends PagerAdapter {
         int result = 0;
         if(null != imgUrlList && 0 < imgUrlList.size()) {
             result = imgUrlList.size();
-        } else if(null != firstImage && !"".equalsIgnoreCase(firstImage)) {
-            result = 1;
+        } else {
+            if(null != firstImage && !"".equalsIgnoreCase(firstImage)) {
+                result = 1;
+            } else {
+                result = 0;
+            }
         }
 
         return result;

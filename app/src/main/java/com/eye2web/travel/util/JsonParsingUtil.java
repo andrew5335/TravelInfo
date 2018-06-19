@@ -233,7 +233,9 @@ public class JsonParsingUtil {
 
                 jsonObject = new JSONObject(str);
 
-                if(jsonObject.has("results")) {
+                if(jsonObject.has("result")) {
+                    JSONObject resultObj = jsonObject.getJSONObject("result");
+
                     String formattedAddress = "";
                     String formattedPhoneNumber = "";
                     double lat = 0;
@@ -252,12 +254,12 @@ public class JsonParsingUtil {
                     String url = "";
                     List<Bitmap> bitmapPhotoList = null;
 
-                    if(jsonObject.has("formatted_address")) { result.setFormattedAddress(jsonObject.getString("formatted_address")); }
-                    if(jsonObject.has("formatted_phone_number")) { result.setFormattedPhoneNumber(jsonObject.getString("formatted_phone_number")); }
+                    if(resultObj.has("formatted_address")) { result.setFormattedAddress(resultObj.getString("formatted_address")); }
+                    if(resultObj.has("formatted_phone_number")) { result.setFormattedPhoneNumber(resultObj.getString("formatted_phone_number")); }
 
-                    if (jsonObject.has("geometry")) {
+                    if (resultObj.has("geometry")) {
                         JSONObject geometry;
-                        geometry = jsonObject.getJSONObject("geometry");
+                        geometry = resultObj.getJSONObject("geometry");
 
                         if (geometry.has("location")) {
                             JSONObject location;
@@ -270,28 +272,95 @@ public class JsonParsingUtil {
                         }
                     }
 
-                    if(jsonObject.has("icon")) { result.setIcon(jsonObject.getString("icon")); }
-                    if(jsonObject.has("id")) { result.setId(jsonObject.getString("id")); }
-                    if(jsonObject.has("international_phone_number")) { result.setInternationalPhoneNumber(jsonObject.getString("international_phone_number")); }
-                    if(jsonObject.has("name")) { result.setName(jsonObject.getString("name")); }
-                    if(jsonObject.has("opening_horus")) {
+                    if(resultObj.has("icon")) { result.setIcon(resultObj.getString("icon")); }
+                    if(resultObj.has("id")) { result.setId(resultObj.getString("id")); }
+                    if(resultObj.has("international_phone_number")) { result.setInternationalPhoneNumber(resultObj.getString("international_phone_number")); }
+                    if(resultObj.has("name")) { result.setName(resultObj.getString("name")); }
+                    if(resultObj.has("opening_horus")) {
                         JSONObject openingHours;
-                        openingHours = jsonObject.getJSONObject("opening_hours");
+                        openingHours = resultObj.getJSONObject("opening_hours");
 
                         if(openingHours.has("open_now")) { result.setOpenNow(openingHours.getBoolean("open_now")); }
                     }
 
-                    if(jsonObject.has("weekday_text")) {
+                    if(resultObj.has("weekday_text")) {
                         JSONArray weekday;
-                        weekday = jsonObject.getJSONArray("weekday_text");
+                        weekday = resultObj.getJSONArray("weekday_text");
                         weekdayText = new String[weekday.length()];
 
                         for(int i=0; i < weekday.length(); i++) {
                             weekdayText[i] = weekday.optString(i);
                         }
-
+                        Log.i("Info", "WeekDay : " + weekdayText);
                         result.setWeekdayText(weekdayText);
                     }
+
+                    if(resultObj.has("photos")) {
+                        photoList = new ArrayList<GooglePlaceDetailPhoto>();
+                        JSONArray photos;
+                        photos = resultObj.getJSONArray(("photos"));
+                        if(null != photos && 0 < photos.length()) {
+                            for(int i=0; i < photos.length(); i++) {
+                                GooglePlaceDetailPhoto tmpPhoto = new GooglePlaceDetailPhoto();
+                                JSONObject photoObj = photos.getJSONObject(i);
+                                String photoReference = "";
+
+                                photoReference = photoObj.getString("photo_reference");
+                                tmpPhoto.setPhotoReference(photoReference);
+                                photoList.add(tmpPhoto);
+                            }
+
+                            result.setPhotoList(photoList);
+                        }
+                    }
+
+                    if(resultObj.has("place_id")) { result.setPlaceId(resultObj.getString("place_id")); }
+                    if(resultObj.has("rating")) { result.setRating(Float.parseFloat(resultObj.getString("rating"))); }
+
+                    if(resultObj.has("reviews")) {
+                        reviewsList = new ArrayList<GooglePlaceDetailReviews>();
+                        JSONArray reviews;
+                        reviews = resultObj.getJSONArray("reviews");
+                        for(int i=0; i < reviews.length(); i++) {
+                            GooglePlaceDetailReviews tmpReview = new GooglePlaceDetailReviews();
+                            String authorName = "";
+                            String authorUrl = "";
+                            String language = "";
+                            String profilePhotoUrl = "";
+                            String reviewRating = "";
+                            String relativeTimeDescription = "";
+                            String text = "";
+                            String reviewTime = "";
+
+                            JSONObject reviewObj = reviews.getJSONObject(i);
+
+                            authorName = reviewObj.getString("author_name");
+                            authorUrl = reviewObj.getString("author_url");
+                            language = reviewObj.getString("language");
+                            profilePhotoUrl = reviewObj.getString("profile_photo_url");
+                            reviewRating = reviewObj.getString("rating");
+                            relativeTimeDescription = reviewObj.getString("relative_time_description");
+                            text = reviewObj.getString("text");
+                            reviewTime = reviewObj.getString("time");
+
+                            tmpReview.setAuthorName(authorName);
+                            tmpReview.setAuthorUrl(authorUrl);
+                            tmpReview.setLanguage(language);
+                            tmpReview.setProfilePhotoUrl(profilePhotoUrl);
+                            tmpReview.setRating(Float.parseFloat(reviewRating));
+                            tmpReview.setRelativeTimeDescription(relativeTimeDescription);
+                            tmpReview.setText(text);
+                            tmpReview.setTime(reviewTime);
+
+                            reviewsList.add(tmpReview);
+                        }
+
+                        result.setReviewsList(reviewsList);
+                    }
+
+                    if(resultObj.has("scope")) { result.setScope(resultObj.getString("scope")); }
+                    if(resultObj.has("url")) { result.setUrl(resultObj.getString("url")); }
+                    if(resultObj.has("website")) { result.setWebsite(resultObj.getString("website")); }
                 }
 
             } catch (Exception e) {

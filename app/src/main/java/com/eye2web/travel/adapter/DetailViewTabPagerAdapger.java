@@ -7,8 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.eye2web.travel.fragment.DetailArroundFragment;
 import com.eye2web.travel.fragment.DetailCommonFragment;
-import com.eye2web.travel.fragment.DetailInfoFragment;
-import com.eye2web.travel.fragment.DetailMapFragment;
 import com.eye2web.travel.vo.DetailCommonItem;
 
 public class DetailViewTabPagerAdapger extends FragmentPagerAdapter {
@@ -32,27 +30,29 @@ public class DetailViewTabPagerAdapger extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
 
+        bundle = new Bundle();
+        bundle.putSerializable("detailCommonItem", detailCommonItem);
+
         switch(position) {
             case 0 :
                 fragment = new DetailCommonFragment();
-                bundle = new Bundle();
-                bundle.putSerializable("detailCommonItem", detailCommonItem);
                 fragment.setArguments(bundle);
                 break;
 
+                /**
             case 1 :
                 fragment = new DetailInfoFragment();
+                fragment.setArguments(bundle);
                 break;
 
             case 2 :
                 fragment = new DetailMapFragment();
-                bundle = new Bundle();
-                bundle.putSerializable("detailCommonItem", detailCommonItem);
                 fragment.setArguments(bundle);
                 break;
-
-            case 3 :
+            **/
+            case 1 :
                 fragment = new DetailArroundFragment();
+                fragment.setArguments(bundle);
                 break;
         }
 
@@ -61,7 +61,7 @@ public class DetailViewTabPagerAdapger extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 2;
     }
 
     /**

@@ -1,14 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.DetailInfoFragment">
+    android:background="#fff"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:fillViewport="true"
+        android:scrollbars="none"-->
 
-</FrameLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="10dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="5dp"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detailTitle"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center_vertical|center|center_horizontal"
+                android:autoLink="web"
+                android:ellipsize="none"
+                android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="center_horizontal|center|center_vertical"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="5dp"
+                android:lineSpacingMultiplier="1.5"
+                android:linksClickable="true"
+                android:scrollHorizontally="false"
+                android:singleLine="false"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1.0dp"
+                android:background="#fff"
+                card_view:cardCornerRadius="0dp"
+                card_view:contentPadding="1dp"
+                card_view:cardBackgroundColor="#fff"
+                card_view:cardElevation="1.5dp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/info_img_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5.0dp"
+                android:background="#fff"
+                card_view:cardCornerRadius="0dp"
+                card_view:contentPadding="1dp"
+                card_view:cardBackgroundColor="#fff"
+                card_view:cardElevation="0.5dp">
+
+                <TextView
+                    android:id="@+id/addressTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:autoLink="web"
+                    android:ellipsize="none"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="3dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:linksClickable="true"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:text="주소"/>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/info_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:autoLink="web"
+                android:ellipsize="none"
+                android:fontFamily="@font/notosanskr_regular_hestia"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="1dp"
+                android:lineSpacingMultiplier="1.2"
+                android:linksClickable="true"
+                android:scrollHorizontally="false"
+                android:singleLine="false"
+                android:textColor="#000000"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <!--/ScrollView-->
+
+</LinearLayout>

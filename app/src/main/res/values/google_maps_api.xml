@@ -5,6 +5,6 @@
     </string>
     <string name="google_places_api_nearby_search_url">https://maps.googleapis.com/maps/api/place/nearbysearch/</string>
     <string name="google_places_api_text_search_url">https://maps.googleapis.com/maps/api/place/textsearch/</string>
-    <string name="google_places_api_detail_info_url">https://maps.googleapis.com/maps/api/place/detail/</string>
+    <string name="google_places_api_detail_info_url">https://maps.googleapis.com/maps/api/place/details/</string>
     <string name="google_places_api_photo_url">https://maps.googleapis.com/maps/api/place/photo</string>
 </resources>

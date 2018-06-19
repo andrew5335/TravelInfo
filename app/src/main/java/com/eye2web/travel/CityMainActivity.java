@@ -62,6 +62,7 @@ public class CityMainActivity extends BaseActivity {
     private static String wikipedia_api_summary;    // 위키피디어 요약정보 요청 url
     private static String wikipieda_api_detail;    // 위키피디어 세부정보 요청 url
     private String wikiSearchKeyword;
+    private String cateCode = "";    // 지역코드
     private String gu = "1";    // 도시 메인 혹은 리스트 유무 구분값 - 1 : 도시메인 / 2 : 각 카테고리 리스트
 
     private ImageView imageView;
@@ -412,6 +413,8 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("cateGu", "관광지");
         cateIntent.putExtra("areaCode", "12");
         cateIntent.putExtra("keyword", searchKeyword);
+        cateIntent.putExtra("cityGu", cityGu);
+        cateIntent.putExtra("callType", "area");
 
         startActivity(cateIntent);
     }
@@ -432,6 +435,8 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("cateGu", "호텔 모텔 여관 숙박");
         cateIntent.putExtra("areaCode", "32");
         cateIntent.putExtra("keyword", searchKeyword);
+        cateIntent.putExtra("cityGu", cityGu);
+        cateIntent.putExtra("callType", "area");
 
 
         startActivity(cateIntent);
@@ -453,6 +458,8 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("cateGu", "restaurant 음식");
         cateIntent.putExtra("areaCode", "39");
         cateIntent.putExtra("keyword", searchKeyword);
+        cateIntent.putExtra("cityGu", cityGu);
+        cateIntent.putExtra("callType", "area");
 
         startActivity(cateIntent);
     }
@@ -473,6 +480,8 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("cateGu", "festival 축제");
         cateIntent.putExtra("areaCode", "15");
         cateIntent.putExtra("keyword", searchKeyword);
+        cateIntent.putExtra("cityGu", cityGu);
+        cateIntent.putExtra("callType", "area");
 
         startActivity(cateIntent);
     }
@@ -493,6 +502,8 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("cateGu", "여행코스");
         cateIntent.putExtra("areaCode", "25");
         cateIntent.putExtra("keyword", searchKeyword);
+        cateIntent.putExtra("cityGu", cityGu);
+        cateIntent.putExtra("callType", "area");
 
         startActivity(cateIntent);
     }
@@ -513,6 +524,8 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("cateGu", "체육+스포츠");
         cateIntent.putExtra("areaCode", "28");
         cateIntent.putExtra("keyword", searchKeyword);
+        cateIntent.putExtra("cityGu", cityGu);
+        cateIntent.putExtra("callType", "area");
 
         startActivity(cateIntent);
     }
@@ -533,6 +546,8 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("cateGu", "shopping 백화점");
         cateIntent.putExtra("areaCode", "38");
         cateIntent.putExtra("keyword", searchKeyword);
+        cateIntent.putExtra("cityGu", cityGu);
+        cateIntent.putExtra("callType", "area");
 
         startActivity(cateIntent);
     }
@@ -553,6 +568,8 @@ public class CityMainActivity extends BaseActivity {
         cateIntent.putExtra("cateGu", "culture+박물관");
         cateIntent.putExtra("areaCode", "14");
         cateIntent.putExtra("keyword", searchKeyword);
+        cateIntent.putExtra("cityGu", cityGu);
+        cateIntent.putExtra("callType", "area");
 
         startActivity(cateIntent);
     }

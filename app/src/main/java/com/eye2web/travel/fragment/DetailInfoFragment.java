@@ -4,11 +4,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.eye2web.travel.R;
+import com.eye2web.travel.adapter.DetailImageViewPagerAdapter;
+import com.eye2web.travel.util.CommonUtil;
+import com.eye2web.travel.vo.DetailCommonItem;
+import com.eye2web.travel.vo.GooglePlaceDetailItem;
+import com.eye2web.travel.vo.GooglePlaceDetailPhoto;
+import com.eye2web.travel.vo.GooglePlaceDetailReviews;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +39,15 @@ public class DetailInfoFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private View view;
+    private DetailCommonItem detailCommonItem;
+    private CommonUtil commonUtil;
+    private String googlePhotoUrl;
+    private String googleKey;
+
+    private ViewPager imageViewPager;
+    private DetailImageViewPagerAdapter detailImageViewPagerAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -52,6 +73,11 @@ public class DetailInfoFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     /**
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +93,72 @@ public class DetailInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_info, container, false);
+        /**
+        if(view != null) {
+            ViewGroup viewGroupParent = (ViewGroup) view.getParent();
+            if(viewGroupParent != null) {
+                viewGroupParent.removeView(view);
+            }
+        }
+         **/
+
+        view = inflater.inflate(R.layout.fragment_detail_info, container, false);
+        Bundle bundle = getArguments();
+        detailCommonItem = (DetailCommonItem) bundle.getSerializable("detailCommonItem");
+        googlePhotoUrl = view.getResources().getString(R.string.google_places_api_photo_url);
+        googleKey = view.getResources().getString(R.string.google_maps_key);
+        googlePhotoUrl = googlePhotoUrl + "?key=" + googleKey;
+
+        GooglePlaceDetailItem googleItem = new GooglePlaceDetailItem();
+        List<GooglePlaceDetailPhoto> googlePhotoList = new ArrayList<GooglePlaceDetailPhoto>();
+        List<GooglePlaceDetailReviews> googleReviewList = new ArrayList<GooglePlaceDetailReviews>();
+
+        String title = "";
+
+        title = (String) detailCommonItem.getTitle();
+        googleItem = (GooglePlaceDetailItem) detailCommonItem.getGooglePlaceDetailItem();
+
+        if(null != googleItem) {
+            googlePhotoList = (List<GooglePlaceDetailPhoto>) googleItem.getPhotoList();
+            googleReviewList = (List<GooglePlaceDetailReviews>) googleItem.getReviewsList();
+
+            List<GooglePlaceDetailPhoto> photoList = new ArrayList<GooglePlaceDetailPhoto>();
+            photoList = (List<GooglePlaceDetailPhoto>) detailCommonItem.getGooglePlaceDetailItem().getPhotoList();
+
+            if(null != photoList && 0 < photoList.size()) {
+                List<String> bitmapPhotoList = new ArrayList<String>();
+
+                for(int i=0; i < photoList.size(); i++) {
+                    String photo = "";
+                    photo = googlePhotoUrl + "&maxwidth=400&photoreference=" + photoList.get(i).getPhotoReference();
+                    bitmapPhotoList.add(photo);
+                }
+
+                if(null != bitmapPhotoList && 0 < bitmapPhotoList.size()) {
+                    imageViewPager = (ViewPager) view.findViewById(R.id.info_img_viewpager);
+                    detailImageViewPagerAdapter = new DetailImageViewPagerAdapter(getContext(), inflater, bitmapPhotoList, "");
+                    imageViewPager.setAdapter(detailImageViewPagerAdapter);
+                }
+
+                for(int j=0; j < bitmapPhotoList.size(); j++) {
+                    Log.i("Info", "Google Photo Url : " + bitmapPhotoList.get(j));
+                }
+            }
+
+            TextView info_address = (TextView) view.findViewById(R.id.info_address);
+            info_address.setText(googleItem.getFormattedAddress());
+
+            TextView titleText = (TextView) view.findViewById(R.id.detailTitle);
+            titleText.setText(title);
+
+
+        } else {
+
+        }
+
+
+
+        return view;
     }
 
     @Override

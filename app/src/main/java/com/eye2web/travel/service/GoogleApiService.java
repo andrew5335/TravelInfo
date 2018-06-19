@@ -215,7 +215,7 @@ public class GoogleApiService {
 
     /**
      * @parameter : googleAddr - 구글 텍스트 검색 주소
-     *              keyword - 검색 키워드 (주유소, 주차장)
+     *              keyword - 검색 키워드
      *              googleKey - google api key
      *              mapx - 경도
      *              mapy - 위도
@@ -239,10 +239,13 @@ public class GoogleApiService {
             jsonParsingUtil = new JsonParsingUtil();
             StringBuilder searchStrBuilder = new StringBuilder();
             String gSearchParam = "";
-            gSearchParam = gSearchParam + "?query=" + keyword + commonParam;
+            //gSearchParam = gSearchParam + "?query=" + keyword + commonParam;    // text 검색인 경우
+            gSearchParam = gSearchParam + "?keyword=" + keyword + commonParam;
             gSearchParam = gSearchParam + "&key=" + googleKey;
+            gSearchParam = gSearchParam + "&location=" + mapy + "," + mapx;
+            gSearchParam = gSearchParam + "&rankby=prominence&radius=1000";
 
-            Log.i("Info", "Search API URL : " + gSearchParam);
+            Log.i("Info", "Search API URL : " + googleAddr + gSearchParam);
 
             try {
                 searchUrl = new URL(googleAddr + gSearchParam);

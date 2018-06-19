@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#d9d8d8"
     android:orientation="vertical">
 
     <!--ScrollView
@@ -17,11 +18,11 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:paddingBottom="10dp"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         android:paddingTop="5dp"
-        android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -35,6 +36,7 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center_vertical|center|center_horizontal"
                 android:autoLink="web"
+                android:background="#fff"
                 android:ellipsize="none"
                 android:fontFamily="@font/notosanskr_regular_hestia"
                 android:gravity="center_horizontal|center|center_vertical"
@@ -48,87 +50,217 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/detail_img_viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="280dp" />
-
-            <TextView
-                android:id="@+id/detailOverView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
-                android:autoLink="web"
-                android:ellipsize="none"
-                android:fontFamily="@font/notosanskr_regular_hestia"
-                android:includeFontPadding="false"
-                android:lineSpacingExtra="3dp"
-                android:lineSpacingMultiplier="1.2"
-                android:linksClickable="true"
-                android:scrollHorizontally="false"
-                android:singleLine="false"
-                android:textColor="#000000"
-                android:textSize="16dp" />
+                android:layout_marginTop="0dp"
+                android:background="#fff"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/detailAddr1"
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/detail_img_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:autoLink="web"
-                android:ellipsize="none"
-                android:fontFamily="@font/notosanskr_regular_hestia"
-                android:includeFontPadding="false"
-                android:lineSpacingExtra="1dp"
-                android:lineSpacingMultiplier="1.2"
-                android:linksClickable="true"
-                android:scrollHorizontally="false"
-                android:singleLine="false"
-                android:textColor="#000000"
-                android:textSize="14dp" />
+                android:layout_marginTop="5dp"
+                android:background="#fff"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/detailAddr2"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:background="#ef5350"
+                    android:ellipsize="none"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:gravity="center_vertical|left"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="3dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:linksClickable="true"
+                    android:paddingLeft="7dp"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:text="기본정보"
+                    android:textColor="#fff"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailOverView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="5dp"
+                    android:autoLink="web"
+                    android:ellipsize="none"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="3dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:linksClickable="true"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:autoLink="web"
-                android:ellipsize="none"
-                android:fontFamily="@font/notosanskr_regular_hestia"
-                android:includeFontPadding="false"
-                android:lineSpacingExtra="3dp"
-                android:lineSpacingMultiplier="1.2"
-                android:linksClickable="true"
-                android:scrollHorizontally="false"
-                android:singleLine="false"
-                android:textColor="#000000"
-                android:textSize="14dp" />
+                android:layout_marginTop="5dp"
+                android:background="#fff"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/detailHomepage"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:background="#ec407a"
+                    android:ellipsize="none"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:gravity="center_vertical|left"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="3dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:linksClickable="true"
+                    android:paddingLeft="7dp"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:text="위치정보"
+                    android:textColor="#fff"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailAddr1"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="5dp"
+                    android:autoLink="web"
+                    android:ellipsize="none"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="1dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:linksClickable="true"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:textColor="#000000"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/detailHomepage"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="5dp"
+                    android:autoLink="web"
+                    android:ellipsize="none"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="1dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:linksClickable="true"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:textColor="#000000"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:autoLink="web"
-                android:ellipsize="none"
-                android:fontFamily="@font/notosanskr_regular_hestia"
-                android:includeFontPadding="false"
-                android:lineSpacingExtra="1dp"
-                android:lineSpacingMultiplier="1.2"
-                android:linksClickable="true"
-                android:scrollHorizontally="false"
-                android:singleLine="false"
-                android:textColor="#000000"
-                android:textSize="14dp" />
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#fff"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:background="#ab47bc"
+                    android:ellipsize="none"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:gravity="center_vertical|left"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="3dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:linksClickable="true"
+                    android:paddingLeft="7dp"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:text="지도정보"
+                    android:textColor="#fff"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/map_info_fragment"
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginBottom="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#fff"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:background="#7e57c2"
+                    android:ellipsize="none"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:gravity="center_vertical|left"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="3dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:linksClickable="true"
+                    android:paddingLeft="7dp"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:text="리뷰"
+                    android:textColor="#fff"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/info_img_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

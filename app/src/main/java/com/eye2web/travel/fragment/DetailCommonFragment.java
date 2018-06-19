@@ -1,5 +1,6 @@
 package com.eye2web.travel.fragment;
 
+import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,17 @@ import com.eye2web.travel.R;
 import com.eye2web.travel.adapter.DetailImageViewPagerAdapter;
 import com.eye2web.travel.util.CommonUtil;
 import com.eye2web.travel.vo.DetailCommonItem;
+import com.eye2web.travel.vo.GooglePlaceDetailItem;
+import com.eye2web.travel.vo.GooglePlaceDetailPhoto;
+import com.eye2web.travel.vo.GooglePlaceDetailReviews;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +40,7 @@ import java.util.List;
  * Use the {@link DetailCommonFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetailCommonFragment extends Fragment {
+public class DetailCommonFragment extends Fragment implements OnMapReadyCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,9 +49,19 @@ public class DetailCommonFragment extends Fragment {
     private View view;
     private DetailCommonItem detailCommonItem;
     private CommonUtil commonUtil;
+    private String googlePhotoUrl;
+    private String googleKey;
 
     private ViewPager imageViewPager;
     private DetailImageViewPagerAdapter detailImageViewPagerAdapter;
+
+    private MapView mapView;
+    private double mapx = 0;
+    private double mapy = 0;
+    private String title = "";
+    private String mapAddr = "";
+    private UiSettings uiSettings;
+    private FragmentManager parentFragmentManager;
 
     public DetailCommonFragment() {
         // Required empty public constructor
@@ -61,6 +83,11 @@ public class DetailCommonFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     /**
@@ -87,15 +114,21 @@ public class DetailCommonFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_detail_common, container, false);
         Bundle bundle = getArguments();
-        DetailCommonItem detailCommonItem = (DetailCommonItem) bundle.getSerializable("detailCommonItem");
+        detailCommonItem = (DetailCommonItem) bundle.getSerializable("detailCommonItem");
+
+        googlePhotoUrl = view.getResources().getString(R.string.google_places_api_photo_url);
+        googleKey = view.getResources().getString(R.string.google_maps_key);
+        googlePhotoUrl = googlePhotoUrl + "?key=" + googleKey;
+
+        GooglePlaceDetailItem googleItem = new GooglePlaceDetailItem();
+        List<GooglePlaceDetailPhoto> googlePhotoList = new ArrayList<GooglePlaceDetailPhoto>();
+        List<GooglePlaceDetailReviews> googleReviewList = new ArrayList<GooglePlaceDetailReviews>();
 
         String overView = "";
         String homepage = "";
         String addr1 = "";
         String addr2 = "";
         String firstImage = "";
-        String title = "";
-        String mapAddr = "";
         List<String> imgUrlList = new ArrayList<String>();
         //String firstImage2 = "";
 
@@ -107,11 +140,47 @@ public class DetailCommonFragment extends Fragment {
         mapAddr = addr1 + " " + addr2;
         imgUrlList = (List<String>) detailCommonItem.getImgUrlList();
         firstImage = detailCommonItem.getFirstimage();
+
+        mapx = detailCommonItem.getMapx();
+        mapy = detailCommonItem.getMapy();
+        Log.i("Info", "Map info : " + mapx + " " + mapy);
+
+        mapAddr = detailCommonItem.getAddr1() + " " + detailCommonItem.getAddr2();
+        Log.i("Info", "Map Addr : " + mapAddr);
+
+        googleItem = (GooglePlaceDetailItem) detailCommonItem.getGooglePlaceDetailItem();
+
+        if(null != googleItem) {
+            googlePhotoList = (List<GooglePlaceDetailPhoto>) googleItem.getPhotoList();
+            googleReviewList = (List<GooglePlaceDetailReviews>) googleItem.getReviewsList();
+
+            addr1 = googleItem.getFormattedAddress();
+            mapAddr = addr1;
+
+            if(null != googlePhotoList && 0 < googlePhotoList.size()) {
+                List<String> bitmapPhotoList = new ArrayList<String>();
+
+                for(int i=0; i < googlePhotoList.size(); i++) {
+                    String photo = "";
+                    photo = googlePhotoUrl + "&maxwidth=400&photoreference=" + googlePhotoList.get(i).getPhotoReference();
+                    bitmapPhotoList.add(photo);
+                }
+
+                if(null != bitmapPhotoList && 0 < bitmapPhotoList.size()) {
+                    imageViewPager = (ViewPager) view.findViewById(R.id.info_img_viewpager);
+                    detailImageViewPagerAdapter = new DetailImageViewPagerAdapter(getContext(), inflater, bitmapPhotoList, "");
+                    imageViewPager.setAdapter(detailImageViewPagerAdapter);
+                }
+
+            }
+
+        }
+
         Log.i("Info", "detailItem Info : " + overView + "-" + title + "-" + homepage + "-" + addr1 + "-" + addr2);
         //return inflater.inflate(R.layout.fragment_detail_common, container, false);
         TextView detailOverView = (TextView) view.findViewById(R.id.detailOverView);
         TextView detailAddr1 = (TextView) view.findViewById(R.id.detailAddr1);
-        TextView detailAddr2 = (TextView) view.findViewById(R.id.detailAddr2);
+        //TextView detailAddr2 = (TextView) view.findViewById(R.id.detailAddr2);
         TextView detailHomepage = (TextView) view.findViewById(R.id.detailHomepage);
         TextView detailTitle = (TextView) view.findViewById(R.id.detailTitle);
 
@@ -132,11 +201,13 @@ public class DetailCommonFragment extends Fragment {
         }
         if(null != addr1Builder) { detailAddr1.setText(addr1Builder.toString()); }
 
+        /**
         SpannableStringBuilder addr2Builder = new SpannableStringBuilder();
         if(null != addr2 && !"".equalsIgnoreCase(addr2)) {
             addr2Builder = commonUtil.convertTxtToLink(getContext(), addr2);
         }
         if(null != addr2Builder) { detailAddr2.setText(addr2Builder.toString()); }
+         **/
 
         SpannableStringBuilder homePageBuilder = new SpannableStringBuilder();
         if(null != homepage && !"".equalsIgnoreCase(homepage)) {
@@ -148,12 +219,81 @@ public class DetailCommonFragment extends Fragment {
         detailImageViewPagerAdapter = new DetailImageViewPagerAdapter(getContext(), inflater, imgUrlList, firstImage);
         imageViewPager.setAdapter(detailImageViewPagerAdapter);
 
+        mapView = (MapView) view.findViewById(R.id.map_info_fragment);
+        mapView.getMapAsync(this);
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onMapReady(final GoogleMap map) {
+        LatLng location = new LatLng(mapy, mapx);
+        uiSettings = map.getUiSettings();
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(location);
+        markerOptions.title(title);
+        markerOptions.snippet(mapAddr);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+        map.addMarker(markerOptions);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+        //map.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+        uiSettings.isZoomControlsEnabled();
+        uiSettings.setZoomControlsEnabled(true);
+        uiSettings.setMapToolbarEnabled(true);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if(mapView != null) {
+            mapView.onCreate(savedInstanceState);
+        }
     }
 
     /**
