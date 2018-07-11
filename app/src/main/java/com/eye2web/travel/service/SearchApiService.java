@@ -1,16 +1,14 @@
 package com.eye2web.travel.service;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.eye2web.travel.vo.ListItem;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,9 +23,9 @@ import java.util.Map;
 **/
 public class SearchApiService extends Application {
 
-    static String testAddr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?serviceKey=";
-    static String testServiceKey = "ZjtS%2F7q9SORXFBybZ%2FhYciDyQKRNeP3r0tc8r%2BQLOv97shkq%2FNDa6a7Fp4m9T2lhT5fSjOiB6XR4aD33p7ljvA%3D%3D";
-    static String testParameter = "";
+    //static String testAddr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?serviceKey=";
+    //static String testServiceKey = "ZjtS%2F7q9SORXFBybZ%2FhYciDyQKRNeP3r0tc8r%2BQLOv97shkq%2FNDa6a7Fp4m9T2lhT5fSjOiB6XR4aD33p7ljvA%3D%3D";
+    //static String testParameter = "";
 
     public Map<String, Object> getContent(String addr, String serviceKey, String code, String keyword
             , String sort, int page, int offset, String gu, String areaCode, double mapX, double mapY) throws Exception {
@@ -44,7 +42,8 @@ public class SearchApiService extends Application {
         boolean inCat3 = false;
         boolean inMapx = false;
         boolean inMapy = false;
-        boolean inItem = false;
+        boolean inTel = false;
+        //boolean inItem = false;
         boolean inResultCode = false;
 
         String inAddrStr = "";
@@ -59,13 +58,76 @@ public class SearchApiService extends Application {
         String inReultCodeStr = "";
         float inMapxNum = 0;
         float inMapyNum = 0;
+        String inTelStr = "";
 
         String parameter = "";
-        Log.i("info", "===============gps info : " + mapX + "=============" + mapY
-                + "===================gu : " + gu + "=================url : " + addr);
+        //Log.i("info", "===============gps info : " + mapX + "=============" + mapY
+        //        + "===================gu : " + gu + "=================url : " + addr);
         // 구분값 (검색인지, 지역기반 조회인지 등) 이 있을 경우에는 해당 구분값에 맞도록 parameter 구성
         // 구분값이 없으면 지역 기반의 서울을 기준으로 parameter 구성
         if(null != gu && !"".equalsIgnoreCase(gu)) {
+            switch (gu) {
+                case "search" :
+                    parameter = parameter + "&MobileOS=AND";
+                    parameter = parameter + "&MobileApp=TravelInfo";
+                    parameter = parameter + "&numOfRows=" + offset;
+                    parameter = parameter + "&pageNo=" + page;
+                    parameter = parameter + "&listYN=Y";
+                    parameter = parameter + "&arrange=" + sort;
+                    parameter = parameter + "&contentTypeId=" + code;
+                    parameter = parameter + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
+                    break;
+
+                case "area" :
+                    parameter = parameter + "&MobileOS=AND";
+                    parameter = parameter + "&MobileApp=TravelInfo";
+                    parameter = parameter + "&numOfRows=" + offset;
+                    parameter = parameter + "&pageNo=" + page;
+                    parameter = parameter + "&listYN=Y";
+                    parameter = parameter + "&arrange=" + sort;
+                    parameter = parameter + "&contentTypeId=" + code;
+                    parameter = parameter + "&areaCode=" + areaCode;
+                    break;
+
+                case "loc" :
+                    parameter = parameter + "&MobileOS=AND";
+                    parameter = parameter + "&MobileApp=TravelInfo";
+                    parameter = parameter + "&numOfRows=" + offset;
+                    parameter = parameter + "&pageNo=" + page;
+                    parameter = parameter + "&listYN=Y";
+                    parameter = parameter + "&arrange=" + sort;
+                    parameter = parameter + "&contentTypeId=" + code;
+                    parameter = parameter + "&radius=5000";
+                    parameter = parameter + "&mapX=" + mapX;
+                    parameter = parameter + "&mapY=" + mapY;
+                    break;
+
+                case "nearby" :
+                    parameter = parameter + "&MobileOS=AND";
+                    parameter = parameter + "&MobileApp=TravelInfo";
+                    parameter = parameter + "&numOfRows=" + offset;
+                    parameter = parameter + "&pageNo=" + page;
+                    parameter = parameter + "&listYN=Y";
+                    parameter = parameter + "&arrange=" + sort;
+                    parameter = parameter + "&contentTypeId=" + code;
+                    parameter = parameter + "&radius=2000";
+                    parameter = parameter + "&mapX=" + mapX;
+                    parameter = parameter + "&mapY=" + mapY;
+                    break;
+
+                default :
+                    parameter = parameter + "&MobileOS=AND";
+                    parameter = parameter + "&MobileApp=TravelInfo";
+                    parameter = parameter + "&numOfRows=" + offset;
+                    parameter = parameter + "&pageNo=" + page;
+                    parameter = parameter + "&listYN=Y";
+                    parameter = parameter + "&arrange=" + sort;
+                    parameter = parameter + "&contentTypeId=" + code;
+                    parameter = parameter + "&areaCode=" + areaCode;
+                    break;
+            }
+
+            /**
             if("search".equalsIgnoreCase(gu)) {
                 parameter = parameter + "&MobileOS=AND";
                 parameter = parameter + "&MobileApp=TravelInfo";
@@ -74,7 +136,7 @@ public class SearchApiService extends Application {
                 parameter = parameter + "&listYN=Y";
                 parameter = parameter + "&arrange=" + sort;
                 parameter = parameter + "&contentTypeId=" + code;
-                parameter = parameter + "&keyword=" + keyword;
+                parameter = parameter + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
             } else if("area".equalsIgnoreCase(gu)) {
                 parameter = parameter + "&MobileOS=AND";
                 parameter = parameter + "&MobileApp=TravelInfo";
@@ -96,8 +158,20 @@ public class SearchApiService extends Application {
                 parameter = parameter + "&mapX=" + mapX;
                 parameter = parameter + "&mapY=" + mapY;
                 //Toast.makeText(getApplicationContext(), "parameter : " + parameter, Toast.LENGTH_LONG).show();
-                Log.i("info", "=============parameter : " + parameter);
+                //Log.i("info", "=============parameter : " + parameter);
+            } else if("nearby".equalsIgnoreCase(gu)) {
+                parameter = parameter + "&MobileOS=AND";
+                parameter = parameter + "&MobileApp=TravelInfo";
+                parameter = parameter + "&numOfRows=" + offset;
+                parameter = parameter + "&pageNo=" + page;
+                parameter = parameter + "&listYN=Y";
+                parameter = parameter + "&arrange=" + sort;
+                parameter = parameter + "&contentTypeId=" + code;
+                parameter = parameter + "&radius=2000";
+                parameter = parameter + "&mapX=" + mapX;
+                parameter = parameter + "&mapY=" + mapY;
             }
+             **/
         } else {
             parameter = parameter + "&MobileOS=AND";
             parameter = parameter + "&MobileApp=TravelInfo";
@@ -110,8 +184,8 @@ public class SearchApiService extends Application {
         }
 
         addr = addr + serviceKey + parameter;
-        System.out.println(addr);
-        Log.i("Info", "Call API Info : " + addr);
+        //System.out.println(addr);
+        //Log.i("Info", "Call API Info : " + addr);
 
         URL url = new URL(addr);
 
@@ -133,7 +207,6 @@ public class SearchApiService extends Application {
                     else if(parser.getName().equalsIgnoreCase("firstimage2")) {
                         inFirstImage2 = true;
                     }
-                    //Log.i("firstimage", "===================firstimage : " + inFirstImage);
                     else if(parser.getName().equalsIgnoreCase("title")) {
                         inTitle = true;
                     }
@@ -158,9 +231,13 @@ public class SearchApiService extends Application {
                     else if(parser.getName().equalsIgnoreCase("mapy")) {
                         inMapy = true;
                     }
+                    else if(parser.getName().equalsIgnoreCase("tel")) {
+                        inTel = true;
+                    }
                     else if(parser.getName().equalsIgnoreCase("resultCode")) {
                         inResultCode = true;
                     }
+                    //Log.i("firstimage", "===================tel : " + inTel);
                     break;
 
                 case XmlPullParser.TEXT :
@@ -208,6 +285,10 @@ public class SearchApiService extends Application {
                         inMapyNum = Float.parseFloat(parser.getText());
                         inMapy = false;
                     }
+                    else if(inTel) {
+                        inTelStr = parser.getText();
+                        inTel = false;
+                    }
                     else if(inResultCode) {
                         inReultCodeStr = parser.getText();
                         inResultCode = false;
@@ -216,9 +297,9 @@ public class SearchApiService extends Application {
 
                 case XmlPullParser.END_TAG :
                     if(parser.getName().equalsIgnoreCase("item")) {
-                        Log.i("firstimage", "===============firstimage : " + inFirstImageStr);
+                        //Log.i("firstimage", "===============firstimage : " + inFirstImageStr);
                         ListItem item = new ListItem(inAddrStr, inFirstImageStr, inFirstImage2Str, inTitleStr, inContentIdStr
-                                , inContentTypeIdStr, inCat1Str, inCat2Str, inCat3Str, inMapxNum, inMapyNum, "");
+                                , inContentTypeIdStr, inCat1Str, inCat2Str, inCat3Str, inMapxNum, inMapyNum, "", "", inTelStr);
 
                         resultList.add(item);
 
@@ -233,6 +314,7 @@ public class SearchApiService extends Application {
                         inCat3Str = "";
                         inMapxNum = 0;
                         inMapyNum = 0;
+                        inTelStr = "";
                     }
                     break;
             }
@@ -241,11 +323,12 @@ public class SearchApiService extends Application {
 
         resultMap.put("resultList", resultList);
         resultMap.put("resultCode", inReultCodeStr);
-        inReultCodeStr = "";
+        //inReultCodeStr = "";
 
         return resultMap;
     }
 
+    /**
     public static void main(String[] args) throws Exception {
         List<ListItem> resultList = new ArrayList<ListItem>();
 
@@ -279,4 +362,5 @@ public class SearchApiService extends Application {
 
         System.out.println("result : " + new String(b));
     }
+     **/
 }

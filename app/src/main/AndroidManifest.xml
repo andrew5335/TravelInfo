@@ -18,6 +18,7 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/logo_final"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo_final"
@@ -45,7 +46,8 @@
         <activity android:name=".MenuListActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".CityMainActivity" />
-        <activity android:name=".GoogleCateList"></activity>
+        <activity android:name=".GoogleCateList" />
+        <activity android:name=".ContentDetailActivity"></activity>
     </application>
 
 </manifest>

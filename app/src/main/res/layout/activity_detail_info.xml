@@ -4,61 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#d9d8d8"
     android:orientation="vertical"
-    android:background="#ffffff"
+    android:descendantFocusability="blocksDescendants"
     tools:context=".DetailInfoActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="#ffffff">
 
-        <!--android.support.design.widget.AppBarLayout
-            android:id="@+id/topAppBar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_gravity="top"
-            android:background="#fff">
+            android:layout_height="70dp"
+            android:background="#fff"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal">
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:onClick="onGobackBtnClicked"
+                android:paddingLeft="5dp"
+                android:scaleType="fitStart"
+                app:srcCompat="@mipmap/goback" />
+
+            <TextView
+                android:id="@+id/detailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical|center|center_horizontal"
+                android:autoLink="web"
                 android:background="#fff"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
+                android:ellipsize="none"
+                android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="left|center_vertical"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="5dp"
+                android:lineSpacingMultiplier="1.5"
+                android:linksClickable="true"
+                android:scrollHorizontally="false"
+                android:singleLine="false"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:onClick="onGobackBtnClicked"/>
 
-                <include
-                    android:id="@+id/logo"
-                    layout="@layout/logo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            <!--/android.support.design.widget.CollapsingToolbarLayout>
-
-        </android.support.design.widget.AppBarLayout-->
-
-        <!--android.support.v4.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="10dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:paddingTop="5dp"
-            android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/detail_common"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="70dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/detail_common_info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <!--TextView
@@ -86,142 +92,55 @@
                     android:id="@+id/detail_tab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#d2374a"
+                    android:layout_gravity="top"
+                    android:background="#f06292"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:tabGravity="fill"
                     app:tabIndicatorColor="#fff"
                     app:tabIndicatorHeight="2dp"
                     app:tabMode="fixed"
                     app:tabPaddingEnd="3dp"
                     app:tabPaddingStart="1dp"
-                    app:tabSelectedTextColor="#f73951"
+                    app:tabSelectedTextColor="#000"
                     app:tabTextAppearance="@style/tabFont"
-                    app:tabTextColor="@color/cardview_dark_background" />
+                    app:tabTextColor="#000" />
+
+                <LinearLayout
+                    android:id="@+id/progressbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/detail_progressbar"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:max="100"
+                        android:progress="50"
+                        android:secondaryProgress="75" />
+                </LinearLayout>
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/detail_content_viewpager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#fff"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-                <!--android.support.v4.view.ViewPager
-                        android:id="@+id/detail_img_viewpager"
-                        android:layout_width="match_parent"
-                        android:layout_height="280dp" />
-
-                    <TextView
-                        android:id="@+id/detailOverView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="10dp"
-                        android:autoLink="web"
-                        android:ellipsize="none"
-                        android:fontFamily="@font/notosanskr_regular_hestia"
-                        android:includeFontPadding="false"
-                        android:lineSpacingExtra="3dp"
-                        android:lineSpacingMultiplier="1.2"
-                        android:linksClickable="true"
-                        android:scrollHorizontally="false"
-                        android:singleLine="false"
-                        android:textColor="#000000"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/detailAddr1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:autoLink="web"
-                        android:ellipsize="none"
-                        android:fontFamily="@font/notosanskr_regular_hestia"
-                        android:includeFontPadding="false"
-                        android:lineSpacingExtra="1dp"
-                        android:lineSpacingMultiplier="1.2"
-                        android:linksClickable="true"
-                        android:scrollHorizontally="false"
-                        android:singleLine="false"
-                        android:textColor="#000000"
-                        android:textSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/detailAddr2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:autoLink="web"
-                        android:ellipsize="none"
-                        android:fontFamily="@font/notosanskr_regular_hestia"
-                        android:includeFontPadding="false"
-                        android:lineSpacingExtra="3dp"
-                        android:lineSpacingMultiplier="1.2"
-                        android:linksClickable="true"
-                        android:scrollHorizontally="false"
-                        android:singleLine="false"
-                        android:textColor="#000000"
-                        android:textSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/detailHomepage"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:autoLink="web"
-                        android:ellipsize="none"
-                        android:fontFamily="@font/notosanskr_regular_hestia"
-                        android:includeFontPadding="false"
-                        android:lineSpacingExtra="1dp"
-                        android:lineSpacingMultiplier="1.2"
-                        android:linksClickable="true"
-                        android:scrollHorizontally="false"
-                        android:singleLine="false"
-                        android:textColor="#000000"
-                        android:textSize="14dp" /-->
 
             </LinearLayout>
 
-            <!--LinearLayout
-                    android:id="@+id/detail_map_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:orientation="vertical">
-
-                    <fragment
-                        android:id="@+id/map_info"
-                        class="com.google.android.gms.maps.MapFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout-->
-
-            <!--LinearLayout
-                    android:id="@+id/detail_naver_map"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:orientation="vertical">
-
-                </LinearLayout-->
-
         </LinearLayout>
-
-        <!--/android.support.v4.widget.NestedScrollView-->
 
         <include
             android:id="@+id/bottom_navigation_view"
+            layout="@layout/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            layout="@layout/bottom_navigation"
-            app:layout_behavior=".behavior.BottomNavigationBehavior"/>
+            app:layout_behavior=".behavior.BottomNavigationBehavior" />
 
     </android.support.design.widget.CoordinatorLayout>
 

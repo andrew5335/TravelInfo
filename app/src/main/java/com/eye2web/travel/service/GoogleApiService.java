@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,13 +65,13 @@ public class GoogleApiService {
         HttpURLConnection urlConnection = null;
 
         URL searchUrl = null;
-        URL photoUrl = null;
+        //URL photoUrl = null;
         URL summaryUrl = null;
 
         String googlePhotoUrl = "";
 
         InputStreamReader sris = null;
-        InputStreamReader pris = null;
+        //InputStreamReader pris = null;
         InputStreamReader mris = null;
 
         String commonParam = "&language=ko";
@@ -83,9 +84,9 @@ public class GoogleApiService {
                 String gSearchParam = "";
                 if (null != gu && !"".equalsIgnoreCase(gu)) {
                     if ("1".equalsIgnoreCase(gu)) {
-                        gSearchParam = gSearchParam + "?query=" + wikiSearchKeyword + commonParam;
+                        gSearchParam = gSearchParam + "?query=" + URLEncoder.encode(wikiSearchKeyword, "UTF-8") + commonParam;
                     } else {
-                        gSearchParam = gSearchParam + "?query=" + searchKeyword + "+" + cateGu + commonParam;
+                        gSearchParam = gSearchParam + "?query=" + URLEncoder.encode(searchKeyword, "UTF-8") + "+" + URLEncoder.encode(cateGu, "UTF-8") + commonParam;
                     }
                     gSearchParam = gSearchParam + "&key=" + googleKey;
 
@@ -94,7 +95,7 @@ public class GoogleApiService {
                     }
                 }
 
-                Log.i("Info", "Search API URL : " + gSearchParam);
+                //Log.i("Info", "Search API URL : " + gSearchParam);
                 searchUrl = new URL(searchApiUrl + gSearchParam);
 
                 urlConnection = (HttpURLConnection) searchUrl.openConnection();
@@ -133,7 +134,7 @@ public class GoogleApiService {
 
                                         googlePhotoUrl = photoApiUrl + gPhotoParam;
                                         placeItems.get(i).setGooglePhotoUrl(googlePhotoUrl);
-                                        Log.i("Info", "Photo Info : " + i + "-" + placeItems.get(i).getGooglePhotoUrl());
+                                        //Log.i("Info", "Photo Info : " + i + "-" + placeItems.get(i).getGooglePhotoUrl());
                                     } else {
                                         //placeItems.get(i).setPhotoUrl(null);
                                         placeItems.get(i).setGooglePhotoUrl(null);
@@ -152,11 +153,11 @@ public class GoogleApiService {
                                             if (null != gu && !"".equalsIgnoreCase(gu)) {
 
                                                 // 기본은 각 카테고리 리스트를 위한 summary 조회를 위해 구글 place api를 통해 조회된 지역명으로 조회
-                                                summaryUrl = new URL(summaryApiUrl + placeItems.get(j).getName());
+                                                summaryUrl = new URL(summaryApiUrl + URLEncoder.encode(placeItems.get(j).getName(), "UTF-8"));
 
                                                 // 구분값이 1인 경우 도시 메인 페이지용 summary 조회가 필요하므로 위키피디어 조회용 키워드로 대체
                                                 if ("1".equalsIgnoreCase(gu)) {
-                                                    summaryUrl = new URL(summaryApiUrl + wikiSearchKeyword);
+                                                    summaryUrl = new URL(summaryApiUrl + URLEncoder.encode(wikiSearchKeyword, "UTF-8"));
                                                 }
 
                                                 urlConnection = (HttpURLConnection) summaryUrl.openConnection();
@@ -207,10 +208,62 @@ public class GoogleApiService {
      * @Author : Andrew Kim
      * @Description :
     **/
-    public GooglePlaceItem getNearbyInfo(String googleAddr, String keyword, String googleKey, double mapx, double mapy) {
-        GooglePlaceItem googlePlaceItem = new GooglePlaceItem();
+    public List<GooglePlaceItem> getNearbyInfo(String googleAddr, String keyword, String googleKey, double mapx, double mapy, int radius) {
+        List<GooglePlaceItem> googlePlaceItemList = new ArrayList<GooglePlaceItem>();
 
-        return googlePlaceItem;
+        GooglePlaceVO placeInfo = new GooglePlaceVO();
+        commonUtil = new CommonUtil();
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader searchResultStr = null;
+        URL searchUrl = null;
+        InputStreamReader sris = null;
+        String commonParam = "&language=ko";
+
+        if(null != googleAddr && !"".equalsIgnoreCase(googleAddr)) {
+            jsonParsingUtil = new JsonParsingUtil();
+            StringBuilder searchStrBuilder = new StringBuilder();
+            String gSearchParam = "";
+            gSearchParam = gSearchParam + "?query=" + keyword + commonParam;    // text 검색인 경우
+            //gSearchParam = gSearchParam + "?keyword=" + keyword + commonParam;
+            gSearchParam = gSearchParam + "&key=" + googleKey;
+            gSearchParam = gSearchParam + "&location=" + mapy + "," + mapx;
+            gSearchParam = gSearchParam + "&rankby=prominence&radius=" + radius;
+
+            /**
+            if(null != nextPageToken && !"".equalsIgnoreCase(nextPageToken)) {
+                gSearchParam = gSearchParam + "&pagetoken=" + nextPageToken;
+            }
+             **/
+
+            Log.i("Info", "Search API URL : " + googleAddr + gSearchParam);
+
+            try {
+                searchUrl = new URL(googleAddr + gSearchParam);
+                urlConnection = (HttpURLConnection) searchUrl.openConnection();
+                sris = new InputStreamReader(urlConnection.getInputStream());
+
+                searchResultStr = new BufferedReader(sris);
+                String searchResultLine;
+
+                while ((searchResultLine = searchResultStr.readLine()) != null) {
+                    searchStrBuilder.append(searchResultLine);
+                }
+
+                if(null != searchStrBuilder.toString() && !"".equalsIgnoreCase(searchStrBuilder.toString())) {
+                    placeInfo = jsonParsingUtil.getGooglePlaceVO(searchStrBuilder.toString());
+
+                    if (null != placeInfo) {
+                        googlePlaceItemList = placeInfo.getPlaceItem();
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("Error", "Error : " + e.toString());
+            }
+        }
+
+        return googlePlaceItemList;
+        //return placeInfo;
     }
 
     /**
@@ -223,7 +276,7 @@ public class GoogleApiService {
      * @Author : Andrew Kim
      * @Description :
     **/
-    public GooglePlaceItem getSearchInfo(String googleAddr, String keyword, String googleKey, double mapx, double mapy) {
+    public GooglePlaceItem getSearchInfo(String googleAddr, String keyword, String googleKey, double mapx, double mapy, int radius) {
         GooglePlaceItem googlePlaceItem = new GooglePlaceItem();
 
         GooglePlaceVO placeInfo = new GooglePlaceVO();
@@ -243,15 +296,13 @@ public class GoogleApiService {
             gSearchParam = gSearchParam + "?keyword=" + keyword + commonParam;
             gSearchParam = gSearchParam + "&key=" + googleKey;
             gSearchParam = gSearchParam + "&location=" + mapy + "," + mapx;
-            gSearchParam = gSearchParam + "&rankby=prominence&radius=1000";
+            gSearchParam = gSearchParam + "&rankby=prominence&radius=" + radius;
 
             Log.i("Info", "Search API URL : " + googleAddr + gSearchParam);
 
             try {
                 searchUrl = new URL(googleAddr + gSearchParam);
-
                 urlConnection = (HttpURLConnection) searchUrl.openConnection();
-
                 sris = new InputStreamReader(urlConnection.getInputStream());
 
                 searchResultStr = new BufferedReader(sris);
@@ -268,7 +319,7 @@ public class GoogleApiService {
                         List<GooglePlaceItem> placeItems = new ArrayList<GooglePlaceItem>();
                         placeItems = placeInfo.getPlaceItem();
 
-                        if(null != placeItems && 0 < placeItems.size()) {
+                        if (null != placeItems && 0 < placeItems.size()) {
                             googlePlaceItem = placeItems.get(0);
                         }
                     }

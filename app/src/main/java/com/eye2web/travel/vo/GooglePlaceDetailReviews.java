@@ -14,7 +14,7 @@ public class GooglePlaceDetailReviews implements Serializable {
 
     private String profilePhotoUrl;
 
-    private float rating;
+    private float rating = 0;
 
     private String relativeTimeDescription;
 

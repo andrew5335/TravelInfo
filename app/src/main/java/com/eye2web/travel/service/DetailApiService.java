@@ -45,6 +45,7 @@ public class DetailApiService extends Application {
         boolean inFirstImage2 = false;
         boolean inItem = false;
         boolean inOriginalImg = false;
+        boolean inTel = false;
 
         String inOverviewStr = "";
         String inHomepageStr = "";
@@ -54,9 +55,10 @@ public class DetailApiService extends Application {
         String inFirstImageStr = "";
         String inFirstImage2Str = "";
         String inOriginalImgStr = "";
+        String inTelStr = "";
         List<String> imgUrlList = new ArrayList<String>();
 
-        String introAddr = apiUrl + "detailIntro?serviceKey=" + serviceKey;
+        //String introAddr = apiUrl + "detailIntro?serviceKey=" + serviceKey;
         String commonAddr = apiUrl + "detailCommon?serviceKey=" + serviceKey;
         String imageAddr = apiUrl + "detailImage?serviceKey=" + serviceKey;
 
@@ -86,26 +88,26 @@ public class DetailApiService extends Application {
         imageParameter = imageParameter + "&imageYN=Y";
         imageParameter = imageParameter + "&subImageYN=Y";
 
-        introAddr = introAddr + introParameter;
+        //introAddr = introAddr + introParameter;
         commonAddr = commonAddr + detailCommonParameter;
         imageAddr = imageAddr + imageParameter;
 
         try {
-            URL introUrl = new URL(introAddr);
+            //URL introUrl = new URL(introAddr);
             URL commonUrl = new URL(commonAddr);
             URL imageUrl = new URL(imageAddr);
             Log.i("info", "image addr : " + imageUrl);
 
             XmlPullParserFactory parserFactory = XmlPullParserFactory.newInstance();
-            XmlPullParser introParser = parserFactory.newPullParser();
+            //XmlPullParser introParser = parserFactory.newPullParser();
             XmlPullParser commonParser = parserFactory.newPullParser();
             XmlPullParser imageParser = parserFactory.newPullParser();
 
-            introParser.setInput(introUrl.openStream(), null);
+            //introParser.setInput(introUrl.openStream(), null);
             commonParser.setInput(commonUrl.openStream(), null);
             imageParser.setInput(imageUrl.openStream(), null);
 
-            int introParserEvent = introParser.getEventType();
+            //int introParserEvent = introParser.getEventType();
             int commonParserEvent = commonParser.getEventType();
             int imageParserEvent = imageParser.getEventType();
 
@@ -132,6 +134,9 @@ public class DetailApiService extends Application {
                         }
                         else if(commonParser.getName().equalsIgnoreCase("firstimage2")) {
                             inFirstImage2 = true;
+                        }
+                        else if(commonParser.getName().equalsIgnoreCase("tel")) {
+                            inTel = true;
                         }
                         break;
 
@@ -164,6 +169,10 @@ public class DetailApiService extends Application {
                             inFirstImage2Str = commonParser.getText();
                             inFirstImage2 = false;
                         }
+                        else if(inTel) {
+                            inTelStr = commonParser.getText();
+                            inTel = false;
+                        }
                         break;
 
                     case XmlPullParser.END_TAG :
@@ -176,6 +185,7 @@ public class DetailApiService extends Application {
                             detailCommonItem.setAddr2(inAddr2Str);
                             detailCommonItem.setFirstimage(inFirstImageStr);
                             detailCommonItem.setFirstimage2(inFirstImage2Str);
+                            detailCommonItem.setTel(inTelStr);
                         }
                         break;
                 }

@@ -11,15 +11,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.eye2web.travel.R;
 import com.eye2web.travel.adapter.DetailImageViewPagerAdapter;
+import com.eye2web.travel.adapter.KakaoReviewListAdapter;
+import com.eye2web.travel.apivo.KakaoBlog;
+import com.eye2web.travel.apivo.KakaoImage;
 import com.eye2web.travel.util.CommonUtil;
 import com.eye2web.travel.vo.DetailCommonItem;
-import com.eye2web.travel.vo.GooglePlaceDetailItem;
-import com.eye2web.travel.vo.GooglePlaceDetailPhoto;
-import com.eye2web.travel.vo.GooglePlaceDetailReviews;
+import com.eye2web.travel.vo.ListItem;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -48,20 +55,40 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
 
     private View view;
     private DetailCommonItem detailCommonItem;
+    private ListItem item;
     private CommonUtil commonUtil;
     private String googlePhotoUrl;
     private String googleKey;
 
     private ViewPager imageViewPager;
+    private ViewPager detailImageViewPager;
     private DetailImageViewPagerAdapter detailImageViewPagerAdapter;
+    private ListView reviewList;
+    //private GoogleListAdapter googleReviewListAdapter;
+    private LinearLayout reviewListLayout;
 
     private MapView mapView;
     private double mapx = 0;
     private double mapy = 0;
     private String title = "";
+    private String addr1 = "";
+    private String addr2 = "";
+    private String googleAddr = "";
     private String mapAddr = "";
+    private String contentTypeId = "";
     private UiSettings uiSettings;
     private FragmentManager parentFragmentManager;
+
+    private Button button01;
+    private Button button02;
+    private Button button03;
+    private Button button04;
+
+    private AdView mAdView1;    // ad banner
+
+    private KakaoImage kakaoImage;
+    private KakaoBlog kakaoBlog;
+    private KakaoReviewListAdapter kakaoReviewListAdapter;
 
     public DetailCommonFragment() {
         // Required empty public constructor
@@ -112,79 +139,241 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
             }
         }
 
+        // view 세팅
         view = inflater.inflate(R.layout.fragment_detail_common, container, false);
+
+        String admobId = getResources().getString(R.string.google_admob_id);
+        MobileAds.initialize(getContext(), admobId);    // admob 초기화
+
+        mAdView1 = view.findViewById(R.id.adView);
+        AdRequest adRequest1 = new AdRequest.Builder().build();
+        mAdView1.loadAd(adRequest1);
+
+        // data 가져오기 (bundle에 들어있는 detailCommonItem 객체 가져오기)
         Bundle bundle = getArguments();
         detailCommonItem = (DetailCommonItem) bundle.getSerializable("detailCommonItem");
+        item = (ListItem) bundle.getSerializable("item");
 
+        LinearLayout detailImageViewPagerLayout = view.findViewById(R.id.detailImageViewPagerLayout);
+        detailImageViewPagerLayout.requestFocus();
+
+        // 구글 이미지 노출을 위한 구글 이미지 api 정보 세팅
         googlePhotoUrl = view.getResources().getString(R.string.google_places_api_photo_url);
         googleKey = view.getResources().getString(R.string.google_maps_key);
         googlePhotoUrl = googlePhotoUrl + "?key=" + googleKey;
 
-        GooglePlaceDetailItem googleItem = new GooglePlaceDetailItem();
-        List<GooglePlaceDetailPhoto> googlePhotoList = new ArrayList<GooglePlaceDetailPhoto>();
-        List<GooglePlaceDetailReviews> googleReviewList = new ArrayList<GooglePlaceDetailReviews>();
+        // 구글 정보를 담기 위한 객체 생성
+        //GooglePlaceDetailItem googleItem = new GooglePlaceDetailItem();
+        //List<GooglePlaceDetailPhoto> googlePhotoList = new ArrayList<GooglePlaceDetailPhoto>();    // 구글 이미지 리스트 객체 생성
+        //List<GooglePlaceDetailReviews> googleReviewList = new ArrayList<GooglePlaceDetailReviews>();    // 구글 리뷰 리스트 객체 생성
 
+        // 각 데이터값을 담을 객체 생성
         String overView = "";
         String homepage = "";
-        String addr1 = "";
-        String addr2 = "";
+        String phoneNo = "";
         String firstImage = "";
         List<String> imgUrlList = new ArrayList<String>();
         //String firstImage2 = "";
 
+        // detailCommonItem 객체에서 필요한 값 가져오기
         title = (String) detailCommonItem.getTitle();
         overView = detailCommonItem.getOverview();
         homepage = detailCommonItem.getHomepage();
         addr1 = detailCommonItem.getAddr1();
         addr2 = detailCommonItem.getAddr2();
         mapAddr = addr1 + " " + addr2;
+        phoneNo = detailCommonItem.getTel();
         imgUrlList = (List<String>) detailCommonItem.getImgUrlList();
         firstImage = detailCommonItem.getFirstimage();
 
+        // 지도 표시를 위한 위도, 경도 값 가져오기
         mapx = detailCommonItem.getMapx();
         mapy = detailCommonItem.getMapy();
         Log.i("Info", "Map info : " + mapx + " " + mapy);
 
-        mapAddr = detailCommonItem.getAddr1() + " " + detailCommonItem.getAddr2();
+        // 지도의 마커 및 주소란에 표시될 주소 정보
+        //mapAddr = detailCommonItem.getAddr1() + " " + detailCommonItem.getAddr2();
         Log.i("Info", "Map Addr : " + mapAddr);
 
-        googleItem = (GooglePlaceDetailItem) detailCommonItem.getGooglePlaceDetailItem();
+        // 어떤 유형의 컨텐츠인지 구분값 정보 (ex. 관광, 숙박 등)
+        contentTypeId = detailCommonItem.getContenttypeid();
 
+        //contentTypeId값에 따라 노출되는 버튼 이미지 다르게...
+        button01 = view.findViewById(R.id.detailBtn01);
+        button02 = view.findViewById(R.id.detailBtn02);
+        button03 = view.findViewById(R.id.detailBtn03);
+        button04 = view.findViewById(R.id.detailBtn04);
+
+        switch (contentTypeId) {
+            case "12" :
+                // 관광인 경우
+                button01.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_hotel), null, null);
+                button02.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_food), null, null);
+                button03.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_shopping), null, null);
+                button04.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_festival), null, null);
+                button01.setText("호텔");
+                button02.setText("맛집");
+                button03.setText("쇼핑");
+                button04.setText("축제/공연");
+                break;
+
+            case "32" :
+                // 호텔인 경우
+                button01.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_travel), null, null);
+                button02.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_food), null, null);
+                button03.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_shopping), null, null);
+                button04.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_festival), null, null);
+                button01.setText("관광");
+                button02.setText("맛집");
+                button03.setText("쇼핑");
+                button04.setText("축제/공연");
+                break;
+
+            case "39" :
+                // 맛집인 경우
+                button01.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_travel), null, null);
+                button02.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_hotel), null, null);
+                button03.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_shopping), null, null);
+                button04.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_festival), null, null);
+                button01.setText("관광");
+                button02.setText("호텔");
+                button03.setText("쇼핑");
+                button04.setText("축제/공연");
+                break;
+
+            case "15" :
+                // 축제인 경우
+                button01.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_travel), null, null);
+                button02.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_hotel), null, null);
+                button03.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_shopping), null, null);
+                button04.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_culture), null, null);
+                button01.setText("관광");
+                button02.setText("호텔");
+                button03.setText("쇼핑");
+                button04.setText("문화시설");
+                break;
+
+            default :
+                button01.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_travel), null, null);
+                button02.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_hotel), null, null);
+                button03.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_shopping), null, null);
+                button04.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.detail_festival), null, null);
+                button01.setText("관광");
+                button02.setText("호텔");
+                button03.setText("쇼핑");
+                button04.setText("축제/공연");
+                break;
+        }
+
+        // 구글 데이터 가져오기
+        //googleItem = (GooglePlaceDetailItem) detailCommonItem.getGooglePlaceDetailItem();
+
+        // 카카오 데이터 가져오기
+        kakaoImage = detailCommonItem.getKakaoImage();
+        kakaoBlog = detailCommonItem.getKakaoBlog();
+
+        imageViewPager = (ViewPager) view.findViewById(R.id.info_img_viewpager);    // 구글에서 가져온 이미지를 표시하기 위한 viewpager 세팅
+        reviewList = (ListView) view.findViewById(R.id.reviewList);
+        reviewListLayout = (LinearLayout) view.findViewById(R.id.google_review_layout);
+
+        if(null != kakaoImage) {
+            List<KakaoImage.Documents> kakaoImageList = kakaoImage.getDocuments();
+
+            // 카카오 이미지 리스트가 있을 경우 이미지 뷰에 표시
+            if(null != kakaoImageList && 0 < kakaoImageList.size()) {
+                List<String> bitmapPhotoList = new ArrayList<String>();
+
+                for(int i=0; i < kakaoImageList.size(); i++) {
+                    bitmapPhotoList.add(kakaoImageList.get(i).getImage_url());
+                }
+
+                detailImageViewPagerAdapter = new DetailImageViewPagerAdapter(getContext(), inflater, bitmapPhotoList, "");
+                imageViewPager.setAdapter(detailImageViewPagerAdapter);
+            } else {
+                imageViewPager.setVisibility(View.GONE);
+            }
+        } else {
+            imageViewPager.setVisibility(View.GONE);
+        }
+
+        if(null != kakaoBlog) {
+            List<KakaoBlog.Documents> kakaoReviewList = new ArrayList<KakaoBlog.Documents>();
+            kakaoReviewList = kakaoBlog.getDocuments();
+
+            if(null != kakaoReviewList && 0 < kakaoReviewList.size()) {
+                kakaoReviewListAdapter = new KakaoReviewListAdapter(getContext(), R.layout.kakao_review_item, kakaoReviewList);
+                reviewList.setAdapter(kakaoReviewListAdapter);
+            } else {
+                reviewList.setVisibility(View.GONE);
+            }
+        } else {
+            reviewList.setVisibility(View.GONE);
+        }
+
+        // 구글 데이터가 있을 경우 구글 데이터에서 이미지 리스트와 리뷰 리스트 가져오기
+        /**
         if(null != googleItem) {
             googlePhotoList = (List<GooglePlaceDetailPhoto>) googleItem.getPhotoList();
             googleReviewList = (List<GooglePlaceDetailReviews>) googleItem.getReviewsList();
 
-            addr1 = googleItem.getFormattedAddress();
-            mapAddr = addr1;
+            // 구글 데이터가 있을 경우 주소값을 정부 데이터의 주소가 아닌 구글의 주소로 대체 처리
+            googleAddr = googleItem.getFormattedAddress();
+            mapAddr = googleAddr;
 
+            //phoneNo = googleItem.getInternationalPhoneNumber();
+            phoneNo = googleItem.getFormattedPhoneNumber();
+
+            // 구글 이미지 리스트가 있을 경우 이미지 표시에 필요한 photo_reference값 가져와 구글 이미지 api 주소와 결합하여 이미지 노출용 리스트 생성
             if(null != googlePhotoList && 0 < googlePhotoList.size()) {
                 List<String> bitmapPhotoList = new ArrayList<String>();
 
-                for(int i=0; i < googlePhotoList.size(); i++) {
+                // google 정책 변경에 따라 구글 포토 호출 수 3으로 제한
+                int photoSize = 0;
+                if(3 < googlePhotoList.size()) {
+                    photoSize = 3;
+                }
+
+                for(int i=0; i < photoSize; i++) {
                     String photo = "";
                     photo = googlePhotoUrl + "&maxwidth=400&photoreference=" + googlePhotoList.get(i).getPhotoReference();
                     bitmapPhotoList.add(photo);
                 }
 
+                // 이미지 노출용 리스트가 생성된 경우 해당 값을 viewpager에 표시
                 if(null != bitmapPhotoList && 0 < bitmapPhotoList.size()) {
-                    imageViewPager = (ViewPager) view.findViewById(R.id.info_img_viewpager);
                     detailImageViewPagerAdapter = new DetailImageViewPagerAdapter(getContext(), inflater, bitmapPhotoList, "");
                     imageViewPager.setAdapter(detailImageViewPagerAdapter);
+                } else {
+                    imageViewPager.setVisibility(View.GONE);    // 이미지 노출용 리스트값이 없을 경우 이미지 표시를 위한 viewpager 공간 삭제
                 }
-
+            } else {
+                imageViewPager.setVisibility(View.GONE);    // 구글 이미지 리스트가 없을 경우 이미지 표시를 위한 viewpager 공간 삭제
             }
 
+            // 구글 리뷰 리스트가 있을 경우 리스트 노출
+            if(null != googleReviewList && 0 < googleReviewList.size()) {
+                googleReviewListAdapter = new GoogleListAdapter(getContext(), R.layout.google_review_item, googleReviewList);
+                reviewList.setAdapter(googleReviewListAdapter);
+            } else {
+                reviewListLayout.setVisibility(View.GONE);
+            }
+
+        } else {
+            imageViewPager.setVisibility(View.GONE);    // 구글 데이터가 없을 경우 이미지 표시를 위한 viewpager 공간 삭제
+            reviewListLayout.setVisibility(View.GONE);
         }
+         **/
 
         Log.i("Info", "detailItem Info : " + overView + "-" + title + "-" + homepage + "-" + addr1 + "-" + addr2);
         //return inflater.inflate(R.layout.fragment_detail_common, container, false);
         TextView detailOverView = (TextView) view.findViewById(R.id.detailOverView);
         TextView detailAddr1 = (TextView) view.findViewById(R.id.detailAddr1);
         //TextView detailAddr2 = (TextView) view.findViewById(R.id.detailAddr2);
+        TextView detailPhone = (TextView) view.findViewById(R.id.detailPhone);
         TextView detailHomepage = (TextView) view.findViewById(R.id.detailHomepage);
-        TextView detailTitle = (TextView) view.findViewById(R.id.detailTitle);
+        //TextView detailTitle = (TextView) view.findViewById(R.id.detailTitle);
 
-        detailTitle.setText(title);
+        //detailTitle.setText(title);
 
         commonUtil = new CommonUtil();
         //detailOverView.setText(overView);
@@ -193,13 +382,25 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
         if(null != overView && !"".equalsIgnoreCase(overView)) {
             overViewBuilder = commonUtil.convertTxtToLink(getContext(), overView);
         }
-        if(null != overViewBuilder) { detailOverView.setText(overViewBuilder.toString()); }
+        if(null != overViewBuilder.toString() && !"".equalsIgnoreCase(overViewBuilder.toString())
+                && 0 < overViewBuilder.toString().length()) {
+            detailOverView.setText(overViewBuilder.toString());
+        }
 
         SpannableStringBuilder addr1Builder = new SpannableStringBuilder();
-        if(null != addr1 && !"".equalsIgnoreCase(addr1)) {
-            addr1Builder = commonUtil.convertTxtToLink(getContext(), addr1);
+        if(null != mapAddr && !"".equalsIgnoreCase(mapAddr)) {
+            addr1Builder = commonUtil.convertTxtToLink(getContext(), mapAddr);
         }
-        if(null != addr1Builder) { detailAddr1.setText(addr1Builder.toString()); }
+        if(null != addr1Builder.toString() && !"".equalsIgnoreCase(addr1Builder.toString())
+                && 0 < addr1Builder.toString().length()) {
+            detailAddr1.setText(addr1Builder.toString());
+        } else {
+            LinearLayout addressLayout = (LinearLayout) view.findViewById(R.id.address_layout);
+            addressLayout.setVisibility(View.GONE);
+
+        }
+
+        detailPhone.setText(phoneNo);
 
         /**
         SpannableStringBuilder addr2Builder = new SpannableStringBuilder();
@@ -213,11 +414,15 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
         if(null != homepage && !"".equalsIgnoreCase(homepage)) {
             homePageBuilder = commonUtil.convertTxtToLink(getContext(), homepage);
         }
-        if(null != homePageBuilder) { detailHomepage.setText(homePageBuilder.toString()); }
+        if(null != homePageBuilder.toString() && !"".equalsIgnoreCase(homePageBuilder.toString())
+                && 0 < homePageBuilder.toString().length()) {
+            detailHomepage.setText(homePageBuilder.toString().trim());
+        }
 
-        imageViewPager = (ViewPager) view.findViewById(R.id.detail_img_viewpager);
+        detailImageViewPager = (ViewPager) view.findViewById(R.id.detail_img_viewpager);
         detailImageViewPagerAdapter = new DetailImageViewPagerAdapter(getContext(), inflater, imgUrlList, firstImage);
-        imageViewPager.setAdapter(detailImageViewPagerAdapter);
+        detailImageViewPager.setAdapter(detailImageViewPagerAdapter);
+        detailImageViewPager.requestFocus();
 
         mapView = (MapView) view.findViewById(R.id.map_info_fragment);
         mapView.getMapAsync(this);
@@ -280,7 +485,10 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
         map.addMarker(markerOptions);
 
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
-        //map.animateCamera(CameraUpdateFactory.zoomTo(15));
+        map.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+        //Marker marker = map.addMarker(markerOptions);
+        //marker.showInfoWindow();
 
         uiSettings.isZoomControlsEnabled();
         uiSettings.setZoomControlsEnabled(true);
@@ -335,5 +543,4 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
 }

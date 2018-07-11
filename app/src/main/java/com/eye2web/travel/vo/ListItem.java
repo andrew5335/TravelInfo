@@ -30,8 +30,9 @@ public class ListItem implements Serializable {
     private String siguguncode;
     private String tel;
     private String title;
-
+    private String homepage;
     private String overview;
+
 
     public String getAddr1() {
         return addr1;
@@ -189,6 +190,10 @@ public class ListItem implements Serializable {
 
     public void setOverview(String overview) { this.overview = overview; }
 
+    public String getHomepage() { return homepage; }
+
+    public void setHomepage(String homepage) { this.homepage = homepage; }
+
     /**
     public ListItem(String addr1, String addr2, String areacode, String booktour,
                     String cat1, String cat2, String cat3, String contentid, String contenttypeid,
@@ -218,7 +223,7 @@ public class ListItem implements Serializable {
      **/
     public ListItem(String addr1, String firstimage, String firstimage2, String title
             , String contentid, String contenttypeid, String cat1, String cat2, String cat3
-            , double mapx, double mapy, String overview) {
+            , double mapx, double mapy, String overview, String homepage, String tel) {
         this.addr1 = addr1;
         this.firstimage = firstimage;
         this.firstimage2 = firstimage2;
@@ -231,5 +236,7 @@ public class ListItem implements Serializable {
         this.mapx = mapx;
         this.mapy = mapy;
         this.overview = overview;
+        this.homepage = homepage;
+        this.tel = tel;
     }
 }

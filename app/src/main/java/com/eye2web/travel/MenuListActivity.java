@@ -3,12 +3,12 @@ package com.eye2web.travel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -53,6 +53,7 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
     private String keyword = "";
     private String sort = "";
     private TextView btnText;
+    private Handler searchHandler = null;
 
     private String loc = "";
     private double mapX = 0;
@@ -78,7 +79,7 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
         aroundGu = menuIntent.getStringExtra("aroundGu");
 
         //Log.i("info", "===============gps info : " + mapX + "=============" + mapY);
-        if(null != sort && !"".equalsIgnoreCase(sort)) {} else { sort = "O"; }    // 정렬 기준이 없을 경우에는 기본 제목순 정렬
+        if(null != sort && !"".equalsIgnoreCase(sort)) {} else { sort = "P"; }    // 정렬 기준이 없을 경우에는 기본 조회순 정렬
         commonUtil = new CommonUtil();
 
         contentList = (ListView) findViewById(R.id.cateSearchResultList);
@@ -104,110 +105,32 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
             if(null != areaGu && !"".equalsIgnoreCase(areaGu)) {
                 keyword = commonUtil.getKeyword(areaGu);
 
-                getContentList(cateGu, areaGu, keyword, sort);
+                //getContentList(cateGu, areaGu, keyword, sort);
             } else {
                 // 분류값(gu)은 있으나 지역분류값(areaGu)이 없을 경우에는 기본 서울의 리스트를 노출한다. (서울 + 분류값(ex. 레포츠 등))
                 keyword = "서울";
                 areaGu = "1";
-                getContentList(cateGu, areaGu, keyword, sort);
+                //getContentList(cateGu, areaGu, keyword, sort);
             }
         } else {
             // 분류값(gu)이 없을 경우에는 오류를 발생시키지 않아야 하므로 기본 서울/
             cateGu = "12";
             keyword = "서울";
             areaGu = "1";
-            getContentList(cateGu, areaGu, keyword, sort);
         }
 
-        // 상단 메뉴 텍스트 색상 설정
-        /**
-        switch(areaGu) {
-            case "1" :
-                btnText = (TextView) findViewById(R.id.seoulBtn);
-                btnText.setTextColor(Color.RED);
-                break;
+        progressBar = (ProgressBar) findViewById(R.id.search_list_progressbar);
 
-            case "2" :
-                btnText = (TextView) findViewById(R.id.incheonBtn);
-                btnText.setTextColor(Color.RED);
-                break;
+        searchHandler = new Handler();
 
-            case "3" :
-                btnText = (TextView) findViewById(R.id.daejeonBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "4" :
-                btnText = (TextView) findViewById(R.id.daeguBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "5" :
-                btnText = (TextView) findViewById(R.id.kwangjuBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "6" :
-                btnText = (TextView) findViewById(R.id.busanBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "7" :
-                btnText = (TextView) findViewById(R.id.ulsanBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "8" :
-                btnText = (TextView) findViewById(R.id.sejongBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "31" :
-                btnText = (TextView) findViewById(R.id.kyunggiBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "32" :
-                btnText = (TextView) findViewById(R.id.kangwonBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "33" :
-                btnText = (TextView) findViewById(R.id.chungbookBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "34" :
-                btnText = (TextView) findViewById(R.id.chungnamBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "35" :
-                btnText = (TextView) findViewById(R.id.kyungbookBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "36" :
-                btnText = (TextView) findViewById(R.id.kyungnamBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "37" :
-                btnText = (TextView) findViewById(R.id.jeonbookBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "38" :
-                btnText = (TextView) findViewById(R.id.jeonnamBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-
-            case "39" :
-                btnText = (TextView) findViewById(R.id.jejuBtn);
-                btnText.setTextColor(Color.RED);
-                break;
-        }
-         **/
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                getContentList(cateGu, areaGu, keyword, sort);
+                Looper.loop();
+            }
+        }).start();
 
         contentList.setOnItemClickListener(itemClickListener);
     }
@@ -239,182 +162,14 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
         }
     };
 
-    public void onSeoulBtnClicked(View v) {
-        areaGu = "1";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onIncheonBtnClicked(View v) {
-        areaGu = "2";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onDaejeonBtnClicked(View v) {
-        areaGu = "3";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onDaeguBtnClicked(View v) {
-        areaGu = "4";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onBusanBtnClicked(View v) {
-        areaGu = "6";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onKwangjuBtnClicked(View v) {
-        areaGu = "5";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onUlsanBtnClicked(View v) {
-        areaGu = "7";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onSejongBtnClicked(View v) {
-        areaGu = "8";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onKyunggiBtnClicked(View v) {
-        areaGu = "31";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onKwangwonBtnClicked(View v) {
-        areaGu = "32";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onChungbookBtnClicked(View v) {
-        areaGu = "33";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onChungnamBtnClicked(View v) {
-        areaGu = "34";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onJeonbookBtnClicked(View v) {
-        areaGu = "37";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onJeonnamBtnClicked(View v) {
-        areaGu = "38";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onKyungbookBtnClicked(View v) {
-        areaGu = "35";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onKyungnamBtnClicked(View v) {
-        areaGu = "36";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
-    public void onJejuBtnClicked(View v) {
-        areaGu = "39";
-        cateIntent = new Intent(getApplicationContext(), MenuListActivity.class);
-        cateIntent.putExtra("gu", gu);
-        cateIntent.putExtra("cateGu", cateGu);
-        cateIntent.putExtra("cateName", cateName);
-        cateIntent.putExtra("areaGu", areaGu);
-        startActivity(cateIntent);
-    }
-
     @Override
     public void onScrollStateChanged(AbsListView absListView, int scrollState) {
         if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastItemVisibleFlag && mLockListView == false) {
-            if(contentList.getLastVisiblePosition() >= contentList.getCount()-1) {
+            progressBar.setVisibility(View.VISIBLE);
+            contentList.setVisibility(View.GONE);
+            //if(contentList.getLastVisiblePosition() >= contentList.getCount()-1) {
                 getContentList(cateGu, areaGu, keyword, sort);
-            }
+            //}
         }
     }
 
@@ -484,6 +239,7 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
             Log.e("Error", "==========Error : " + e.toString());
         }
 
+        /**
         LinearLayout category_layer = (LinearLayout) findViewById(R.id.category_layer);
         if(null != loc && !"".equalsIgnoreCase(loc)) {
             if("loc".equalsIgnoreCase(loc)) {
@@ -494,6 +250,7 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
                 category_layer.setVisibility(View.VISIBLE);
             }
         }
+         **/
 
         if(null != resultMap && 0 < resultMap.size()) {
             if("0000".equalsIgnoreCase((String)resultMap.get("resultCode"))) {
@@ -523,11 +280,13 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
             }
         }
 
-        new Handler().postDelayed(new Runnable() {
+        searchHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 page++;
                 adapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
+                contentList.setVisibility(View.VISIBLE);
                 mLockListView = false;
             }
         }, 1000);
@@ -543,8 +302,8 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
     public AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            TextView textView = (TextView) view.findViewById(R.id.listText);
-            String text = textView.getText().toString();
+            //TextView textView = (TextView) view.findViewById(R.id.listText);
+            //String text = textView.getText().toString();
             ListItem item = (ListItem) parent.getAdapter().getItem(position);
 
             Intent detailInfoIntent = new Intent(getApplicationContext(), DetailInfoActivity.class);

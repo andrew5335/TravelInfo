@@ -1,9 +1,15 @@
 package com.eye2web.travel.vo;
 
+import com.eye2web.travel.apivo.KakaoBlog;
+import com.eye2web.travel.apivo.KakaoImage;
+import com.eye2web.travel.apivo.KakaoLocal;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class DetailCommonItem implements Serializable {
+
+    private static final long serialVersionUID = -3457366616186565141L;
 
     private String contentid;
     private String contenttypeid;
@@ -29,7 +35,17 @@ public class DetailCommonItem implements Serializable {
     private String title;
     private List<String> imgUrlList;
 
-    private GooglePlaceDetailItem googlePlaceDetailItem;
+    private KakaoImage kakaoImage;
+    private KakaoBlog kakaoBlog;
+    private KakaoLocal kakaoLocal;
+    private KakaoLocal kakaoLocalGas;
+    private KakaoLocal kakaoLocalPark;
+
+    //private GooglePlaceDetailItem googlePlaceDetailItem;
+
+    //private List<GooglePlaceItem> gasList;
+
+    //private List<GooglePlaceItem> parkingList;
 
     public String getContentid() {
         return contentid;
@@ -211,6 +227,47 @@ public class DetailCommonItem implements Serializable {
 
     public void setImgUrlList(List<String> imgUrlList) { this.imgUrlList = imgUrlList; }
 
+    public KakaoImage getKakaoImage() {
+        return kakaoImage;
+    }
+
+    public void setKakaoImage(KakaoImage kakaoImage) {
+        this.kakaoImage = kakaoImage;
+    }
+
+    public KakaoBlog getKakaoBlog() {
+        return kakaoBlog;
+    }
+
+    public void setKakaoBlog(KakaoBlog kakaoBlog) {
+        this.kakaoBlog = kakaoBlog;
+    }
+
+    public KakaoLocal getKakaoLocal() {
+        return kakaoLocal;
+    }
+
+    public void setKakaoLocal(KakaoLocal kakaoLocal) {
+        this.kakaoLocal = kakaoLocal;
+    }
+
+    public KakaoLocal getKakaoLocalGas() {
+        return kakaoLocalGas;
+    }
+
+    public void setKakaoLocalGas(KakaoLocal kakaoLocalGas) {
+        this.kakaoLocalGas = kakaoLocalGas;
+    }
+
+    public KakaoLocal getKakaoLocalPark() {
+        return kakaoLocalPark;
+    }
+
+    public void setKakaoLocalPark(KakaoLocal kakaoLocalPark) {
+        this.kakaoLocalPark = kakaoLocalPark;
+    }
+
+    /**
     public GooglePlaceDetailItem getGooglePlaceDetailItem() {
         return googlePlaceDetailItem;
     }
@@ -218,4 +275,21 @@ public class DetailCommonItem implements Serializable {
     public void setGooglePlaceDetailItem(GooglePlaceDetailItem googlePlaceDetailItem) {
         this.googlePlaceDetailItem = googlePlaceDetailItem;
     }
+
+    public List<GooglePlaceItem> getGasList() {
+        return gasList;
+    }
+
+    public void setGasList(List<GooglePlaceItem> gasList) {
+        this.gasList = gasList;
+    }
+
+    public List<GooglePlaceItem> getParkingList() {
+        return parkingList;
+    }
+
+    public void setParkingList(List<GooglePlaceItem> parkingList) {
+        this.parkingList = parkingList;
+    }
+     **/
 }

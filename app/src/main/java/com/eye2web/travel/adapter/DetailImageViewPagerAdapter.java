@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.eye2web.travel.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,8 +22,10 @@ public class DetailImageViewPagerAdapter extends PagerAdapter {
     private List<String> imgUrlList;
     private String firstImage;
 
+    private View view;
+
     public DetailImageViewPagerAdapter(Context ctx, LayoutInflater inflater, List<String> imgUrlList, String firstImage) {
-    Log.i("info", "first-image : " + firstImage);
+    //Log.i("info", "first-image : " + firstImage);
         this.ctx = ctx;
         this.inflater = inflater;
         this.imgUrlList = imgUrlList;
@@ -34,6 +37,9 @@ public class DetailImageViewPagerAdapter extends PagerAdapter {
         int result = 0;
         if(null != imgUrlList && 0 < imgUrlList.size()) {
             result = imgUrlList.size();
+            if(3 < result) {
+                //result = 3;
+            }
         } else {
             if(null != firstImage && !"".equalsIgnoreCase(firstImage)) {
                 result = 1;
@@ -52,32 +58,35 @@ public class DetailImageViewPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        Log.i("info", "position : " + position);
         inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.detail_img, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.detail_img);
-        Log.i("info", "first-image : " + firstImage);
+
         if(null != imgUrlList && 0 < imgUrlList.size()) {
-            for(int i=0; i < imgUrlList.size(); i++) {
-                Log.i("info", "image url : " + imgUrlList.get(i));
-            }
             if(imageView.getVisibility() == View.GONE) {
                 imageView.setVisibility(View.VISIBLE);
             }
-            Picasso.get().load((String)imgUrlList.get(position)).placeholder(R.mipmap.logo_final).into(imageView);
+            //Picasso.get().load((String)imgUrlList.get(position)).resize(400, 300).centerCrop().placeholder(R.mipmap.logo_final).into(imageView);
+            Glide.with(view.getContext()).load((String) imgUrlList.get(position))
+                    .apply(new RequestOptions().override(400, 300))
+                    .into(imageView);
 
             container.addView(view);
         } else {
             Log.i("info", "first-image : " + firstImage);
             if(null != firstImage && !"".equalsIgnoreCase(firstImage)) {
-                Log.i("info", "first-image : " + firstImage);
+                //Log.i("info", "first-image : " + firstImage);
                 if(imageView.getVisibility() == View.GONE) {
                     imageView.setVisibility(View.VISIBLE);
                 }
-                Picasso.get().load(firstImage).placeholder(R.mipmap.logo_final).into(imageView);
+                //Picasso.get().load(firstImage).resize(400, 300).centerCrop().placeholder(R.mipmap.logo_final).into(imageView);
+                Glide.with(view.getContext()).load(firstImage)
+                        .apply(new RequestOptions().override(400, 300))
+                        .into(imageView);
             } else {
                 imageView.setVisibility(View.GONE);
-                Picasso.get().cancelRequest(imageView);
+                //Picasso.get().cancelRequest(imageView);
+                Glide.with(view.getContext()).clear(imageView);
             }
             container.addView(view);
         }

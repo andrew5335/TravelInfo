@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#d9d8d8"
+    android:descendantFocusability="blocksDescendants"
+    tools:context=".ContentDetailActivity">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#fff"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:onClick="onGobackBtnClicked"
+                android:paddingLeft="5dp"
+                android:scaleType="fitStart"
+                app:srcCompat="@mipmap/goback" />
+
+            <TextView
+                android:id="@+id/contentTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical|center|center_horizontal"
+                android:autoLink="web"
+                android:background="#fff"
+                android:ellipsize="none"
+                android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="left|center_vertical"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="5dp"
+                android:lineSpacingMultiplier="1.5"
+                android:linksClickable="true"
+                android:scrollHorizontally="false"
+                android:singleLine="false"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:onClick="onGobackBtnClicked"/>
+
+        </LinearLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:background="#fff"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/contentDetailTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:autoLink="web"
+                        android:background="#fff"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/notosanskr_regular_hestia"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="3dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:linksClickable="true"
+                        android:scrollHorizontally="false"
+                        android:singleLine="false"
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#fff"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <com.google.android.gms.ads.AdView
+                        android:id="@+id/adView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="#fff"
+                        ads:adSize="BANNER"
+                        ads:adUnitId="ca-app-pub-6330719511254854/5003031970"></com.google.android.gms.ads.AdView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <include
+            android:id="@+id/bottom_navigation_view"
+            layout="@layout/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:layout_behavior=".behavior.BottomNavigationBehavior" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

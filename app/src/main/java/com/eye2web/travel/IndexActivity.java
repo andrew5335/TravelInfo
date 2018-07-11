@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -14,12 +15,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.eye2web.travel.adapter.IndexPagerAdapter;
+import com.eye2web.travel.apivo.Eye2WebJson;
 import com.eye2web.travel.handler.BackPressCloseHandler;
 import com.eye2web.travel.service.AreaApiService;
+import com.eye2web.travel.service.Eye2WebApiService;
 import com.eye2web.travel.vo.AreaListItem;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,12 +47,47 @@ public class IndexActivity extends BaseActivity {
 
     private AreaApiService areaApiService;
 
+    private Eye2WebApiService eye2WebApiService;
+
     private IndexPagerAdapter indexPagerAdapter;
 
     private BackPressCloseHandler backPressCloseHandler;
 
     private String imageUrl;
 
+    private AdView mAdView1;
+
+    private AdView mAdView2;
+
+    //private List<Eye2WebContent> eye2WebContentList1;
+    //private List<Eye2WebContent> eye2webContentList2;
+    //private Eye2WebMediaContent eye2WebMediaContent;
+    private List<Eye2WebJson> eye2webJsonList;
+    private Intent eye2webIntent;
+
+    private ImageView theme_img;
+    private TextView theme_title;
+    private LinearLayout theme_travel_layout;
+
+    private ImageView theme_img2;
+    private ImageView theme_img3;
+    private ImageView theme_img4;
+    private ImageView theme_img5;
+
+    private TextView theme_title2;
+    private TextView theme_title3;
+    private TextView theme_title4;
+    private TextView theme_title5;
+
+    private int mainContentId = 0;
+    private int subContentId1 = 0;
+    private int subContentId2 = 0;
+    private int subContentId3 = 0;
+    private int subContentId4 = 0;
+
+    private String authKey;
+
+    private Handler handler = null;
 
     /**
      * @parameter :
@@ -59,8 +102,19 @@ public class IndexActivity extends BaseActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        // 배너 광고 삽입
+        String admobId = getResources().getString(R.string.google_admob_id);
+        MobileAds.initialize(this, admobId);    // admob 초기화
+
+        // 배너 광고는 한 activity에 1개만 삽입 가능
+        mAdView1 = findViewById(R.id.adView);
+        AdRequest adRequest1 = new AdRequest.Builder().build();
+        mAdView1.loadAd(adRequest1);
+
         imageUrl = getResources().getString(R.string.image_url);
         imageUrl = imageUrl + "/images/";
+
+        authKey = getResources().getString(R.string.auth_key);
 
         if(Build.VERSION.SDK_INT >= 23
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -72,9 +126,8 @@ public class IndexActivity extends BaseActivity {
         ViewPager indexMenuPager = (ViewPager) findViewById(R.id.index_menu_pager);
         indexPagerAdapter = new IndexPagerAdapter(this, getLayoutInflater(), cityList);
         indexMenuPager.setAdapter(indexPagerAdapter);
-
-        //ImageView search_around = (ImageView) findViewById(R.id.search_around);
-        //Picasso.get().load(imageUrl + "compas.png").placeholder(R.mipmap.compas).into(search_around);
+        indexMenuPager.setFocusableInTouchMode(true);
+        indexMenuPager.requestFocus();
 
         ImageView food_around = (ImageView) findViewById(R.id.search_around_food);
         ImageView hotel_around = (ImageView) findViewById(R.id.search_around_stay);
@@ -84,8 +137,134 @@ public class IndexActivity extends BaseActivity {
         Picasso.get().load(imageUrl + "hotel.jpg").placeholder(R.mipmap.hotel_index).into(hotel_around);
         Picasso.get().load(imageUrl + "travel.jpg").placeholder(R.mipmap.travel_index).into(travel_around);
 
-        this.backPressCloseHandler = new BackPressCloseHandler(this);    // 뒤로가기 처리
+        eye2webJsonList = new ArrayList<Eye2WebJson>();
+        //eye2webContentList2 = new ArrayList<Eye2WebContent>();
+        theme_img = (ImageView) findViewById(R.id.theme_img);
+        theme_title = (TextView) findViewById(R.id.theme_title);
+        theme_travel_layout = (LinearLayout) findViewById(R.id.theme_travel_layout);
 
+        theme_img2 = (ImageView) findViewById(R.id.theme_img2);
+        theme_img3 = (ImageView) findViewById(R.id.theme_img3);
+        theme_img4 = (ImageView) findViewById(R.id.theme_img4);
+        theme_img5 = (ImageView) findViewById(R.id.theme_img5);
+
+        theme_title2 = (TextView) findViewById(R.id.theme_title2);
+        theme_title3 = (TextView) findViewById(R.id.theme_title3);
+        theme_title4 = (TextView) findViewById(R.id.theme_title4);
+        theme_title5 = (TextView) findViewById(R.id.theme_title5);
+
+        theme_travel_layout.setVisibility(View.GONE);
+        theme_img2.setVisibility(View.GONE);
+        theme_img3.setVisibility(View.GONE);
+        theme_img4.setVisibility(View.GONE);
+        theme_img5.setVisibility(View.GONE);
+        theme_title2.setVisibility(View.GONE);
+        theme_title3.setVisibility(View.GONE);
+        theme_title4.setVisibility(View.GONE);
+        theme_title5.setVisibility(View.GONE);
+
+        handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Eye2Web 컨텐츠 가져오기 1
+                int themeCategory = Integer.parseInt(getResources().getString(R.string.travel_top_category));    // Travel 대 카테고리
+                int themePage = Integer.parseInt(getResources().getString(R.string.eye2web_page1));
+                int themePerPage = Integer.parseInt(getResources().getString(R.string.eye2web_per_page1));
+                eye2webJsonList = getEye2WebContent(themeCategory, themePage, themePerPage);
+
+                // Eye2Web 컨텐츠 가져오기 2
+                //int eye2webCate = Integer.parseInt(getResources().getString(R.string.travel_main_category));
+                //int eye2webPage = Integer.parseInt(getResources().getString(R.string.eye2web_page2));
+                //int eye2webPer_page = Integer.parseInt(getResources().getString(R.string.eye2web_per_page2));
+                //eye2webContentList2 = getEye2WebContent(eye2webCate, eye2webPage, eye2webPer_page);
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(null != eye2webJsonList && 0 < eye2webJsonList.size()) {
+                            if(theme_travel_layout.getVisibility() == View.GONE) {
+                                theme_travel_layout.setVisibility(View.VISIBLE);
+                            }
+                            Picasso.get().load(eye2webJsonList.get(0).getImg()).placeholder(R.mipmap.logo_final).into(theme_img);
+                            //Glide.with(getApplicationContext())
+                            //        .load(eye2WebContentList1.get(0).getFeature_media_url())
+                            //        .apply(new RequestOptions().override(960, 640))
+                            //        .into(theme_img);
+                            theme_title.setText(eye2webJsonList.get(0).getTitle());
+                            mainContentId = eye2webJsonList.get(0).getContent_id();
+
+                            if(2 < eye2webJsonList.size() && 4 >= eye2webJsonList.size()) {
+                                if(theme_img2.getVisibility() == View.GONE) {
+                                    theme_img2.setVisibility(View.VISIBLE);
+                                }
+                                if(theme_title2.getVisibility() == View.GONE) {
+                                    theme_title2.setVisibility(View.VISIBLE);
+                                }
+                                Picasso.get().load(eye2webJsonList.get(1).getImg()).placeholder(R.mipmap.logo_final).into(theme_img2);
+                                theme_title2.setText(eye2webJsonList.get(1).getTitle());
+                                subContentId1 = eye2webJsonList.get(1).getContent_id();
+
+                                if(theme_img3.getVisibility() == View.GONE) {
+                                    theme_img3.setVisibility(View.VISIBLE);
+                                }
+                                if(theme_title3.getVisibility() == View.GONE) {
+                                    theme_title3.setVisibility(View.VISIBLE);
+                                }
+                                Picasso.get().load(eye2webJsonList.get(2).getImg()).placeholder(R.mipmap.logo_final).into(theme_img3);
+                                theme_title3.setText(eye2webJsonList.get(2).getTitle());
+                                subContentId2 = eye2webJsonList.get(2).getContent_id();
+                            } else if(4 < eye2webJsonList.size()) {
+                                if(theme_img2.getVisibility() == View.GONE) {
+                                    theme_img2.setVisibility(View.VISIBLE);
+                                }
+                                if(theme_title2.getVisibility() == View.GONE) {
+                                    theme_title2.setVisibility(View.VISIBLE);
+                                }
+                                Picasso.get().load(eye2webJsonList.get(1).getImg()).placeholder(R.mipmap.logo_final).into(theme_img2);
+                                theme_title2.setText(eye2webJsonList.get(1).getTitle());
+                                subContentId1 = eye2webJsonList.get(1).getContent_id();
+
+                                if(theme_img3.getVisibility() == View.GONE) {
+                                    theme_img3.setVisibility(View.VISIBLE);
+                                }
+                                if(theme_title3.getVisibility() == View.GONE) {
+                                    theme_title3.setVisibility(View.VISIBLE);
+                                }
+                                Picasso.get().load(eye2webJsonList.get(2).getImg()).placeholder(R.mipmap.logo_final).into(theme_img3);
+                                theme_title3.setText(eye2webJsonList.get(2).getTitle());
+                                subContentId2 = eye2webJsonList.get(2).getContent_id();
+
+                                if(theme_img4.getVisibility() == View.GONE) {
+                                    theme_img4.setVisibility(View.VISIBLE);
+                                }
+                                if(theme_title4.getVisibility() == View.GONE) {
+                                    theme_title4.setVisibility(View.VISIBLE);
+                                }
+                                Picasso.get().load(eye2webJsonList.get(3).getImg()).placeholder(R.mipmap.logo_final).into(theme_img4);
+                                theme_title4.setText(eye2webJsonList.get(3).getTitle());
+                                subContentId3 = eye2webJsonList.get(3).getContent_id();
+
+                                if(theme_img5.getVisibility() == View.GONE) {
+                                    theme_img5.setVisibility(View.VISIBLE);
+                                }
+                                if(theme_title5.getVisibility() == View.GONE) {
+                                    theme_title5.setVisibility(View.VISIBLE);
+                                }
+                                Picasso.get().load(eye2webJsonList.get(4).getImg()).placeholder(R.mipmap.logo_final).into(theme_img5);
+                                theme_title5.setText(eye2webJsonList.get(4).getTitle());
+                                subContentId4 = eye2webJsonList.get(4).getContent_id();
+                            }
+                        } else {
+                            theme_travel_layout.setVisibility(View.GONE);
+                        }
+                    }
+                });
+
+            }
+        }).start();
+
+        this.backPressCloseHandler = new BackPressCloseHandler(this);    // 뒤로가기 처리
     }
 
     public List<String> getCityList() {
@@ -112,6 +291,18 @@ public class IndexActivity extends BaseActivity {
         return resultList;
     }
 
+    public void onContentImgClicked(View v) {
+        eye2webIntent = new Intent(getApplicationContext(), ContentDetailActivity.class);
+        eye2webIntent.putExtra("contentId", mainContentId);
+        startActivity(eye2webIntent);
+    }
+
+    public void onContentTextClicked(View v) {
+        eye2webIntent = new Intent(getApplicationContext(), ContentDetailActivity.class);
+        eye2webIntent.putExtra("contentId", mainContentId);
+        startActivity(eye2webIntent);
+    }
+
     /**
      * @parameter :
      * @Date : 2018. 5. 10. PM 12:22
@@ -127,8 +318,6 @@ public class IndexActivity extends BaseActivity {
         String serviceGu = "areaCode";
 
         try {
-            //resultList = areaApiService.getAreaCodeList(addr, serviceGu, serviceKey, "", "");
-
             // 키워드 검색으로 검색방식 변경 - 기존 지역 리스트 api 호출하여 지역 리스트 가져오는 방식에서 수동으로 카테고리 설정하는 방식으로 변경
             // spinner data 를 수동으로 생성
             AreaListItem initial = new AreaListItem("0", "선택", 0);
@@ -156,6 +345,52 @@ public class IndexActivity extends BaseActivity {
         } catch (Exception e) {
             Log.e("Error", "Error : " + e.toString());
         }
+
+        return resultList;
+    }
+
+    public List<Eye2WebJson> getEye2WebContent(int category, int page, int per_page) {
+
+        eye2WebApiService = new Eye2WebApiService();
+        //List<Eye2WebContent> resultList = new ArrayList<Eye2WebContent>();
+        List<Eye2WebJson> resultList = new ArrayList<Eye2WebJson>();
+
+        try {
+            //resultList = eye2WebApiService.getEye2WebContent(category, page, per_page);
+            resultList = eye2WebApiService.getEye2WebJsonData(category, authKey, page, per_page);
+
+            /**
+            if(null != resultList && 0 < resultList.size()) {
+                if(1 == per_page) {
+                    if(0 < resultList.get(0).getFeatured_media()) {
+                        int id = 0;
+                        eye2WebMediaContent = new Eye2WebMediaContent();
+                        id = resultList.get(0).getFeatured_media();
+                        eye2WebMediaContent = eye2WebApiService.getEye2WebMediaContent(id);
+
+                        if(null != eye2WebMediaContent) {
+                            resultList.get(0).setFeatured_media_url(eye2WebMediaContent.getSource_url());
+                        }
+                    }
+                } else {
+                    for(int i=0; i < resultList.size(); i++) {
+                        int mediaId = 0;
+                        mediaId = resultList.get(i).getFeatured_media();
+                        eye2WebMediaContent = new Eye2WebMediaContent();
+
+                        eye2WebMediaContent = eye2WebApiService.getEye2WebMediaContent(mediaId);
+
+                        if(null != eye2WebMediaContent) {
+                            resultList.get(i).setFeatured_media_url(eye2WebMediaContent.getSource_url());
+                        }
+                    }
+                }
+            }
+             **/
+        } catch (Exception e) {
+            Log.e("Error", "Eye2Web Content Api Call Error : " + e.toString());
+        }
+
 
         return resultList;
     }
@@ -216,12 +451,14 @@ public class IndexActivity extends BaseActivity {
             mapX = (Double) gpsMap.get("mapX");
             mapY = (Double) gpsMap.get("mapY");
 
-            Intent locIntent = new Intent(this, MenuListActivity.class);
-            locIntent.putExtra("mapX", mapX);
-            locIntent.putExtra("mapY", mapY);
+            Intent locIntent = new Intent(this, SearchListActivity.class);
+            locIntent.putExtra("mapx", mapX);
+            locIntent.putExtra("mapy", mapY);
             locIntent.putExtra("loc", "loc");
             locIntent.putExtra("aroundGu", "food");
+            locIntent.putExtra("areaCode", "39");
             locIntent.putExtra("cateName", "맛집 검색 결과");
+            locIntent.putExtra("searchGu", "nearby");
             startActivity(locIntent);
         }
     }
@@ -236,12 +473,14 @@ public class IndexActivity extends BaseActivity {
             mapX = (Double) gpsMap.get("mapX");
             mapY = (Double) gpsMap.get("mapY");
 
-            Intent locIntent = new Intent(this, MenuListActivity.class);
-            locIntent.putExtra("mapX", mapX);
-            locIntent.putExtra("mapY", mapY);
+            Intent locIntent = new Intent(this, SearchListActivity.class);
+            locIntent.putExtra("mapx", mapX);
+            locIntent.putExtra("mapy", mapY);
             locIntent.putExtra("loc", "loc");
             locIntent.putExtra("aroundGu", "hotel");
+            locIntent.putExtra("areaCode", "32");
             locIntent.putExtra("cateName", "호텔 검색 결과");
+            locIntent.putExtra("searchGu", "nearby");
             startActivity(locIntent);
         }
     }
@@ -257,14 +496,69 @@ public class IndexActivity extends BaseActivity {
             mapY = (Double) gpsMap.get("mapY");
 
             //Log.i("info", "===============gps info : " + mapX + "=============" + mapY);
-            Intent locIntent = new Intent(this, MenuListActivity.class);
-            locIntent.putExtra("mapX", mapX);
-            locIntent.putExtra("mapY", mapY);
+            Intent locIntent = new Intent(this, SearchListActivity.class);
+            locIntent.putExtra("mapx", mapX);
+            locIntent.putExtra("mapy", mapY);
             locIntent.putExtra("loc", "loc");
             locIntent.putExtra("aroundGu", "travel");
+            locIntent.putExtra("areaCode", "12");
             locIntent.putExtra("cateName", "관광지 검색 결과");
+            locIntent.putExtra("searchGu", "nearby");
             startActivity(locIntent);
         }
+    }
+
+    public void onSubContentImg1Clicked(View v) {
+        eye2webIntent = new Intent(getApplicationContext(), ContentDetailActivity.class);
+        eye2webIntent.putExtra("contentId", subContentId1);
+        startActivity(eye2webIntent);
+    }
+
+    public void onSubContentText1Clicked(View v) {
+        eye2webIntent = new Intent(getApplicationContext(), ContentDetailActivity.class);
+        eye2webIntent.putExtra("contentId", subContentId1);
+        startActivity(eye2webIntent);
+    }
+
+    public void onSubContentImg2Clicked(View v) {
+        eye2webIntent = new Intent(getApplicationContext(), ContentDetailActivity.class);
+        eye2webIntent.putExtra("contentId", subContentId2);
+        startActivity(eye2webIntent);
+    }
+
+    public void onSubContentText2Clicked(View v) {
+        eye2webIntent = new Intent(getApplicationContext(), ContentDetailActivity.class);
+        eye2webIntent.putExtra("contentId", subContentId2);
+        startActivity(eye2webIntent);
+    }
+
+    public void onSubContentImg3Clicked(View v) {
+        eye2webIntent = new Intent(getApplicationContext(), ContentDetailActivity.class);
+        eye2webIntent.putExtra("contentId", subContentId3);
+        startActivity(eye2webIntent);
+    }
+
+    public void onSubContentText3Clicked(View v) {
+        eye2webIntent = new Intent(getApplicationContext(), ContentDetailActivity.class);
+        eye2webIntent.putExtra("contentId", subContentId3);
+        startActivity(eye2webIntent);
+    }
+
+    public void onSubContentImg4Clicked(View v) {
+        eye2webIntent = new Intent(getApplicationContext(), ContentDetailActivity.class);
+        eye2webIntent.putExtra("contentId", subContentId4);
+        startActivity(eye2webIntent);
+    }
+
+    public void onSubContentText4Clicked(View v) {
+        eye2webIntent = new Intent(getApplicationContext(), ContentDetailActivity.class);
+        eye2webIntent.putExtra("contentId", subContentId4);
+        startActivity(eye2webIntent);
+    }
+
+    public void getRecomFood() {
+        String addr = getResources().getString(R.string.apiUrl) + "searchKeyword?serviceKey=";
+        String serviceKey = getResources().getString(R.string.apiKey);
     }
 
     /**

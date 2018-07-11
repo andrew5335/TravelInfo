@@ -116,14 +116,14 @@ public class DetailInfoFragment extends Fragment {
         String title = "";
 
         title = (String) detailCommonItem.getTitle();
-        googleItem = (GooglePlaceDetailItem) detailCommonItem.getGooglePlaceDetailItem();
+        //googleItem = (GooglePlaceDetailItem) detailCommonItem.getGooglePlaceDetailItem();
 
         if(null != googleItem) {
             googlePhotoList = (List<GooglePlaceDetailPhoto>) googleItem.getPhotoList();
             googleReviewList = (List<GooglePlaceDetailReviews>) googleItem.getReviewsList();
 
             List<GooglePlaceDetailPhoto> photoList = new ArrayList<GooglePlaceDetailPhoto>();
-            photoList = (List<GooglePlaceDetailPhoto>) detailCommonItem.getGooglePlaceDetailItem().getPhotoList();
+            //photoList = (List<GooglePlaceDetailPhoto>) detailCommonItem.getGooglePlaceDetailItem().getPhotoList();
 
             if(null != photoList && 0 < photoList.size()) {
                 List<String> bitmapPhotoList = new ArrayList<String>();

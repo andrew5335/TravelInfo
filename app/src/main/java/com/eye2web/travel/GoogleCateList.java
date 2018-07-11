@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.eye2web.travel.adapter.GoogleCateListAdapter;
+import com.eye2web.travel.adapter.GoogleCommonListAdapter;
 import com.eye2web.travel.handler.BackPressCloseHandler;
 import com.eye2web.travel.service.GoogleApiService;
 import com.eye2web.travel.vo.GooglePlaceItem;
@@ -31,7 +31,7 @@ public class GoogleCateList extends BaseActivity implements AbsListView.OnScroll
     private boolean lastItemVisibleFlag = false;
     private GooglePlaceVO googlePlaceVO;
     private List<GooglePlaceItem> itemList = new ArrayList<GooglePlaceItem>();
-    private GoogleCateListAdapter googleCateListAdapter;
+    private GoogleCommonListAdapter googleCateListAdapter;
     private int page = 1;
     private final int offset = 20;
     private ProgressBar progressBar;
@@ -80,7 +80,7 @@ public class GoogleCateList extends BaseActivity implements AbsListView.OnScroll
         gu = intent.getStringExtra("gu");
         cateGu = intent.getStringExtra("cateGu");
 
-        googleCateListAdapter = new GoogleCateListAdapter(this, R.layout.google_list_item, itemList);
+        googleCateListAdapter = new GoogleCommonListAdapter(this, R.layout.google_list_item, itemList);
         googleCateList.setAdapter(googleCateListAdapter);
         googleCateList.setOnScrollListener(this);
 
@@ -151,28 +151,9 @@ public class GoogleCateList extends BaseActivity implements AbsListView.OnScroll
                 nextPageToken = googlePlaceVO.getNextPageToken();
                 tokenMap.put("nextPageToken", nextPageToken);
 
-                //List<GooglePlaceItem> tmpItemList = new ArrayList<GooglePlaceItem>();
                 for(int i=0; i < resultList.size(); i++) {
                     itemList.add(resultList.get(i));
                 }
-
-                //itemList = new ArrayList<GooglePlaceItem>(new HashSet<GooglePlaceItem>(itemList));
-
-                /**
-                if(null != itemList && 0 < itemList.size()) {
-                    for (int i = 0; i < itemList.size(); i++) {
-                        for (int j = 0; j < resultList.size(); j++) {
-                            if (itemList.get(i) != resultList.get(j)) {
-                                itemList.add(resultList.get(j));
-                            }
-                        }
-                    }
-                } else {
-                    for(int i=0; i < resultList.size(); i++) {
-                        itemList.add(resultList.get(i));
-                    }
-                }
-                 **/
             }
 
             cateHandler.postDelayed(new Runnable() {
@@ -185,25 +166,6 @@ public class GoogleCateList extends BaseActivity implements AbsListView.OnScroll
                 }
             }, 1000);
 
-            /**
-            cateHandler = new Handler();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Looper.prepare();
-                    cateHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            page++;
-                            googleCateListAdapter.notifyDataSetChanged();
-                            mLockListView = false;
-                        }
-                    });
-                    Looper.loop();
-                }
-            }).start();
-             **/
-
         } catch (Exception e) {
             Log.e("Error", "Error : " + e.toString());
         }
@@ -214,7 +176,7 @@ public class GoogleCateList extends BaseActivity implements AbsListView.OnScroll
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             TextView textView = (TextView) view.findViewById(R.id.listText);
-            String text = textView.getText().toString();
+            //String text = textView.getText().toString();
             GooglePlaceItem item = (GooglePlaceItem) parent.getAdapter().getItem(position);
 
             Intent detailInfoIntent = new Intent(getApplicationContext(), DetailInfoActivity.class);

@@ -8,20 +8,23 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.eye2web.travel.fragment.DetailArroundFragment;
 import com.eye2web.travel.fragment.DetailCommonFragment;
 import com.eye2web.travel.vo.DetailCommonItem;
+import com.eye2web.travel.vo.ListItem;
 
 public class DetailViewTabPagerAdapger extends FragmentPagerAdapter {
 
     private DetailCommonItem detailCommonItem;
+    private ListItem item;
     private FragmentManager fragmentManager;
     private double mapx = 0;
     private double mapy = 0;
     private Bundle bundle;
 
     public DetailViewTabPagerAdapger(FragmentManager fragmentManager
-            , DetailCommonItem detailCommonItem, double mapx, double mapy) {
+            , DetailCommonItem detailCommonItem, ListItem item, double mapx, double mapy) {
         super(fragmentManager);
         this.fragmentManager = fragmentManager;
         this.detailCommonItem = detailCommonItem;
+        this.item = item;
         this.mapx = mapx;
         this.mapy = mapy;
     }
@@ -32,6 +35,7 @@ public class DetailViewTabPagerAdapger extends FragmentPagerAdapter {
 
         bundle = new Bundle();
         bundle.putSerializable("detailCommonItem", detailCommonItem);
+        bundle.putSerializable("item", item);
 
         switch(position) {
             case 0 :
