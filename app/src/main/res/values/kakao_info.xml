@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="kakao_rest_api_key">aedd18491b704b456ffa5acf47e8fef7</string>
-    <string name="kakao_native_app_key">50293bab1bd6aa61393952979cc7c4b4</string>
+    <string name="kakao_rest_api_key">use your key</string>
+    <string name="kakao_native_app_key">use your key</string>
     <string name="kakao_search_url">https://dapi.kakao.com</string>
 </resources>
