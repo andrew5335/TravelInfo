@@ -57,7 +57,7 @@
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="80dp"
             android:background="#fff"
             android:fillViewport="true"
@@ -71,24 +71,25 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:background="#fff"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/contentDetailTxt"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
                         android:autoLink="web"
                         android:background="#fff"
                         android:ellipsize="none"
                         android:fontFamily="@font/notosanskr_regular_hestia"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:lineSpacingExtra="3dp"
-                        android:lineSpacingMultiplier="1.2"
+                        android:gravity="left|start"
+                        android:includeFontPadding="true"
+                        android:lineSpacingExtra="0dp"
+                        android:lineSpacingMultiplier="1.0"
                         android:linksClickable="true"
                         android:scrollHorizontally="false"
                         android:singleLine="false"
@@ -113,8 +114,8 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         android:background="#fff"
-                        ads:adSize="BANNER"
-                        ads:adUnitId="ca-app-pub-6330719511254854/5003031970"></com.google.android.gms.ads.AdView>
+                        ads:adUnitId="ca-app-pub-6330719511254854/5003031970"
+                        ads:adSize="BANNER"></com.google.android.gms.ads.AdView>
 
                 </LinearLayout>
 

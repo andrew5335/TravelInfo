@@ -155,12 +155,13 @@ public class IndexPagerAdapter extends PagerAdapter {
 
             default :
                 view = inflater.inflate(R.layout.indexmenu1, null);
-                imageView = view.findViewById(R.id.incheon_btn);
-                Picasso.get().load(imageUrl + "incheon.jpg").placeholder(R.mipmap.logo_final).into(imageView);
+                imageView = view.findViewById(R.id.seoul_btn);
+                Picasso.get().load(imageUrl + "seoul.jpg").placeholder(R.mipmap.logo_final).into(imageView);
                 break;
 
         }
 
+        //imageView.setImageDrawable(cityList.get(position));
         container.addView(view);
 
         return view;

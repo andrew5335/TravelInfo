@@ -39,12 +39,31 @@
                 android:background="#fff"
                 android:orientation="vertical">
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/detail_img_viewpager"
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#fff" />
+                    android:layout_marginTop="0dp"
+                    android:background="#fff"
+                    app:cardBackgroundColor="#fff"
+                    card_view:cardCornerRadius="0.0dp">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/detail_img_viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="280dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="#fff" />
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/indicator_tab"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        app:tabBackground="@drawable/tab_selector"
+                        app:tabGravity="center"
+                        app:tabIndicatorHeight="0dp" />
+
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 
@@ -192,8 +211,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:background="#fff"
-                    ads:adSize="BANNER"
-                    ads:adUnitId="ca-app-pub-6330719511254854/2177133054"></com.google.android.gms.ads.AdView>
+                    ads:adUnitId="ca-app-pub-6330719511254854/2177133054"
+                    ads:adSize="BANNER"></com.google.android.gms.ads.AdView>
 
             </LinearLayout>
 
@@ -229,6 +248,7 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
+                    android:id="@+id/detailAddr_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -264,6 +284,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/detailPhone_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -299,6 +320,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/detailHomepage_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -407,12 +429,30 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/info_img_viewpager"
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
+                    android:layout_marginTop="0dp"
                     android:background="#fff"
-                    android:visibility="visible" />
+                    card_view:cardCornerRadius="0.0dp">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/info_img_viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="280dp"
+                        android:background="#fff"
+                        android:visibility="visible" />
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/indicator_tab2"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        app:tabBackground="@drawable/tab_selector"
+                        app:tabGravity="center"
+                        app:tabIndicatorHeight="0dp" />
+
+                </android.support.v7.widget.CardView>
 
                 <LinearLayout
                     android:id="@+id/google_review_layout"

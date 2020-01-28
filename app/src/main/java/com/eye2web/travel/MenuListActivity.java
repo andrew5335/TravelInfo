@@ -234,7 +234,7 @@ public class MenuListActivity extends BaseActivity implements AbsListView.OnScro
         }
         //Log.i("info", "===============gps info : " + mapX + "=============" + mapY + "===================loc : " +loc);
         try {
-            resultMap = searchApiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset, gu, areaGu, mapX, mapY);
+            resultMap = searchApiservice.getContent(addr, serviceKey, code, "", keyword, sort, page, offset, gu, areaGu, mapX, mapY);
         } catch(Exception e) {
             Log.e("Error", "==========Error : " + e.toString());
         }

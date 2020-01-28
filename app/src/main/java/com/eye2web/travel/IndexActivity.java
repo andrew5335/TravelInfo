@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -50,6 +51,8 @@ public class IndexActivity extends BaseActivity {
     private Eye2WebApiService eye2WebApiService;
 
     private IndexPagerAdapter indexPagerAdapter;
+
+    private TabLayout tabLayout;
 
     private BackPressCloseHandler backPressCloseHandler;
 
@@ -124,7 +127,9 @@ public class IndexActivity extends BaseActivity {
         List<String> cityList = new ArrayList<String>();
         cityList = getCityList();
         ViewPager indexMenuPager = (ViewPager) findViewById(R.id.index_menu_pager);
+        tabLayout = (TabLayout) findViewById(R.id.indicator_tab);
         indexPagerAdapter = new IndexPagerAdapter(this, getLayoutInflater(), cityList);
+        tabLayout.setupWithViewPager(indexMenuPager, true);
         indexMenuPager.setAdapter(indexPagerAdapter);
         indexMenuPager.setFocusableInTouchMode(true);
         indexMenuPager.requestFocus();
@@ -191,7 +196,11 @@ public class IndexActivity extends BaseActivity {
                             //        .load(eye2WebContentList1.get(0).getFeature_media_url())
                             //        .apply(new RequestOptions().override(960, 640))
                             //        .into(theme_img);
-                            theme_title.setText(eye2webJsonList.get(0).getTitle());
+                            if(20 > eye2webJsonList.get(0).getTitle().length()) {
+                                theme_title.setText(eye2webJsonList.get(0).getTitle());
+                            } else {
+                                theme_title.setText(eye2webJsonList.get(0).getTitle().substring(0, 20) + "...");
+                            }
                             mainContentId = eye2webJsonList.get(0).getContent_id();
 
                             if(2 < eye2webJsonList.size() && 4 >= eye2webJsonList.size()) {
@@ -202,7 +211,11 @@ public class IndexActivity extends BaseActivity {
                                     theme_title2.setVisibility(View.VISIBLE);
                                 }
                                 Picasso.get().load(eye2webJsonList.get(1).getImg()).placeholder(R.mipmap.logo_final).into(theme_img2);
-                                theme_title2.setText(eye2webJsonList.get(1).getTitle());
+                                if(20 > eye2webJsonList.get(1).getTitle().length()) {
+                                    theme_title2.setText(eye2webJsonList.get(1).getTitle());
+                                } else {
+                                    theme_title2.setText(eye2webJsonList.get(1).getTitle().substring(0, 20) + "...");
+                                }
                                 subContentId1 = eye2webJsonList.get(1).getContent_id();
 
                                 if(theme_img3.getVisibility() == View.GONE) {
@@ -212,7 +225,11 @@ public class IndexActivity extends BaseActivity {
                                     theme_title3.setVisibility(View.VISIBLE);
                                 }
                                 Picasso.get().load(eye2webJsonList.get(2).getImg()).placeholder(R.mipmap.logo_final).into(theme_img3);
-                                theme_title3.setText(eye2webJsonList.get(2).getTitle());
+                                if(20 > eye2webJsonList.get(2).getTitle().length()) {
+                                    theme_title3.setText(eye2webJsonList.get(2).getTitle());
+                                } else {
+                                    theme_title3.setText(eye2webJsonList.get(2).getTitle().substring(0, 20) + "...");
+                                }
                                 subContentId2 = eye2webJsonList.get(2).getContent_id();
                             } else if(4 < eye2webJsonList.size()) {
                                 if(theme_img2.getVisibility() == View.GONE) {
@@ -222,7 +239,11 @@ public class IndexActivity extends BaseActivity {
                                     theme_title2.setVisibility(View.VISIBLE);
                                 }
                                 Picasso.get().load(eye2webJsonList.get(1).getImg()).placeholder(R.mipmap.logo_final).into(theme_img2);
-                                theme_title2.setText(eye2webJsonList.get(1).getTitle());
+                                if(20 > eye2webJsonList.get(1).getTitle().length()) {
+                                    theme_title2.setText(eye2webJsonList.get(1).getTitle());
+                                } else {
+                                    theme_title2.setText(eye2webJsonList.get(1).getTitle().substring(0, 20) + "...");
+                                }
                                 subContentId1 = eye2webJsonList.get(1).getContent_id();
 
                                 if(theme_img3.getVisibility() == View.GONE) {
@@ -232,7 +253,11 @@ public class IndexActivity extends BaseActivity {
                                     theme_title3.setVisibility(View.VISIBLE);
                                 }
                                 Picasso.get().load(eye2webJsonList.get(2).getImg()).placeholder(R.mipmap.logo_final).into(theme_img3);
-                                theme_title3.setText(eye2webJsonList.get(2).getTitle());
+                                if(20 > eye2webJsonList.get(2).getTitle().length()) {
+                                    theme_title3.setText(eye2webJsonList.get(2).getTitle());
+                                } else {
+                                    theme_title3.setText(eye2webJsonList.get(2).getTitle().substring(0, 20) + "...");
+                                }
                                 subContentId2 = eye2webJsonList.get(2).getContent_id();
 
                                 if(theme_img4.getVisibility() == View.GONE) {
@@ -242,7 +267,11 @@ public class IndexActivity extends BaseActivity {
                                     theme_title4.setVisibility(View.VISIBLE);
                                 }
                                 Picasso.get().load(eye2webJsonList.get(3).getImg()).placeholder(R.mipmap.logo_final).into(theme_img4);
-                                theme_title4.setText(eye2webJsonList.get(3).getTitle());
+                                if(20 > eye2webJsonList.get(3).getTitle().length()) {
+                                    theme_title4.setText(eye2webJsonList.get(3).getTitle());
+                                } else {
+                                    theme_title4.setText(eye2webJsonList.get(3).getTitle().substring(0, 20) + "...");
+                                }
                                 subContentId3 = eye2webJsonList.get(3).getContent_id();
 
                                 if(theme_img5.getVisibility() == View.GONE) {
@@ -252,7 +281,11 @@ public class IndexActivity extends BaseActivity {
                                     theme_title5.setVisibility(View.VISIBLE);
                                 }
                                 Picasso.get().load(eye2webJsonList.get(4).getImg()).placeholder(R.mipmap.logo_final).into(theme_img5);
-                                theme_title5.setText(eye2webJsonList.get(4).getTitle());
+                                if(20 > eye2webJsonList.get(4).getTitle().length()) {
+                                    theme_title5.setText(eye2webJsonList.get(4).getTitle());
+                                } else {
+                                    theme_title5.setText(eye2webJsonList.get(4).getTitle().substring(0, 20) + "...");
+                                }
                                 subContentId4 = eye2webJsonList.get(4).getContent_id();
                             }
                         } else {

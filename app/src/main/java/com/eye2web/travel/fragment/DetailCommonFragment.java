@@ -1,9 +1,11 @@
 package com.eye2web.travel.fragment;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.SpannableStringBuilder;
@@ -11,12 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.eye2web.travel.R;
+import com.eye2web.travel.ReviewWebViewActivity;
 import com.eye2web.travel.adapter.DetailImageViewPagerAdapter;
 import com.eye2web.travel.adapter.KakaoReviewListAdapter;
 import com.eye2web.travel.apivo.KakaoBlog;
@@ -57,8 +61,8 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
     private DetailCommonItem detailCommonItem;
     private ListItem item;
     private CommonUtil commonUtil;
-    private String googlePhotoUrl;
-    private String googleKey;
+    //private String googlePhotoUrl;
+    //private String googleKey;
 
     private ViewPager imageViewPager;
     private ViewPager detailImageViewPager;
@@ -66,6 +70,9 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
     private ListView reviewList;
     //private GoogleListAdapter googleReviewListAdapter;
     private LinearLayout reviewListLayout;
+
+    private TabLayout tabLayout1;
+    private TabLayout tabLayout2;
 
     private MapView mapView;
     private double mapx = 0;
@@ -154,13 +161,18 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
         detailCommonItem = (DetailCommonItem) bundle.getSerializable("detailCommonItem");
         item = (ListItem) bundle.getSerializable("item");
 
+        LinearLayout addressLayout = (LinearLayout) view.findViewById(R.id.address_layout);
+
         LinearLayout detailImageViewPagerLayout = view.findViewById(R.id.detailImageViewPagerLayout);
         detailImageViewPagerLayout.requestFocus();
 
+        tabLayout1 = (TabLayout) view.findViewById(R.id.indicator_tab);
+        tabLayout2 = (TabLayout) view.findViewById(R.id.indicator_tab2);
+
         // 구글 이미지 노출을 위한 구글 이미지 api 정보 세팅
-        googlePhotoUrl = view.getResources().getString(R.string.google_places_api_photo_url);
-        googleKey = view.getResources().getString(R.string.google_maps_key);
-        googlePhotoUrl = googlePhotoUrl + "?key=" + googleKey;
+        //googlePhotoUrl = view.getResources().getString(R.string.google_places_api_photo_url);
+        //googleKey = view.getResources().getString(R.string.google_maps_key);
+        //googlePhotoUrl = googlePhotoUrl + "?key=" + googleKey;
 
         // 구글 정보를 담기 위한 객체 생성
         //GooglePlaceDetailItem googleItem = new GooglePlaceDetailItem();
@@ -181,7 +193,11 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
         homepage = detailCommonItem.getHomepage();
         addr1 = detailCommonItem.getAddr1();
         addr2 = detailCommonItem.getAddr2();
-        mapAddr = addr1 + " " + addr2;
+        if(null != addr2 && !"".equalsIgnoreCase(addr2) && 0 < addr2.length()) {
+            mapAddr = addr1 + " " + addr2;
+        } else {
+            mapAddr = addr1;
+        }
         phoneNo = detailCommonItem.getTel();
         imgUrlList = (List<String>) detailCommonItem.getImgUrlList();
         firstImage = detailCommonItem.getFirstimage();
@@ -289,6 +305,7 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
 
                 detailImageViewPagerAdapter = new DetailImageViewPagerAdapter(getContext(), inflater, bitmapPhotoList, "");
                 imageViewPager.setAdapter(detailImageViewPagerAdapter);
+                tabLayout2.setupWithViewPager(imageViewPager, true);
             } else {
                 imageViewPager.setVisibility(View.GONE);
             }
@@ -303,6 +320,18 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
             if(null != kakaoReviewList && 0 < kakaoReviewList.size()) {
                 kakaoReviewListAdapter = new KakaoReviewListAdapter(getContext(), R.layout.kakao_review_item, kakaoReviewList);
                 reviewList.setAdapter(kakaoReviewListAdapter);
+                reviewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        KakaoBlog.Documents doc = (KakaoBlog.Documents) parent.getItemAtPosition(position);
+                        //Log.i("INFO", "info : " + doc);
+                        Intent reviewIntent = new Intent(getContext(), ReviewWebViewActivity.class);
+                        reviewIntent.putExtra("reviewUrl", doc.getUrl());
+                        reviewIntent.putExtra("reviewTitle", doc.getTitle());
+
+                        startActivity(reviewIntent);
+                    }
+                });
             } else {
                 reviewList.setVisibility(View.GONE);
             }
@@ -372,6 +401,9 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
         TextView detailPhone = (TextView) view.findViewById(R.id.detailPhone);
         TextView detailHomepage = (TextView) view.findViewById(R.id.detailHomepage);
         //TextView detailTitle = (TextView) view.findViewById(R.id.detailTitle);
+        LinearLayout detailAddr_layout = (LinearLayout) view.findViewById(R.id.detailAddr_layout);
+        LinearLayout detailPhone_layout = (LinearLayout) view.findViewById(R.id.detailPhone_layout);
+        LinearLayout detailHomepage_layout = (LinearLayout) view.findViewById(R.id.detailHomepage_layout);
 
         //detailTitle.setText(title);
 
@@ -392,15 +424,24 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
             addr1Builder = commonUtil.convertTxtToLink(getContext(), mapAddr);
         }
         if(null != addr1Builder.toString() && !"".equalsIgnoreCase(addr1Builder.toString())
-                && 0 < addr1Builder.toString().length()) {
+                && 0 < addr1Builder.toString().length() && !"null".equalsIgnoreCase(addr1Builder.toString())) {
+            if(detailAddr_layout.getVisibility() == View.GONE) {
+                detailAddr_layout.setVisibility(View.VISIBLE);
+            }
             detailAddr1.setText(addr1Builder.toString());
         } else {
-            LinearLayout addressLayout = (LinearLayout) view.findViewById(R.id.address_layout);
-            addressLayout.setVisibility(View.GONE);
-
+            detailAddr_layout.setVisibility(View.GONE);
+            //addressLayout.setVisibility(View.GONE);
         }
 
-        detailPhone.setText(phoneNo);
+        if(null != phoneNo && !"".equalsIgnoreCase(phoneNo) && 0 < phoneNo.length()) {
+            if(detailPhone_layout.getVisibility() == View.GONE) {
+                detailPhone_layout.setVisibility(View.VISIBLE);
+            }
+            detailPhone.setText(phoneNo);
+        } else {
+            detailPhone_layout.setVisibility(View.GONE);
+        }
 
         /**
         SpannableStringBuilder addr2Builder = new SpannableStringBuilder();
@@ -415,13 +456,19 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
             homePageBuilder = commonUtil.convertTxtToLink(getContext(), homepage);
         }
         if(null != homePageBuilder.toString() && !"".equalsIgnoreCase(homePageBuilder.toString())
-                && 0 < homePageBuilder.toString().length()) {
+                && 0 < homePageBuilder.toString().length() && !"null".equalsIgnoreCase(homePageBuilder.toString())) {
+            if(detailHomepage_layout.getVisibility() == View.GONE) {
+                detailHomepage_layout.setVisibility(View.VISIBLE);
+            }
             detailHomepage.setText(homePageBuilder.toString().trim());
+        } else {
+            detailHomepage_layout.setVisibility(View.GONE);
         }
 
         detailImageViewPager = (ViewPager) view.findViewById(R.id.detail_img_viewpager);
         detailImageViewPagerAdapter = new DetailImageViewPagerAdapter(getContext(), inflater, imgUrlList, firstImage);
         detailImageViewPager.setAdapter(detailImageViewPagerAdapter);
+        tabLayout1.setupWithViewPager(detailImageViewPager, true);
         detailImageViewPager.requestFocus();
 
         mapView = (MapView) view.findViewById(R.id.map_info_fragment);
@@ -480,7 +527,9 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(location);
         markerOptions.title(title);
-        markerOptions.snippet(mapAddr);
+        if(null != mapAddr.trim() && !"".equalsIgnoreCase(mapAddr.trim()) && 0 < mapAddr.trim().length() && !"null".equalsIgnoreCase(mapAddr.trim())) {
+            markerOptions.snippet(mapAddr);
+        }
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
         map.addMarker(markerOptions);
 
@@ -543,4 +592,5 @@ public class DetailCommonFragment extends Fragment implements OnMapReadyCallback
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

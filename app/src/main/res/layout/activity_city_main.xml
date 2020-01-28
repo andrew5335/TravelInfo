@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#d9d8d8"
+    android:descendantFocusability="blocksDescendants"
     tools:context=".CityMainActivity">
 
     <android.support.design.widget.CoordinatorLayout
@@ -42,16 +43,44 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/city_main_image"
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
-                    android:scaleType="centerCrop" />
+                    android:layout_gravity="right|fill_vertical"
+                    android:background="#e4debb"
+                    card_view:cardBackgroundColor="#e4debb"
+                    card_view:cardCornerRadius="3.0dp"
+                    card_view:cardElevation="2dp"
+                    card_view:contentPadding="1.5dp">
+
+                    <ImageView
+                        android:id="@+id/city_main_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="240dp"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/city_main_citytitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|center_horizontal|center"
+                        android:fontFamily="@font/utogothic"
+                        android:gravity="center_vertical|center_horizontal|center"
+                        android:shadowColor="@android:color/background_dark"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="1.5"
+                        android:textColor="#fff"
+                        android:textColorHighlight="#000"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </android.support.v7.widget.CardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="53.5dp"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:background="#fff"
                     android:gravity="center_vertical|center_horizontal|center"
                     android:orientation="horizontal"
@@ -189,10 +218,237 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/theme_travel_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5.0dp"
+                        android:background="#fff"
+                        card_view:cardBackgroundColor="#fff"
+                        card_view:cardCornerRadius="1dp"
+                        card_view:cardElevation="0.5dp"
+                        card_view:contentPadding="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:fontFamily="@font/notosanskr_regular_hestia"
+                            android:gravity="left|center_vertical"
+                            android:text="Tour News"
+                            android:textColor="#000"
+                            android:textSize="16.5dp"
+                            android:textStyle="bold" />
+
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:background="#fff"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#fff"
+                            card_view:cardCornerRadius="0.5dp">
+
+                            <ImageView
+                                android:id="@+id/theme_img"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:background="#fff"
+                                android:onClick="onContentImgClicked"
+                                android:scaleType="fitXY" />
+
+                            <TextView
+                                android:id="@+id/theme_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical|center_horizontal|center"
+                                android:fontFamily="@font/notosanskr_regular_hestia"
+                                android:gravity="center_vertical|center_horizontal|center"
+                                android:onClick="onContentTextClicked"
+                                android:shadowColor="@android:color/background_dark"
+                                android:shadowDx="3"
+                                android:shadowDy="3"
+                                android:shadowRadius="1.5"
+                                android:text="ThemeTravel"
+                                android:textColor="#fff"
+                                android:textColorHighlight="#000"
+                                android:textSize="24dp"
+                                android:textStyle="bold" />
+
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/linearlayout_rect_border"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/theme_img2"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:background="#fff"
+                                android:onClick="onSubContentImg1Clicked"
+                                android:scaleType="fitXY" />
+
+                            <TextView
+                                android:id="@+id/theme_title2"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_gravity="left"
+                                android:fontFamily="@font/notosanskr_regular_hestia"
+                                android:gravity="left"
+                                android:onClick="onSubContentText1Clicked"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:text="ThemeTravel"
+                                android:textColor="#000"
+                                android:textColorHighlight="#000"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/linearlayout_rect_border"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/theme_img3"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:background="#fff"
+                                android:onClick="onSubContentImg2Clicked"
+                                android:scaleType="fitXY" />
+
+                            <TextView
+                                android:id="@+id/theme_title3"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_gravity="left"
+                                android:fontFamily="@font/notosanskr_regular_hestia"
+                                android:gravity="left"
+                                android:onClick="onSubContentText2Clicked"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:text="ThemeTravel"
+                                android:textColor="#000"
+                                android:textColorHighlight="#000"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/linearlayout_rect_border"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/theme_img4"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:background="#fff"
+                                android:onClick="onSubContentImg3Clicked"
+                                android:scaleType="fitXY" />
+
+                            <TextView
+                                android:id="@+id/theme_title4"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_gravity="left"
+                                android:fontFamily="@font/notosanskr_regular_hestia"
+                                android:gravity="left"
+                                android:onClick="onSubContentText3Clicked"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:text="ThemeTravel"
+                                android:textColor="#000"
+                                android:textColorHighlight="#000"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/linearlayout_rect_border"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/theme_img5"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:background="#fff"
+                                android:onClick="onSubContentImg4Clicked"
+                                android:scaleType="fitXY" />
+
+                            <TextView
+                                android:id="@+id/theme_title5"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_gravity="left"
+                                android:fontFamily="@font/notosanskr_regular_hestia"
+                                android:gravity="left"
+                                android:onClick="onSubContentText4Clicked"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:text="ThemeTravel"
+                                android:textColor="#000"
+                                android:textColorHighlight="#000"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/weather_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:background="#fff"
                     android:orientation="vertical">
 
@@ -290,9 +546,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/basic_info_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:background="#fff"
                     android:orientation="vertical">
 
@@ -357,238 +614,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/theme_travel_layout"
+                    android:id="@+id/ad_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:background="#fff"
-                    android:orientation="vertical">
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5.0dp"
-                        android:background="#fff"
-                        card_view:cardBackgroundColor="#fff"
-                        card_view:cardCornerRadius="1dp"
-                        card_view:cardElevation="0.5dp"
-                        card_view:contentPadding="5dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:fontFamily="@font/notosanskr_regular_hestia"
-                            android:gravity="left|center_vertical"
-                            android:text="Tour News"
-                            android:textColor="#000"
-                            android:textSize="16.5dp"
-                            android:textStyle="bold" />
-
-                    </android.support.v7.widget.CardView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:background="#fff"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#fff"
-                            card_view:cardCornerRadius="0.5dp">
-
-                            <ImageView
-                                android:id="@+id/theme_img"
-                                android:layout_width="match_parent"
-                                android:layout_height="200dp"
-                                android:background="#fff"
-                                android:onClick="onContentImgClicked"
-                                android:scaleType="fitXY" />
-
-                            <TextView
-                                android:id="@+id/theme_title"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:fontFamily="@font/notosanskr_regular_hestia"
-                                android:gravity="right"
-                                android:onClick="onContentTextClicked"
-                                android:paddingBottom="50dp"
-                                android:paddingRight="10dp"
-                                android:shadowColor="@android:color/background_dark"
-                                android:shadowDx="3"
-                                android:shadowDy="3"
-                                android:shadowRadius="1.5"
-                                android:text="ThemeTravel"
-                                android:textColor="#fff"
-                                android:textColorHighlight="#000"
-                                android:textSize="24dp"
-                                android:textStyle="bold" />
-
-                        </android.support.v7.widget.CardView>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginRight="2dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/theme_img2"
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp"
-                                android:background="#fff"
-                                android:onClick="onSubContentImg1Clicked"
-                                android:scaleType="fitXY" />
-
-                            <TextView
-                                android:id="@+id/theme_title2"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:layout_gravity="left"
-                                android:fontFamily="@font/notosanskr_regular_hestia"
-                                android:gravity="left"
-                                android:onClick="onSubContentText1Clicked"
-                                android:paddingBottom="5dp"
-                                android:paddingLeft="5dp"
-                                android:text="ThemeTravel"
-                                android:textColor="#000"
-                                android:textColorHighlight="#000"
-                                android:textSize="14dp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="2dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/theme_img3"
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp"
-                                android:background="#fff"
-                                android:onClick="onSubContentImg2Clicked"
-                                android:scaleType="fitXY" />
-
-                            <TextView
-                                android:id="@+id/theme_title3"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:layout_gravity="left"
-                                android:fontFamily="@font/notosanskr_regular_hestia"
-                                android:gravity="left"
-                                android:onClick="onSubContentText2Clicked"
-                                android:paddingBottom="5dp"
-                                android:paddingLeft="5dp"
-                                android:text="ThemeTravel"
-                                android:textColor="#000"
-                                android:textColorHighlight="#000"
-                                android:textSize="14dp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginRight="2dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/theme_img4"
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp"
-                                android:background="#fff"
-                                android:onClick="onSubContentImg3Clicked"
-                                android:scaleType="fitXY" />
-
-                            <TextView
-                                android:id="@+id/theme_title4"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:layout_gravity="left"
-                                android:fontFamily="@font/notosanskr_regular_hestia"
-                                android:gravity="left"
-                                android:onClick="onSubContentText3Clicked"
-                                android:paddingBottom="5dp"
-                                android:paddingLeft="5dp"
-                                android:text="ThemeTravel"
-                                android:textColor="#000"
-                                android:textColorHighlight="#000"
-                                android:textSize="14dp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="2dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/theme_img5"
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp"
-                                android:background="#fff"
-                                android:onClick="onSubContentImg4Clicked"
-                                android:scaleType="fitXY" />
-
-                            <TextView
-                                android:id="@+id/theme_title5"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:layout_gravity="left"
-                                android:fontFamily="@font/notosanskr_regular_hestia"
-                                android:gravity="left"
-                                android:onClick="onSubContentText4Clicked"
-                                android:paddingBottom="5dp"
-                                android:paddingLeft="5dp"
-                                android:text="ThemeTravel"
-                                android:textColor="#000"
-                                android:textColorHighlight="#000"
-                                android:textSize="14dp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:background="#fff"
                     android:gravity="center|center_horizontal"
                     android:orientation="vertical"

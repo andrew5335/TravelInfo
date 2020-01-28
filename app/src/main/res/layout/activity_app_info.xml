@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#d9d8d8"
+    android:descendantFocusability="blocksDescendants"
+    tools:context=".AppInfoActivity">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#fff"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:onClick="onGobackBtnClicked"
+                android:paddingLeft="5dp"
+                android:scaleType="fitStart"
+                app:srcCompat="@mipmap/goback" />
+
+            <TextView
+                android:id="@+id/contentTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical|center|center_horizontal"
+                android:autoLink="web"
+                android:background="#fff"
+                android:ellipsize="none"
+                android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="left|center_vertical"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="5dp"
+                android:lineSpacingMultiplier="1.5"
+                android:linksClickable="true"
+                android:scrollHorizontally="false"
+                android:singleLine="false"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Viaggio App Info"
+                android:onClick="onGobackBtnClicked"/>
+
+        </LinearLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
+            android:background="#fff"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal|center"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    ads:srcCompat="@mipmap/logo_final" />
+
+                <TextView
+                    android:id="@+id/app_info_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:autoLink="web"
+                    android:background="#fff"
+                    android:ellipsize="none"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:gravity="left|start"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="3dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:linksClickable="true"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:text="Viaggio - 여행정보는..."
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/dot1"
+                        android:layout_width="10dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        ads:srcCompat="@drawable/pager_selected_dot" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:autoLink="web"
+                        android:background="#fff"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/notosanskr_regular_hestia"
+                        android:gravity="left|start"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="3dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:linksClickable="true"
+                        android:scrollHorizontally="false"
+                        android:singleLine="false"
+                        android:text="앱 명칭 : Viaggio"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/dot2"
+                        android:layout_width="10dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        ads:srcCompat="@drawable/pager_selected_dot" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:autoLink="web"
+                        android:background="#fff"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/notosanskr_regular_hestia"
+                        android:gravity="left|start"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="3dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:linksClickable="true"
+                        android:scrollHorizontally="false"
+                        android:singleLine="false"
+                        android:text="버전 : 1.0"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#f9dddd"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:autoLink="web"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/notosanskr_regular_hestia"
+                        android:gravity="left|start"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="3dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:linksClickable="true"
+                        android:padding="7dp"
+                        android:scrollHorizontally="false"
+                        android:singleLine="false"
+                        android:text="Viaggio는 이탈리아어로 여행을 뜻하는 말입니다.\n Viaggio는 국내 17개 시도의 다양한 여행 관련 정보를 제공해 드립니다."
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/dot3"
+                        android:layout_width="10dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        ads:srcCompat="@drawable/pager_selected_dot" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:autoLink="web"
+                        android:background="#fff"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/notosanskr_regular_hestia"
+                        android:gravity="left|start"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="3dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:linksClickable="true"
+                        android:scrollHorizontally="false"
+                        android:singleLine="false"
+                        android:text="앱 데이터 구성 정보"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#dde3f9"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/notosanskr_regular_hestia"
+                        android:gravity="left|start"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="3dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:linksClickable="true"
+                        android:padding="7dp"
+                        android:scrollHorizontally="false"
+                        android:singleLine="false"
+                        android:text="API 데이터\n한국관광공사 (http://www.visitkorea.or.kr)\n다음카카오 (http://www.daum.net)\nGoogle Map Android SDK (http://www.google.com)\n\n사진 데이터\n한국관광공사 (http://www.visitkorea.or.kr)\n한국문화관광연구원 (http://www.kcti.re.kr)\n문화재청 (http://www.cha.go.kr)"
+                        android:textColor="#000000"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/dot4"
+                        android:layout_width="10dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        ads:srcCompat="@drawable/pager_selected_dot" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:autoLink="web"
+                        android:background="#fff"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/notosanskr_regular_hestia"
+                        android:gravity="left|start"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="3dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:linksClickable="true"
+                        android:scrollHorizontally="false"
+                        android:singleLine="false"
+                        android:text="Contact Info"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="5dp"
+                android:background="#dde3f9"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="none"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+                    android:gravity="left|start"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="3dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:linksClickable="true"
+                    android:padding="7dp"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:text="Name : Andrew Kim\nE-mail : andrew2767@gmail.com"
+                    android:textColor="#000000"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#dde3f9"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/notosanskr_regular_hestia"
+                        android:gravity="left|start"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="3dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:linksClickable="true"
+                        android:autoLink="web"
+                        android:padding="7dp"
+                        android:scrollHorizontally="false"
+                        android:singleLine="false"
+                        android:text="개인정보처리지침 - http://eye2web.co.kr/archives/963"
+                        android:textColor="#000000"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <include
+            android:id="@+id/bottom_navigation_view"
+            layout="@layout/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:layout_behavior=".behavior.BottomNavigationBehavior" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

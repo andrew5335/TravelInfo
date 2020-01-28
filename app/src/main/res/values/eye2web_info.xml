@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="travel_top_category">4</string>
+    <string name="travel_main_category">49</string>
+    <string name="seoul_cate">32</string>
+    <string name="incheon_cate">33</string>
+    <string name="daejeon_cate">34</string>
+    <string name="daegu_cate">35</string>
+    <string name="busan_cate">36</string>
+    <string name="gwangju_cate">37</string>
+    <string name="ulsan_cate">38</string>
+    <string name="sejong_cate">39</string>
+    <string name="gyeonggi_cate">40</string>
+    <string name="gangwon_cate">41</string>
+    <string name="chungbuk_cate">42</string>
+    <string name="chungnam_cate">43</string>
+    <string name="gyeongbuk_cate">46</string>
+    <string name="gyeongnam_cate">47</string>
+    <string name="jeonbuk_cate">44</string>
+    <string name="jeonnam_cate">45</string>
+    <string name="jeju_cate">48</string>
+
+    <string name="eye2web_page1">1</string>
+    <string name="eye2web_per_page1">5</string>
+    <string name="eye2web_page2">1</string>
+    <string name="eye2web_per_page2">2</string>
+
+    <string name="auth_key">ehdus77</string>
+</resources>

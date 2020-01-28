@@ -27,7 +27,7 @@ public class SearchApiService extends Application {
     //static String testServiceKey = "ZjtS%2F7q9SORXFBybZ%2FhYciDyQKRNeP3r0tc8r%2BQLOv97shkq%2FNDa6a7Fp4m9T2lhT5fSjOiB6XR4aD33p7ljvA%3D%3D";
     //static String testParameter = "";
 
-    public Map<String, Object> getContent(String addr, String serviceKey, String code, String keyword
+    public Map<String, Object> getContent(String addr, String serviceKey, String code, String sigunguCode, String keyword
             , String sort, int page, int offset, String gu, String areaCode, double mapX, double mapY) throws Exception {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         List<ListItem> resultList = new ArrayList<ListItem>();
@@ -75,6 +75,9 @@ public class SearchApiService extends Application {
                     parameter = parameter + "&listYN=Y";
                     parameter = parameter + "&arrange=" + sort;
                     parameter = parameter + "&contentTypeId=" + code;
+                    if(null != sigunguCode && !"".equalsIgnoreCase(sigunguCode) && 0 < sigunguCode.length()) {
+                        parameter = parameter + "&areaCode=" + sigunguCode;
+                    }
                     parameter = parameter + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
                     break;
 

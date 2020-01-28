@@ -67,7 +67,7 @@ public class PicassoImageGetter extends Activity implements Html.ImageGetter {
                 drawable.setBounds(halfOfPlaceHolderWidth - halfOfImageWidth
                         , 0, (halfOfPlaceHolderWidth + halfOfImageWidth), height);
                 textView.setText(textView.getText());
-                textView.setGravity(Gravity.CENTER);
+                textView.setGravity(Gravity.LEFT);
             }
         }
 

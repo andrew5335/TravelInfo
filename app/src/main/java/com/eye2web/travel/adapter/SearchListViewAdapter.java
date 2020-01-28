@@ -16,9 +16,10 @@ import com.eye2web.travel.R;
 import com.eye2web.travel.holder.SearchListViewHolder;
 import com.eye2web.travel.util.CommonUtil;
 import com.eye2web.travel.vo.ListItem;
-//import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+//import com.squareup.picasso.Picasso;
 
 /**
  * @File : ListViewAdapter

@@ -26,9 +26,12 @@ public class SearchActivity extends BaseActivity {
         setContentView(R.layout.search);
 
         Spinner areaSpinner = (Spinner) findViewById(R.id.topArea);
+        Spinner sigunguSpinner = (Spinner) findViewById(R.id.sigungu);
 
         ArrayList<AreaListItem> areaList = new ArrayList<AreaListItem>();
+        ArrayList<AreaListItem> sigunguList = new ArrayList<AreaListItem>();
         areaList = getAreaList();
+        sigunguList = getSigunguList();
 
         if(null != areaList && 0 < areaList.size()) {
             AreaSpinnerAdapter areaSpinnerAdapter = new AreaSpinnerAdapter(this, R.layout.areaitem, areaList);
@@ -37,7 +40,13 @@ public class SearchActivity extends BaseActivity {
             areaSpinner.setAdapter(areaSpinnerAdapter);
         }
 
+        if(null != sigunguList && 0 < sigunguList.size()) {
+            AreaSpinnerAdapter sigunguSpinnerAdapter = new AreaSpinnerAdapter(this, R.layout.areaitem, sigunguList);
+            sigunguSpinner.setAdapter(sigunguSpinnerAdapter);
+        }
+
         areaSpinner.setOnItemSelectedListener(itemSelectedListener);
+        sigunguSpinner.setOnItemSelectedListener(itemSelectedListener);
 
 
         final EditText keyword = (EditText) findViewById(R.id.keyword);
@@ -101,6 +110,52 @@ public class SearchActivity extends BaseActivity {
         return resultList;
     }
 
+    public ArrayList<AreaListItem> getSigunguList() {
+        ArrayList<AreaListItem> resultList = new ArrayList<AreaListItem>();
+
+        AreaListItem initial = new AreaListItem("0", "지역선택", 0);
+        AreaListItem seoul = new AreaListItem("1", "서울", 1);
+        AreaListItem incheon = new AreaListItem("2", "인천", 2);
+        AreaListItem daejeon = new AreaListItem("3", "대전", 3);
+        AreaListItem daegu = new AreaListItem("4", "대구", 4);
+        AreaListItem busan = new AreaListItem("6", "부산", 5);
+        AreaListItem kwangju = new AreaListItem("5", "광주", 6);
+        AreaListItem ulsan = new AreaListItem("7", "울산", 7);
+        AreaListItem sejong = new AreaListItem("8", "세종", 8);
+        AreaListItem kyunggi = new AreaListItem("31", "경기도", 9);
+        AreaListItem kangwon = new AreaListItem("32", "강원도", 10);
+        AreaListItem chungbook = new AreaListItem("33", "충청북도", 11);
+        AreaListItem chungnam = new AreaListItem("34", "충청남도", 12);
+        AreaListItem kyungbook = new AreaListItem("35", "경상북도", 13);
+        AreaListItem kyungnam = new AreaListItem("36", "경상남도", 14);
+        AreaListItem jeonbook = new AreaListItem("37", "전라북도", 15);
+        AreaListItem jeonnam = new AreaListItem("38", "전라남도", 16);
+        AreaListItem jeju = new AreaListItem("39", "제주도", 17);
+
+        resultList.add(initial);
+        resultList.add(seoul);
+        resultList.add(incheon);
+        resultList.add(daejeon);
+        resultList.add(daegu);
+        resultList.add(busan);
+        resultList.add(kwangju);
+        resultList.add(ulsan);
+        resultList.add(sejong);
+        resultList.add(kyunggi);
+        resultList.add(kangwon);
+        resultList.add(chungbook);
+        resultList.add(chungnam);
+        resultList.add(kyungbook);
+        resultList.add(kyungnam);
+        resultList.add(jeonbook);
+        resultList.add(jeonnam);
+        resultList.add(jeju);
+
+        Collections.sort(resultList);
+
+        return resultList;
+    }
+
     /**
      * @parameter :
      * @Date : 2018. 5. 10. PM 12:23
@@ -129,21 +184,30 @@ public class SearchActivity extends BaseActivity {
      **/
     public void onBtnSearchClicked(View v) {
         Spinner area = (Spinner) findViewById(R.id.topArea);
+        Spinner sigungu = (Spinner) findViewById(R.id.sigungu);
         EditText keyword = (EditText) findViewById(R.id.keyword);
 
         AreaListItem areaListItem = (AreaListItem) area.getSelectedItem();    // 선택된 spinner 객체값 받기
+        AreaListItem sigunguItem = (AreaListItem) sigungu.getSelectedItem();
 
         String areaCodeStr = "";
         String keywordStr = "";
+        String sigunguCode = "";
 
         areaCodeStr = areaListItem.getCode();
+        sigunguCode = sigunguItem.getCode();
         keywordStr = keyword.getText().toString();
 
         //Toast.makeText(this, areaCodeStr + "-" + keywordStr, Toast.LENGTH_LONG).show();
         Intent searchIntent = new Intent(this, SearchListActivity.class);
         searchIntent.putExtra("areaCode", areaCodeStr);
+        searchIntent.putExtra("sigunguCode", sigunguCode);
         searchIntent.putExtra("keyword", keywordStr);
         startActivity(searchIntent);
         finish();
+    }
+
+    public void onGobackBtnClicked(View v) {
+        super.onBackPressed();
     }
 }

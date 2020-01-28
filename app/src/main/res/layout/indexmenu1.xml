@@ -41,29 +41,11 @@
                     android:shadowDx="3"
                     android:shadowDy="3"
                     android:shadowRadius="1.5"
-                    android:text="SEOUL"
+                    android:text="서울 / SEOUL"
                     android:textColor="#fff"
                     android:textColorHighlight="#000"
                     android:textSize="24dp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:fontFamily="@font/utogothic"
-                    android:gravity="bottom|right"
-                    android:paddingBottom="10dp"
-                    android:paddingRight="10dp"
-                    android:shadowColor="@android:color/background_dark"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="1.5"
-                    android:text="산? 바다? 도시?\n어디로 여행갈까?"
-                    android:textColor="#fff"
-                    android:textColorHighlight="#000"
-                    android:textSize="16dp" />
 
         </android.support.v7.widget.CardView>
 

@@ -168,7 +168,7 @@
                     android:id="@+id/listDetailTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
@@ -184,6 +184,32 @@
                     android:singleLine="false"
                     android:textColor="#000000"
                     android:textSize="14dp" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="right|fill_vertical"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginRight="7dp"
+                    android:background="#e4debb"
+                    card_view:cardBackgroundColor="#e4debb"
+                    card_view:cardCornerRadius="3.0dp"
+                    card_view:cardElevation="2dp"
+                    card_view:contentPadding="1.5dp">
+
+                    <TextView
+                        android:id="@+id/view_detail"
+                        android:layout_width="80dp"
+                        android:layout_height="20dp"
+                        android:background="#e4debb"
+                        android:fontFamily="@font/notosanskr_regular_hestia"
+                        android:gravity="center_vertical|center"
+                        android:text="상세정보보기"
+                        android:textColor="#000"
+                        android:textSize="11dp"
+                        android:textStyle="bold" />
+
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
         </LinearLayout>

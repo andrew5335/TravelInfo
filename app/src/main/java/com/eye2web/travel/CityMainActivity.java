@@ -97,6 +97,7 @@ public class CityMainActivity extends BaseActivity {
     private int eye2webCate = 0;
 
     private ImageView imageView;
+    private TextView cityTitle;
     private TextView city_summary_text;
     private ImageView city_main_photo;
     private ProgressBar progressBar;
@@ -224,6 +225,7 @@ public class CityMainActivity extends BaseActivity {
         imageUrl = getResources().getString(R.string.image_url);
         imageUrl = imageUrl + "/images/indexmenu/";
         imageView = (ImageView) findViewById(R.id.city_main_image);
+        cityTitle = (TextView) findViewById(R.id.city_main_citytitle);
         //googleApiClientConYn = getGoogleApiClientConnect();
         Intent cityMainIntent = getIntent();
         cityGu = cityMainIntent.getStringExtra("cityGu");
@@ -237,6 +239,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "서울";
                 wikiSearchKeyword = "서울특별시";
                 kakaoSearchKeyWord = "서울특별시 명동";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 32;
                 break;
 
@@ -247,6 +250,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "인천";
                 wikiSearchKeyword = "인천광역시";
                 kakaoSearchKeyWord = "인천광역시 야경";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 33;
                 break;
 
@@ -257,6 +261,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "대전";
                 wikiSearchKeyword = "대전광역시";
                 kakaoSearchKeyWord = "대전광역시 유성온천";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 34;
                 break;
 
@@ -267,6 +272,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "대구";
                 wikiSearchKeyword = "대구광역시";
                 kakaoSearchKeyWord = "대구 동성로";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 35;
                 break;
 
@@ -277,6 +283,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "광주";
                 wikiSearchKeyword = "광주광역시";
                 kakaoSearchKeyWord = "광주광역시 야경";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 37;
                 break;
 
@@ -287,6 +294,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "부산";
                 wikiSearchKeyword = "부산광역시";
                 kakaoSearchKeyWord = "부산광역시 야경";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 36;
                 break;
 
@@ -297,6 +305,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "울산";
                 wikiSearchKeyword = "울산광역시";
                 kakaoSearchKeyWord = "울산광역시 조선";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 38;
                 break;
 
@@ -307,6 +316,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "세종";
                 wikiSearchKeyword = "세종특별자치시청";
                 kakaoSearchKeyWord = "세종시 야경";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 39;
                 break;
 
@@ -317,6 +327,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "경기";
                 wikiSearchKeyword = "경기도";
                 kakaoSearchKeyWord = "경기도 야경";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 40;
                 break;
 
@@ -327,6 +338,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "강원";
                 wikiSearchKeyword = "강원도";
                 kakaoSearchKeyWord = "강원도 항구";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 41;
                 break;
 
@@ -337,6 +349,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "충북";
                 wikiSearchKeyword = "충청북도";
                 kakaoSearchKeyWord = "충청북도 호암지";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 42;
                 break;
 
@@ -347,6 +360,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "충남";
                 wikiSearchKeyword = "충청남도";
                 kakaoSearchKeyWord = "충청남도 보령군 빙도";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 43;
                 break;
 
@@ -357,6 +371,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "경북";
                 wikiSearchKeyword = "경상북도";
                 kakaoSearchKeyWord = "경상북도 경주 석굴암";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 46;
                 break;
 
@@ -367,6 +382,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "경남";
                 wikiSearchKeyword = "경상남도";
                 kakaoSearchKeyWord = "경상남도 진해 군항제";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 47;
                 break;
 
@@ -377,6 +393,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "전북";
                 wikiSearchKeyword = "전라북도";
                 kakaoSearchKeyWord = "전라북도 한옥마을";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 44;
                 break;
 
@@ -387,6 +404,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "전남";
                 wikiSearchKeyword = "전라남도";
                 kakaoSearchKeyWord = "전라남도 순천만 자연생태공원";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 45;
                 break;
 
@@ -397,6 +415,7 @@ public class CityMainActivity extends BaseActivity {
                 searchKeyword = "제주";
                 wikiSearchKeyword = "제주도";
                 kakaoSearchKeyWord = "제주도 야경";
+                cityTitle.setText(wikiSearchKeyword);
                 eye2webCate = 48;
                 break;
         }

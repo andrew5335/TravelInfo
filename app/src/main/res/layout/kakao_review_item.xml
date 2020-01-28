@@ -45,8 +45,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:fontFamily="@font/notosanskr_regular_hestia"
-                android:autoLink="web"
-                android:text="url"
                 android:textColor="#000"
                 android:textSize="10dp"
                 android:textStyle="bold" />

@@ -47,7 +47,9 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".CityMainActivity" />
         <activity android:name=".GoogleCateList" />
-        <activity android:name=".ContentDetailActivity"></activity>
+        <activity android:name=".ContentDetailActivity" />
+        <activity android:name=".AppInfoActivity" />
+        <activity android:name=".ReviewWebViewActivity"></activity>
     </application>
 
 </manifest>

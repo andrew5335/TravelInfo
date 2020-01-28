@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context=".ReviewWebViewActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#fff"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:onClick="onGobackBtnClicked"
+            android:paddingLeft="5dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@mipmap/goback" />
+
+        <TextView
+            android:id="@+id/reviewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical|center|center_horizontal"
+            android:autoLink="web"
+            android:background="#fff"
+            android:ellipsize="none"
+            android:fontFamily="@font/notosanskr_regular_hestia"
+            android:gravity="left|center_vertical"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="5dp"
+            android:lineSpacingMultiplier="1.5"
+            android:linksClickable="true"
+            android:onClick="onGobackBtnClicked"
+            android:scrollHorizontally="false"
+            android:singleLine="false"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <WebView
+            android:id="@+id/review_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

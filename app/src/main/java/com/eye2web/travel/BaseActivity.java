@@ -7,11 +7,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.eye2web.travel.handler.BackPressCloseHandler;
 import com.google.android.gms.common.ConnectionResult;
@@ -160,7 +158,8 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
      * @Description : 내 정보 버튼
     **/
     public void onInfoBtnClicked(View v) {
-
+        Intent homeIntent = new Intent(getApplicationContext(), AppInfoActivity.class);
+        startActivity(homeIntent);
     }
 
     /**

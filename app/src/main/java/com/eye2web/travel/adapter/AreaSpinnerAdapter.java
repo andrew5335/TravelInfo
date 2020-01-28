@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class AreaSpinnerAdapter extends ArrayAdapter<AreaListItem> {
 
     private ArrayList<AreaListItem> data;
+    //private ArrayList<AreaListItem> sigunguList;
     private LayoutInflater inflater;
     private int layout;
     private Context context;
@@ -23,6 +24,7 @@ public class AreaSpinnerAdapter extends ArrayAdapter<AreaListItem> {
         super(context, textViewResourceId, data);
         this.context = context;
         this.data = data;
+        //this.sigunguList = sigunguList;
         this.layout = textViewResourceId;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -34,8 +36,10 @@ public class AreaSpinnerAdapter extends ArrayAdapter<AreaListItem> {
         }
 
         AreaListItem item = data.get(position);
+        //AreaListItem sigunguItem = sigunguList.get(position);
 
         ((TextView) convertView.findViewById(R.id.areaName)).setText(item.getName());
+        //((TextView) convertView.findViewById(R.id.sigunguCode)).setText(sigunguItem.getName());
 
         return convertView;
     }
@@ -47,8 +51,10 @@ public class AreaSpinnerAdapter extends ArrayAdapter<AreaListItem> {
         }
 
         AreaListItem item = data.get(position);
+        //AreaListItem sigunguItem = sigunguList.get(position);
 
         ((TextView) convertView.findViewById(R.id.areaName)).setText(item.getName());
+        //((TextView) convertView.findViewById(R.id.sigunguCode)).setText(sigunguItem.getName());
 
         return convertView;
     }

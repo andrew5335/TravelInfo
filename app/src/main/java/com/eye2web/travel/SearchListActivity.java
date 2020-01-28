@@ -52,6 +52,7 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
     private boolean mLockListView = false;
     private String areaCodeStr = "";
     private String keywordStr = "";
+    private String sigunguCode = "";
     private String sort = "";
     private String cityGu = "";
     private String callType = "";
@@ -83,6 +84,7 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
 
         Intent intent = getIntent();
         areaCodeStr = intent.getStringExtra("areaCode");
+        sigunguCode = intent.getStringExtra("sigunguCode");
         keywordStr = intent.getStringExtra("keyword");
         sort = "P";    // 정렬방식 - A : 제목순 / B : 조회순 / C : 수정일순 / D : 생성일순 | 대표 이미지가 반드시 있는 정렬은 O/P/Q/R로 지정
         cityGu = intent.getStringExtra("cityGu");
@@ -122,7 +124,7 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
             @Override
             public void run() {
                 Looper.prepare();
-                getContentList(areaCodeStr, keywordStr, sort);
+                getContentList(areaCodeStr, sigunguCode, keywordStr, sort);
                 //adapter.notifyDataSetChanged();
                 Looper.loop();
             }
@@ -145,7 +147,7 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
             contentList.setVisibility(View.GONE);
             //contentList.setVisibility(View.GONE);
             //if(contentList.getLastVisiblePosition() >= contentList.getCount()-1) {
-                getContentList(areaCodeStr, keywordStr, sort);
+                getContentList(areaCodeStr, sigunguCode, keywordStr, sort);
             //}
         }
     }
@@ -170,7 +172,7 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
      * @Author : Andrew Kim
      * @Description : 리스트 생성용 정보 가져오기
     **/
-    private void getContentList(String code, String keyword, String sort) {
+    private void getContentList(String code, String sigunguCode, String keyword, String sort) {
         mLockListView = true;
         //progressBar.setVisibility(View.VISIBLE);
         //contentList.setVisibility(View.GONE);
@@ -205,7 +207,7 @@ public class SearchListActivity extends BaseActivity implements AbsListView.OnSc
         }
 
         try {
-            resultMap = searchApiservice.getContent(addr, serviceKey, code, keyword, sort, page, offset, gu, areaCode, mapx, mapy);
+            resultMap = searchApiservice.getContent(addr, serviceKey, code, sigunguCode, keyword, sort, page, offset, gu, areaCode, mapx, mapy);
         } catch(Exception e) {
             Log.e("Error", "==========Error : " + e.toString());
         }
