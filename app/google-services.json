@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "64415673819",
+    "firebase_url": "https://viaggio-travel-info-app.firebaseio.com",
+    "project_id": "viaggio-travel-info-app",
+    "storage_bucket": "viaggio-travel-info-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64415673819:android:bd66c537819696ca",
+        "android_client_info": {
+          "package_name": "com.eye2web.travel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64415673819-biaufhpr9bhacuonirdhgtu426nq65i6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eye2web.travel",
+            "certificate_hash": "5ca77140ebc3a792883b5931ca323ac13782de79"
+          }
+        },
+        {
+          "client_id": "64415673819-vskn5infrq7ta73bg3u1ff49lj5ktcel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eye2web.travel",
+            "certificate_hash": "34e03bad2218ee0e383b705220674cea0013a3f7"
+          }
+        },
+        {
+          "client_id": "64415673819-q4bh4jmoj7rgoand0g9r6e9afbr79nqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEXlJEw-9eaMgl-w1tvUnjbJ1_DH4ZvxU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64415673819-q4bh4jmoj7rgoand0g9r6e9afbr79nqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
