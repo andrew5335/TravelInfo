@@ -4,11 +4,11 @@ apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 34
     defaultConfig {
         applicationId "com.eye2web.travel"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 34
         versionCode 10
         versionName "1.0.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

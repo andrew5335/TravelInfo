@@ -23,6 +23,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo_final"
         android:supportsRtl="true"
+        android:exported="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -30,7 +32,8 @@
 
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

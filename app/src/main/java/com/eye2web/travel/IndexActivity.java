@@ -177,6 +177,7 @@ public class IndexActivity extends BaseActivity {
                 int themePage = Integer.parseInt(getResources().getString(R.string.eye2web_page1));
                 int themePerPage = Integer.parseInt(getResources().getString(R.string.eye2web_per_page1));
                 eye2webJsonList = getEye2WebContent(themeCategory, themePage, themePerPage);
+                Log.i("Eye2web", eye2webJsonList.get(0).getTitle());
 
                 // Eye2Web 컨텐츠 가져오기 2
                 //int eye2webCate = Integer.parseInt(getResources().getString(R.string.travel_main_category));
